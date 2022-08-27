@@ -16,22 +16,25 @@ namespace ProblemJasiaRetro
     {
         Point BOARD_LOCATION = new Point(706, 94);
         Point HINT_LOCATION = new Point(464, 495);
+        int BOMB_TIMEOUT_MS = 2000;
 
         int _x = 0;  //0-3 & -1
         int _y = 0;  //0-4 & -1
         Point _startLoc;
         bool _CanPlay = false;
-        Control[] boxes = new Control[20];
+        Control[] boxes = new Control[20+3];
         List<Point> boxLoc = new List<Point>();
         int _TimeRemaining = 60 * 5;
         Music p = new Music();
         int _level = 1;
         bool HiRes = true;
+        int _nextElement = 0;
+        int _bombFuse = 0;
 
         public frmGame()
         {
             InitializeComponent();
-            for (int i = 0; i < 20; i++) { boxLoc.Add(new Point(-1, -1)); }
+            for (int i = 0; i < 23; i++) { boxLoc.Add(new Point(-1, -1)); }
             //p.Player.PlaybackStopped += Player_PlaybackStopped;
             p.player.PlayStateChange += Player_PlayStateChange;
         }
@@ -74,7 +77,10 @@ namespace ProblemJasiaRetro
                 if (e.KeyData == Keys.Right) { GoRight(); }
 
                 if (e.KeyData == Keys.W) { WinLevel(); }
-                if (e.KeyData == Keys.F) { GameFailed(); }
+                if (e.KeyData == Keys.F) { GameOver("User request"); }
+                if (e.KeyData == Keys.B) { _nextElement = 20; }
+                if (e.KeyData == Keys.H) { _nextElement = 21; }
+                if (e.KeyData == Keys.J) { _nextElement = 22; }
                 //if (e.KeyData == Keys.M) { StartGame(); }
             }
 
@@ -88,11 +94,12 @@ namespace ProblemJasiaRetro
                 
         }
 
-        private void WinLevel()
+        private void WinLevel(int wait = 0)
         {
-            ShowFullPicture();
             CanPlay = false;
             p.Play("next");
+            if (wait > 0) { Thread.Sleep(wait); }
+            ShowFullPicture();
             //Napisy
             string msg = "To był oczywiście Sylwek Stallone (i jego układy mięśni scallone).";
             MessageBox.Show(msg, "Level completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -100,12 +107,12 @@ namespace ProblemJasiaRetro
             PresentNextLevel();
         }
 
-        private void GameFailed()
+        private void GameOver(string reason)
         {
             CanPlay = false;
             p.Play("failed");
             //Napisy
-            string msg = "Nie rozpieszczasz zbytnio Małgosi. Z pewnością nie będzie zadowolona.";
+            string msg = "Nie rozpieszczasz zbytnio Małgosi. Z pewnością nie będzie zadowolona.\r\n" + reason;
             MessageBox.Show(msg, "Game over", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
@@ -135,9 +142,11 @@ namespace ProblemJasiaRetro
 
         private void PullElement()
         {
+            string boxTag = "";
             if (_x == -1 && _y == 0)
             {
                 int box = RandomFromBox();
+                boxTag = boxes[box].Tag is null ? "" : boxes[box].Tag.ToString();
                 for (int i = 0; i < 4; i++)
                 {
                     if (IsLocationFree(i, 0))
@@ -153,6 +162,28 @@ namespace ProblemJasiaRetro
             }
             CheckCorrectElementCount();
             //Thread.Sleep(150);
+
+            CheckSpecialBoxes(boxTag);
+
+
+        }
+
+        private void CheckSpecialBoxes(string tag)
+        {
+            switch (tag)
+            {
+                case "bomb":
+                    _bombFuse = BOMB_TIMEOUT_MS;
+                    bombTimer.Start();
+                    break;
+                case "jok":
+                    WinLevel(1000);
+                    break;
+                case "hihi":
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void CheckCorrectElementCount()
@@ -176,7 +207,7 @@ namespace ProblemJasiaRetro
             if (x == -1 && picRedArrow.Visible == false) return true;
             bool r = true;
             Point loc = new Point(x, y);
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 23; i++)
             {
                 if (boxLoc[i] == loc) { r = false; }
             }
@@ -185,7 +216,7 @@ namespace ProblemJasiaRetro
         private int WhatIsInLocation(int x, int y)
         {
             Point loc = new Point(x, y);
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 23; i++)
             {
                 if (boxLoc[i] == loc) { return i; }
             }
@@ -194,11 +225,22 @@ namespace ProblemJasiaRetro
 
         private int RandomFromBox()
         {
+            if (_nextElement > 0)  //debug only
+            {
+                int r = _nextElement;
+                _nextElement = 0;
+                return r;
+            }
+            
             Random rnd = new Random();
             int i;
+            i = rnd.Next(200);  // creates a number between 0 and 199
+            if (i == 199) { return 22; }  //jok  1/200
+            if (i >= 196) { return 21; }  //hihi 3/200
+            //Everything else - pull normal piece, inc. bomb
             do
             {
-                i = rnd.Next(20);     // creates a number between 0 and 19
+                i = rnd.Next(21);     // creates a number between 0 and 20 (20=bomb)
             } while (boxes[i].Visible == true);
             return i;
         }
@@ -210,6 +252,10 @@ namespace ProblemJasiaRetro
             if (x < 0)
             {
                 picRedArrow.Visible = true;
+                if (!(boxes[box].Tag is null) && boxes[box].Tag.ToString() == "bomb")
+                {
+                    bombTimer.Stop();
+                }
             }
             RefreshSelector();
             this.Refresh();
@@ -275,6 +321,7 @@ namespace ProblemJasiaRetro
         {
             int LocationIndex = _y * 4 + _x;
             int box = WhatIsInLocation(_x, _y);
+            if (box>=20) { box = -box; }
             if (box >= 0)
             {
                 panel1.Location = new Point(HINT_LOCATION.X + (panel1.Width + 12) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
@@ -300,7 +347,7 @@ namespace ProblemJasiaRetro
 
         private void HideAllBoxes()
         {
-            for (int i = 0; i < 20; i++) 
+            for (int i = 0; i < 23; i++) 
             { 
                 boxes[i].Visible = false;
                 Point hidden = new Point(-1, 0);
@@ -395,7 +442,7 @@ namespace ProblemJasiaRetro
             if (TimeRemaining > 0) { TimeRemaining--; }
             else
             {
-                GameFailed();
+                GameOver("time");
             }
         }
 
@@ -429,6 +476,16 @@ namespace ProblemJasiaRetro
         private void frmGame_FormClosing(object sender, FormClosingEventArgs e)
         {
             p.player.controls.stop();
+        }
+
+        private void bombTimer_Tick(object sender, EventArgs e)
+        {
+            _bombFuse -= bombTimer.Interval;
+            lblDebug.Text = _bombFuse.ToString();
+            if (_bombFuse <= 0) {
+                bombTimer.Stop();
+                GameOver("bomb");
+            }
         }
     }
 }

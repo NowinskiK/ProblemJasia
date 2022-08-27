@@ -50,6 +50,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblMinutes = new System.Windows.Forms.Label();
             this.lblSeconds = new System.Windows.Forms.Label();
+            this.bombTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblDebug = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selector)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).BeginInit();
             this.SuspendLayout();
@@ -115,6 +117,22 @@
             this.lblSeconds.TabIndex = 7;
             this.lblSeconds.Text = "00";
             // 
+            // bombTimer
+            // 
+            this.bombTimer.Tick += new System.EventHandler(this.bombTimer_Tick);
+            // 
+            // lblDebug
+            // 
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.BackColor = System.Drawing.Color.Transparent;
+            this.lblDebug.Font = new System.Drawing.Font("Montserrat ExtraBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDebug.ForeColor = System.Drawing.Color.White;
+            this.lblDebug.Location = new System.Drawing.Point(250, 633);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(24, 33);
+            this.lblDebug.TabIndex = 8;
+            this.lblDebug.Text = "-";
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,6 +140,7 @@
             this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.plansza_320x192_empty;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1279, 769);
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.selector);
             this.Controls.Add(this.lblSeconds);
             this.Controls.Add(this.lblMinutes);
@@ -151,6 +170,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblMinutes;
         private System.Windows.Forms.Label lblSeconds;
+        private System.Windows.Forms.Timer bombTimer;
+        private System.Windows.Forms.Label lblDebug;
     }
 }
 
