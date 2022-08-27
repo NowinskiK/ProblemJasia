@@ -1,0 +1,156 @@
+﻿namespace ProblemJasiaRetro
+{
+    partial class frmGame
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        //private void InitializeComponent()
+        //{
+        //    this.SuspendLayout();
+        //    // 
+        //    // Form1
+        //    // 
+        //    this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+        //    this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        //    this.ClientSize = new System.Drawing.Size(1194, 624);
+        //    this.Name = "Form1";
+        //    this.Text = "Form1";
+        //    this.ResumeLayout(false);
+
+        //}
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.selector = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.picRedArrow = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblMinutes = new System.Windows.Forms.Label();
+            this.lblSeconds = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.selector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // selector
+            // 
+            this.selector.BackColor = System.Drawing.Color.Transparent;
+            this.selector.Image = global::ProblemJasiaRetro.Properties.Resources.selector;
+            this.selector.Location = new System.Drawing.Point(709, 98);
+            this.selector.Name = "selector";
+            this.selector.Size = new System.Drawing.Size(128, 128);
+            this.selector.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.selector.TabIndex = 0;
+            this.selector.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Lime;
+            this.panel1.Location = new System.Drawing.Point(464, 495);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(28, 28);
+            this.panel1.TabIndex = 4;
+            this.panel1.Visible = false;
+            // 
+            // picRedArrow
+            // 
+            this.picRedArrow.BackColor = System.Drawing.Color.Transparent;
+            this.picRedArrow.ImageLocation = "d:\\GitHub\\NowinskiK\\ProblemJasia\\red_arrow.png ";
+            this.picRedArrow.Location = new System.Drawing.Point(543, 101);
+            this.picRedArrow.Name = "picRedArrow";
+            this.picRedArrow.Size = new System.Drawing.Size(123, 120);
+            this.picRedArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picRedArrow.TabIndex = 5;
+            this.picRedArrow.TabStop = false;
+            this.picRedArrow.Visible = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lblMinutes
+            // 
+            this.lblMinutes.AutoSize = true;
+            this.lblMinutes.BackColor = System.Drawing.Color.Transparent;
+            this.lblMinutes.Font = new System.Drawing.Font("Montserrat ExtraBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMinutes.ForeColor = System.Drawing.Color.White;
+            this.lblMinutes.Location = new System.Drawing.Point(225, 572);
+            this.lblMinutes.Name = "lblMinutes";
+            this.lblMinutes.Size = new System.Drawing.Size(30, 33);
+            this.lblMinutes.TabIndex = 6;
+            this.lblMinutes.Text = "5";
+            // 
+            // lblSeconds
+            // 
+            this.lblSeconds.AutoSize = true;
+            this.lblSeconds.BackColor = System.Drawing.Color.Transparent;
+            this.lblSeconds.Font = new System.Drawing.Font("Montserrat ExtraBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeconds.ForeColor = System.Drawing.Color.White;
+            this.lblSeconds.Location = new System.Drawing.Point(294, 572);
+            this.lblSeconds.Name = "lblSeconds";
+            this.lblSeconds.Size = new System.Drawing.Size(47, 33);
+            this.lblSeconds.TabIndex = 7;
+            this.lblSeconds.Text = "00";
+            // 
+            // frmGame
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.plansza_320x192_empty;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1279, 769);
+            this.Controls.Add(this.selector);
+            this.Controls.Add(this.lblSeconds);
+            this.Controls.Add(this.lblMinutes);
+            this.Controls.Add(this.picRedArrow);
+            this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "frmGame";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Problem Jasia Retro";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmGame_FormClosing);
+            this.Shown += new System.EventHandler(this.frmGame_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmGame_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmGame_KeyPress);
+            ((System.ComponentModel.ISupportInitialize)(this.selector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.PictureBox selector;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox picRedArrow;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblMinutes;
+        private System.Windows.Forms.Label lblSeconds;
+    }
+}
+
