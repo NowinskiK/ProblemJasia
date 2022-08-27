@@ -30,6 +30,7 @@ namespace ProblemJasiaRetro
         bool HiRes = true;
         int _nextElement = 0;
         int _bombFuse = 0;
+        Random rnd = new Random();
 
         public frmGame()
         {
@@ -180,10 +181,27 @@ namespace ProblemJasiaRetro
                     WinLevel(1000);
                     break;
                 case "hihi":
+                    HiHi();
                     break;
                 default:
                     break;
             }
+        }
+
+        private void HiHi()
+        {
+            if (VisibleCount < 2) return;
+            int a = RandomVisibleBox();
+            int b = -1;
+            do
+            {
+                b = RandomVisibleBox();
+            } while (a == b);
+            Point pa = boxLoc[a];
+            Point pb = boxLoc[b];
+            Thread.Sleep(150);
+            SetBoxLocation(a, pb.X, pb.Y);
+            SetBoxLocation(b, pa.X, pa.Y);
         }
 
         private void CheckCorrectElementCount()
@@ -223,6 +241,18 @@ namespace ProblemJasiaRetro
             return -1;
         }
 
+
+        private int RandomVisibleBox()
+        {
+            Random rnd = new Random();
+            int i;
+            do
+            {
+                i = rnd.Next(20);     // creates a number between 0 and 19
+            } while (boxes[i].Visible == false);
+            return i;
+        }
+
         private int RandomFromBox()
         {
             if (_nextElement > 0)  //debug only
@@ -232,9 +262,7 @@ namespace ProblemJasiaRetro
                 return r;
             }
             
-            Random rnd = new Random();
-            int i;
-            i = rnd.Next(200);  // creates a number between 0 and 199
+            int i = rnd.Next(200);  // creates a number between 0 and 199
             if (i == 199) { return 22; }  //jok  1/200
             if (i >= 196) { return 21; }  //hihi 3/200
             //Everything else - pull normal piece, inc. bomb
@@ -471,6 +499,19 @@ namespace ProblemJasiaRetro
         private string LevelFormatted
         {
             get { return _level.ToString("level_00"); }
+        }
+
+        private int VisibleCount
+        {
+            get
+            {
+                int cnt = 0;
+                for (int i = 0; i < 20; i++)
+                {
+                    if (boxes[i].Visible == true) { cnt++; }
+                }
+                return cnt;
+            }
         }
 
         private void frmGame_FormClosing(object sender, FormClosingEventArgs e)
