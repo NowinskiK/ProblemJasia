@@ -102,7 +102,7 @@ namespace ProblemJasiaRetro
             if (wait > 0) { Thread.Sleep(wait); }
             ShowFullPicture();
             //Napisy
-            string msg = "To był oczywiście Sylwek Stallone (i jego układy mięśni scallone).";
+            string msg = GetCompleteLevelMsg(_level);
             MessageBox.Show(msg, "Level completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
             _level++;
             PresentNextLevel();
@@ -147,26 +147,22 @@ namespace ProblemJasiaRetro
             if (_x == -1 && _y == 0)
             {
                 int box = RandomFromBox();
-                boxTag = boxes[box].Tag is null ? "" : boxes[box].Tag.ToString();
+                boxTag = boxes[box].Tag.ToString();
                 for (int i = 0; i < 4; i++)
                 {
                     if (IsLocationFree(i, 0))
                     {
                         SetBoxLocation(box, i, 0);
                         picRedArrow.Visible = false;
+                        CheckSpecialBoxes(boxTag);
                     }
                     else
                     {
                         break;
                     }
                 }
+                CheckCorrectElementCount();
             }
-            CheckCorrectElementCount();
-            //Thread.Sleep(150);
-
-            CheckSpecialBoxes(boxTag);
-
-
         }
 
         private void CheckSpecialBoxes(string tag)
@@ -280,7 +276,7 @@ namespace ProblemJasiaRetro
             if (x < 0)
             {
                 picRedArrow.Visible = true;
-                if (!(boxes[box].Tag is null) && boxes[box].Tag.ToString() == "bomb")
+                if (boxes[box].Tag.ToString() == "bomb")
                 {
                     bombTimer.Stop();
                 }
@@ -397,7 +393,7 @@ namespace ProblemJasiaRetro
             box.Size = new Size(128, 128);
             box.Location = new Point(BOARD_LOCATION.X + x * 128, BOARD_LOCATION.Y + y * 128);
             box.Visible = true;
-
+            box.Tag = "";
             this.Controls.SetChildIndex(box, 1);
             Rectangle destRect, srcRect;
             Bitmap targetBitmap = new Bitmap(128, 128);
@@ -493,6 +489,27 @@ namespace ProblemJasiaRetro
                 _TimeRemaining = value;
                 lblSeconds.Text = (_TimeRemaining % 60).ToString("00");
                 lblMinutes.Text = (_TimeRemaining / 60).ToString();
+            }
+        }
+
+        private string GetCompleteLevelMsg(int level)
+        {
+            switch (level)
+            {
+                case 1: return "To był oczywiście Sylwek Stallone (i jego układy mięśni scallone).";
+                case 2: return "Mało podobny, a jednak Louis de Funes. Kocham go.";
+                case 3: return "Piękna Nasia Kiński. Zupełnie jak z gry pt. Problem Jasia.";
+                case 4: return "Oto furiat Rudger Hauer.";
+                case 5: return "";
+                case 6: return "";
+                case 7: return "";
+                case 8: return "";
+                case 9: return "";
+                case 10: return "";
+                case 11: return "";
+                case 12: return "";
+                default:
+                    return "";
             }
         }
 
