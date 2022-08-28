@@ -144,7 +144,7 @@ namespace ProblemJasiaRetro
         private void PullElement()
         {
             string boxTag = "";
-            if (_x == -1 && _y == 0)
+            if (_x == -1 && _y == 0 && IsLocationFree(0, 0))
             {
                 int box = RandomFromBox();
                 boxTag = boxes[box].Tag.ToString();
@@ -154,7 +154,6 @@ namespace ProblemJasiaRetro
                     {
                         SetBoxLocation(box, i, 0);
                         picRedArrow.Visible = false;
-                        CheckSpecialBoxes(boxTag);
                     }
                     else
                     {
@@ -162,6 +161,7 @@ namespace ProblemJasiaRetro
                     }
                 }
                 CheckCorrectElementCount();
+                CheckSpecialBoxes(boxTag);
             }
         }
 
