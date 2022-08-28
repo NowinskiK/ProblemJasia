@@ -63,7 +63,7 @@ namespace ProblemJasiaRetro
                 if (_x == -1)
                 {
                     if (e.KeyData == Keys.Space) { PullElement(); }
-                    if (e.Shift) { PullElement(); }
+                    if (e.Shift) { PullElement(); e.Handled = true; }
                 }
                 else
                 {
@@ -500,7 +500,7 @@ namespace ProblemJasiaRetro
                 case 2: return "Mało podobny, a jednak Louis de Funes. Kocham go.";
                 case 3: return "Piękna Nasia Kiński. Zupełnie jak z gry pt. Problem Jasia.";
                 case 4: return "Oto furiat Rudger Hauer.";
-                case 5: return "";
+                case 5: return "Pewnie... to Woody Allen we własnej poważnej twarzy.";
                 case 6: return "";
                 case 7: return "";
                 case 8: return "";

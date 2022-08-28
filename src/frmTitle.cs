@@ -23,7 +23,7 @@ namespace ProblemJasiaRetro
 
         private void frmTitle_Shown(object sender, EventArgs e)
         {
-            m.Play("title");
+            m.Play("title", true);
         }
 
         private void frmTitle_KeyPress(object sender, KeyPressEventArgs e)

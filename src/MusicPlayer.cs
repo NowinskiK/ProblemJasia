@@ -17,7 +17,7 @@ namespace ProblemJasiaRetro
         {
         }
 
-        public void Play(string suffix)
+        public void Play(string suffix, bool isLoop = false)
         {
             Title = suffix;
             string file = @"d:\GitHub\NowinskiK\ProblemJasia\music\pj_{suffix}.mp3";
@@ -25,6 +25,7 @@ namespace ProblemJasiaRetro
             player.controls.stop();
             player.close();
             player.URL = file;
+            player.settings.setMode("Loop", isLoop);
             player.controls.play();
         }
 
