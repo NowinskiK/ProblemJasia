@@ -17,12 +17,13 @@ namespace ProblemJasiaRetro
         Point BOARD_LOCATION = new Point(706, 94);
         Point HINT_LOCATION = new Point(464, 495);
         int BOMB_TIMEOUT_MS = 2000;
+        const int ALL_BOXES = 24;
 
         int _x = 0;  //0-3 & -1
         int _y = 0;  //0-4 & -1
         Point _startLoc;
         bool _CanPlay = false;
-        Control[] boxes = new Control[20+3];
+        Control[] boxes = new Control[ALL_BOXES];
         List<Point> boxLoc = new List<Point>();
         int _TimeRemaining = 60 * 5;
         Music p = new Music();
@@ -35,7 +36,7 @@ namespace ProblemJasiaRetro
         public frmGame()
         {
             InitializeComponent();
-            for (int i = 0; i < 23; i++) { boxLoc.Add(new Point(-1, -1)); }
+            for (int i = 0; i < ALL_BOXES; i++) { boxLoc.Add(new Point(-1, -1)); }
             //p.Player.PlaybackStopped += Player_PlaybackStopped;
             p.player.PlayStateChange += Player_PlayStateChange;
         }
@@ -82,6 +83,7 @@ namespace ProblemJasiaRetro
                 if (e.KeyData == Keys.B) { _nextElement = 20; }
                 if (e.KeyData == Keys.H) { _nextElement = 21; }
                 if (e.KeyData == Keys.J) { _nextElement = 22; }
+                if (e.KeyData == Keys.M) { _nextElement = 23; }
                 //if (e.KeyData == Keys.M) { StartGame(); }
             }
 
@@ -179,6 +181,9 @@ namespace ProblemJasiaRetro
                 case "hihi":
                     HiHi();
                     break;
+                case "min":
+                    TimeRemaining += 60;
+                    break;
                 default:
                     break;
             }
@@ -221,7 +226,7 @@ namespace ProblemJasiaRetro
             if (x == -1 && picRedArrow.Visible == false) return true;
             bool r = true;
             Point loc = new Point(x, y);
-            for (int i = 0; i < 23; i++)
+            for (int i = 0; i < ALL_BOXES; i++)
             {
                 if (boxLoc[i] == loc) { r = false; }
             }
@@ -230,7 +235,7 @@ namespace ProblemJasiaRetro
         private int WhatIsInLocation(int x, int y)
         {
             Point loc = new Point(x, y);
-            for (int i = 0; i < 23; i++)
+            for (int i = 0; i < ALL_BOXES; i++)
             {
                 if (boxLoc[i] == loc) { return i; }
             }
@@ -261,6 +266,7 @@ namespace ProblemJasiaRetro
             int i = rnd.Next(200);  // creates a number between 0 and 199
             if (i == 199) { return 22; }  //jok  1/200
             if (i >= 196) { return 21; }  //hihi 3/200
+            if (i >= 193) { return 23; }  //1min 3/200
             //Everything else - pull normal piece, inc. bomb
             do
             {
@@ -367,11 +373,12 @@ namespace ProblemJasiaRetro
             CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\bomb.gif", 20, "bomb");
             CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\hihi.png", 21, "hihi");
             CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\jok.png", 22, "jok");
+            CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\1min.png", 23, "min");
         }
 
         private void HideAllBoxes()
         {
-            for (int i = 0; i < 23; i++) 
+            for (int i = 0; i < ALL_BOXES; i++) 
             { 
                 boxes[i].Visible = false;
                 Point hidden = new Point(-1, 0);
