@@ -28,7 +28,7 @@ namespace ProblemJasiaRetro
         int _TimeRemaining = 60 * 5;
         Music p = new Music();
         int _level = 1;
-        bool HiRes = true;
+        bool HiRes = false;
         int _nextElement = 0;
         int _bombFuse = 0;
         Random rnd = new Random();
@@ -505,16 +505,16 @@ namespace ProblemJasiaRetro
             {
                 case 1: return "To był oczywiście Sylwek Stallone (i jego układy mięśni scallone).";
                 case 2: return "Mało podobny, a jednak Louis de Funes. Kocham go.";
-                case 3: return "Piękna Nasia Kiński. Zupełnie jak z gry pt. Problem Jasia.";
-                case 4: return "Oto furiat Rudger Hauer.";
+                case 3: return "Piękna Nasia Kinski. Zupełnie jak z gry pt. Problem Jasia.";
+                case 4: return "Oto furiat Rutger Hauer.";
                 case 5: return "Pewnie... to Woody Allen we własnej poważnej twarzy.";
-                case 6: return "";
-                case 7: return "";
-                case 8: return "";
-                case 9: return "";
-                case 10: return "";
-                case 11: return "";
-                case 12: return "";
+                case 6: return "Oto ptaszek ciernistych krzewów: Rachel Ward. Nawet podobna.";
+                case 7: return "Czarujący Patrick Swayze... jakie ma piękne nogi... (mówi Jaś).";
+                case 8: return "Szalony Max Mel Gibson (Big Son).";
+                case 9: return "Charlie Bronson. Skąd ja go znam? Chyba z telewizji.";
+                case 10: return "Pucała..., tfu Pacuła. Aśka. Moja faworytka.";
+                case 11: return "Oh. Ah. Eh. Marylin Monroe. Boska. Piękna. Namiętna...";
+                case 12: return "He, He. Arnie Szwarcuś. Bardzo podobny d tego, co grał w Terminatorze.";
                 default:
                     return "";
             }
