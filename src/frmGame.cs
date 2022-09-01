@@ -28,10 +28,11 @@ namespace ProblemJasiaRetro
         int _TimeRemaining = 60 * 5;
         Music p = new Music();
         int _level = 1;
-        bool HiRes = false;
+        bool HiRes = true;
         int _nextElement = 0;
         int _bombFuse = 0;
         Random rnd = new Random();
+        string _WaitContext = "";
 
         public frmGame()
         {
@@ -86,15 +87,6 @@ namespace ProblemJasiaRetro
                 if (e.KeyData == Keys.M) { _nextElement = 23; }
                 //if (e.KeyData == Keys.M) { StartGame(); }
             }
-
-
-            if (e.KeyData == Keys.Q)
-            {
-                int idx = this.Controls.GetChildIndex(selector);
-                this.Controls.SetChildIndex(selector, idx+1);
-                this.Text = (idx + 1).ToString();
-            }
-                
         }
 
         private void WinLevel(int wait = 0)
@@ -103,21 +95,16 @@ namespace ProblemJasiaRetro
             p.Play("next");
             if (wait > 0) { Thread.Sleep(wait); }
             ShowFullPicture();
-            //Napisy
-            string msg = GetCompleteLevelMsg(_level);
-            MessageBox.Show(msg, "Level completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ShowMessage(GetCompleteLevelMsg(_level), "NextLevel");
             _level++;
-            PresentNextLevel();
         }
 
         private void GameOver(string reason)
         {
             CanPlay = false;
             p.Play("failed");
-            //Napisy
-            string msg = "Nie rozpieszczasz zbytnio Małgosi. Z pewnością nie będzie zadowolona.\r\n" + reason;
-            MessageBox.Show(msg, "Game over", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            string msg = GameOverMessage + new string(' ', 20);
+            ShowMessage(msg, "Close");
         }
 
 
@@ -445,14 +432,22 @@ namespace ProblemJasiaRetro
             _x = -1;
             _y = 0;
             SetSelectorLocation();
-            TimeRemaining = 5 * 60;
+            TimeRemaining = LevelTime;
             ShowFullPicture();
             p.Play(LevelFormatted);
-            //this.Focus();
+            ShowMessage(GetWelcomeLevelMsg(_level), "");
+            this.Focus();
+        }
+
+        private void ShowMessage(string msg, string waitContext)
+        {
+            txtScroll.Text = new string(' ', 40) + msg;
+            _WaitContext = waitContext;
         }
 
         private void StartGame()
         {
+            ShowMessage("", "");
             HideAllBoxes();
             selector.BringToFront();
             Thread.Sleep(150);
@@ -477,7 +472,6 @@ namespace ProblemJasiaRetro
             }
         }
 
-
         private bool CanPlay
         {
             get { return _CanPlay; }
@@ -496,6 +490,27 @@ namespace ProblemJasiaRetro
                 _TimeRemaining = value;
                 lblSeconds.Text = (_TimeRemaining % 60).ToString("00");
                 lblMinutes.Text = (_TimeRemaining / 60).ToString();
+            }
+        }
+
+        private string GetWelcomeLevelMsg(int level)
+        {
+            switch (level)
+            {
+                case 1: return "Połam joystick!";
+                case 2: return "Tego nie ułożysz!";
+                case 3: return "To za trudne dla Ciebie";
+                case 4: return "Niemożliwe do ułożenia";
+                case 5: return "Nieukładalne.";
+                case 6: return "Tere fere kuku!!!";
+                case 7: return "Nie bądź taki do przodu.";
+                case 8: return "Bujać to my, a nie nam.";
+                case 9: return "To już tu doszedłeś?";
+                case 10: return "Dobry jesteś. Ciekawe, jak długo jeszcze?";
+                case 11: return "Spoko. Zostało jeszcze 347 plakatów.";
+                case 12: return "To już finał. Niemożliwe stało się faktem.";
+                default:
+                    return "";
             }
         }
 
@@ -525,6 +540,26 @@ namespace ProblemJasiaRetro
             get { return _level.ToString("level_00"); }
         }
 
+        private string GameOverMessage
+        {
+            get {
+                if (_level <= 4) return "Lepiej znajdź sobie inną dziewczynę, bo Małgosia już Cię nie kocha...";
+                if (_level <= 8) return "Nie rozpieszczasz zbytnio Małgosi. Z pewnością nie będzie zadowolona.";
+                return "No cóż, rzecze Małgosia, nie powiem, że się cieszę, ale zniknij mi z oczu!";
+            }
+        }
+
+        private int LevelTime
+        {
+            get
+            {
+                if (_level <= 3) return 60 * 5;
+                if (_level <= 6) return 60 * 4;
+                if (_level <= 10) return 60 * 3;
+                return 60 * 2;
+            }
+        }
+
         private int VisibleCount
         {
             get
@@ -551,6 +586,21 @@ namespace ProblemJasiaRetro
                 bombTimer.Stop();
                 GameOver("bomb");
             }
+        }
+
+        private void scrollTimer_Tick(object sender, EventArgs e)
+        {
+            if (txtScroll.Text.Length > 0) { 
+                txtScroll.Text = txtScroll.Text.Substring(1, txtScroll.Text.Length - 1); 
+            }
+            else
+            {
+                if (_WaitContext == "Close") { this.Close(); }
+                if (_WaitContext == "NextLevel") { PresentNextLevel(); }
+
+
+            }
+
         }
     }
 }
