@@ -113,6 +113,16 @@ namespace ProblemJasiaRetro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap film_roll {
+            get {
+                object obj = ResourceManager.GetObject("film_roll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap hihi {
             get {
                 object obj = ResourceManager.GetObject("hihi", resourceCulture);
@@ -567,6 +577,46 @@ namespace ProblemJasiaRetro.Properties {
             get {
                 object obj = ResourceManager.GetObject("title_336x240", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap title_336x240_clean {
+            get {
+                object obj = ResourceManager.GetObject("title_336x240_clean", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Co za kłopot !!!
+        ///Mały Jasio chce
+        ///zrobić Małgosi prezent
+        ///na urodziny.
+        ///Małgosia właśnie skończyła
+        ///dziesięć lat i jest już 
+        ///dorosła !!!
+        ///Z tej okazji mały Jasio zakupił
+        ///w sklepie aż 12 plakatów,
+        ///zapłacił za nie 960000 złotych.
+        ///Wrócił do domu, schował plakaty
+        ///i wyszedł kupić kwiatki.
+        ///Ale od czego się ma
+        ///młodszych braci?
+        ///Malutki Kazio wrócił z podwórka
+        ///i znalazł plakaty Jasia.
+        ///Następnie jego dziki wzrok
+        ///zatrzymał się na stole,
+        ///na którym leżały wielkie 
+        ///nożyce.
+        ///Co było dalej?
+        ///Lepiej nie pytać. [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TitleScroll {
+            get {
+                return ResourceManager.GetString("TitleScroll", resourceCulture);
             }
         }
     }

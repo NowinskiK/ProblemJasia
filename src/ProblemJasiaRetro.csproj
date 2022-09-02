@@ -115,6 +115,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\title_336x240_clean.png" />
+    <None Include="Resources\title_scroll_gradient.png" />
     <None Include="Resources\red_arrow.png" />
     <None Include="Resources\background.png" />
     <None Include="Resources\background-640px.png" />
@@ -164,6 +166,7 @@
     <None Include="Resources\img_level_10h.png" />
     <None Include="Resources\img_level_11h.png" />
     <None Include="Resources\img_level_12h.png" />
+    <None Include="Resources\film_roll.png" />
     <Content Include="Resources\plansza_320x192_empty.png" />
     <None Include="Resources\title_336x240.png" />
   </ItemGroup>
