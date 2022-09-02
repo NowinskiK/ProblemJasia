@@ -348,19 +348,19 @@ namespace ProblemJasiaRetro
 
         private void ShowFullPicture()
         {
-            string HR = HiRes ? "h" : "";
-            string picFile = @"d:\GitHub\NowinskiK\ProblemJasia\images\img_"+ LevelFormatted + HR + ".png";
-            Image img = Image.FromFile(picFile);
+            //string HR = HiRes ? "h" : "";
+            //string picFile = @"d:\GitHub\NowinskiK\ProblemJasia\images\img_"+ LevelFormatted + HR + ".png";
+            //Image img = Image.FromFile(picFile);
+            Image img = (System.Drawing.Bitmap) global::ProblemJasiaRetro.Properties.Resources.ResourceManager.GetObject("img_" + LevelFormatted, global::ProblemJasiaRetro.Properties.Resources.Culture);
 
             for (int i = 0; i < 20; i++)
             {
                 CreateBox(img, i);
             }
-            //selector.BringToFront();
-            CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\bomb.gif", 20, "bomb");
-            CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\hihi.png", 21, "hihi");
-            CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\jok.png", 22, "jok");
-            CreateSpecialBox("d:\\GitHub\\NowinskiK\\ProblemJasia\\1min.png", 23, "min");
+            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources.bomb, 20, "bomb");
+            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources.hihi, 21, "hihi");
+            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources.jok, 22, "jok");
+            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources._1min, 23, "min");
         }
 
         private void HideAllBoxes()
@@ -404,13 +404,14 @@ namespace ProblemJasiaRetro
             boxes[i] = box;
         }
 
-        private void CreateSpecialBox(String imgPath, int i, string tag)
+        private void CreateSpecialBox(Image img, int i, string tag)
         {
             PictureBox box = boxes[i] as PictureBox;
             if (box is null)
             {
                 box = new PictureBox();
-                box.Load(imgPath);
+                //box.Load(imgPath);
+                box.Image = img;
                 this.Controls.Add(box);
             }
             box.Size = new Size(128, 128);
@@ -554,10 +555,9 @@ namespace ProblemJasiaRetro
         {
             get
             {
-                if (_level <= 3) return 60 * 5;
-                if (_level <= 6) return 60 * 4;
-                if (_level <= 10) return 60 * 3;
-                return 60 * 2;
+                if (_level <= 4) return 60 * 5;
+                if (_level <= 8) return 60 * 4;
+                return 60 * 3;
             }
         }
 
