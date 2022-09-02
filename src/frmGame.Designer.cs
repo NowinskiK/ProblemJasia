@@ -52,10 +52,12 @@
             this.lblSeconds = new System.Windows.Forms.Label();
             this.bombTimer = new System.Windows.Forms.Timer(this.components);
             this.lblDebug = new System.Windows.Forms.Label();
-            this.txtScroll = new System.Windows.Forms.TextBox();
             this.scrollTimer = new System.Windows.Forms.Timer(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblScroll = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.selector)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // selector
@@ -136,27 +138,31 @@
             this.lblDebug.TabIndex = 8;
             this.lblDebug.Text = "-";
             // 
-            // txtScroll
-            // 
-            this.txtScroll.BackColor = System.Drawing.Color.Black;
-            this.txtScroll.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtScroll.Enabled = false;
-            this.txtScroll.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtScroll.ForeColor = System.Drawing.Color.White;
-            this.txtScroll.Location = new System.Drawing.Point(65, 404);
-            this.txtScroll.MaxLength = 500;
-            this.txtScroll.Name = "txtScroll";
-            this.txtScroll.ReadOnly = true;
-            this.txtScroll.Size = new System.Drawing.Size(551, 32);
-            this.txtScroll.TabIndex = 99;
-            this.txtScroll.TabStop = false;
-            this.txtScroll.Text = "Test message :) ....vfdfdf.g.fdgfdgfdgdfg";
-            // 
             // scrollTimer
             // 
             this.scrollTimer.Enabled = true;
-            this.scrollTimer.Interval = 40;
+            this.scrollTimer.Interval = 25;
             this.scrollTimer.Tick += new System.EventHandler(this.scrollTimer_Tick);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Black;
+            this.panel2.Controls.Add(this.lblScroll);
+            this.panel2.Location = new System.Drawing.Point(63, 403);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(553, 33);
+            this.panel2.TabIndex = 100;
+            // 
+            // lblScroll
+            // 
+            this.lblScroll.AutoSize = true;
+            this.lblScroll.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScroll.ForeColor = System.Drawing.Color.White;
+            this.lblScroll.Location = new System.Drawing.Point(3, 0);
+            this.lblScroll.Name = "lblScroll";
+            this.lblScroll.Size = new System.Drawing.Size(629, 32);
+            this.lblScroll.TabIndex = 0;
+            this.lblScroll.Text = "Test message :) ....vfdfdf.g.fdgfdgfdgdfg";
             // 
             // frmGame
             // 
@@ -165,7 +171,7 @@
             this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.background_1280px;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1274, 766);
-            this.Controls.Add(this.txtScroll);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.selector);
             this.Controls.Add(this.lblSeconds);
@@ -185,6 +191,8 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmGame_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.selector)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,8 +208,9 @@
         private System.Windows.Forms.Label lblSeconds;
         private System.Windows.Forms.Timer bombTimer;
         private System.Windows.Forms.Label lblDebug;
-        private System.Windows.Forms.TextBox txtScroll;
         private System.Windows.Forms.Timer scrollTimer;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblScroll;
     }
 }
 

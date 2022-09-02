@@ -498,7 +498,8 @@ namespace ProblemJasiaRetro
 
         private void ShowMessage(string msg, string waitContext)
         {
-            txtScroll.Text = new string(' ', 40) + msg.ToUpper();
+            lblScroll.Text = new string(' ', 40) + msg.ToUpper();
+            lblScroll.Location = new Point(0, lblScroll.Location.Y);
             _WaitContext = waitContext;
         }
 
@@ -671,16 +672,11 @@ namespace ProblemJasiaRetro
 
         private void scrollTimer_Tick(object sender, EventArgs e)
         {
-            if (txtScroll.Text.Length > 0) { 
-                txtScroll.Text = txtScroll.Text.Substring(1, txtScroll.Text.Length - 1); 
-            }
-            else
-            {
+            lblScroll.Location = new Point(lblScroll.Location.X - 10, lblScroll.Location.Y);
+            if (lblScroll.Location.X + lblScroll.Width < 0) { 
                 if (_WaitContext == "Close") { this.Close(); }
                 if (_WaitContext == "NextLevel") { PresentNextLevel(); }
                 if (_WaitContext == "RepeatWinnerMsg") { GameCompleted(false); }
-
-
             }
 
         }

@@ -154,6 +154,7 @@
     <None Include="Resources\bomb.gif" />
     <None Include="Resources\hihi.png" />
     <None Include="Resources\jok.png" />
+    <None Include="Resources\film_roll.png" />
     <None Include="Resources\img_level_01h.png" />
     <None Include="Resources\img_level_02h.png" />
     <None Include="Resources\img_level_03h.png" />
@@ -166,7 +167,6 @@
     <None Include="Resources\img_level_10h.png" />
     <None Include="Resources\img_level_11h.png" />
     <None Include="Resources\img_level_12h.png" />
-    <None Include="Resources\film_roll.png" />
     <Content Include="Resources\plansza_320x192_empty.png" />
     <None Include="Resources\title_336x240.png" />
   </ItemGroup>
