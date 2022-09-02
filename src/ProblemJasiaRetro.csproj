@@ -59,6 +59,12 @@
       <DependentUpon>frmTitle.cs</DependentUpon>
     </Compile>
     <Compile Include="MusicPlayer.cs" />
+    <Compile Include="PicViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PicViewer.Designer.cs">
+      <DependentUpon>PicViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmGame.resx">
@@ -66,6 +72,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTitle.resx">
       <DependentUpon>frmTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PicViewer.resx">
+      <DependentUpon>PicViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -95,9 +104,6 @@
     <None Include="Resources\selector.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\background.png" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="WMPLib">
       <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -109,9 +115,11 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\background.png" />
+    <None Include="Resources\background-640px.png" />
+    <None Include="Resources\background-1280px.png" />
     <Content Include="Resources\plansza_320x192_empty.png" />
     <None Include="Resources\title_336x240.png" />
-    <None Include="Resources\plansza_320x192_empty1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,7 +14,7 @@ namespace ProblemJasiaRetro
 {
     public partial class frmGame : Form
     {
-        Point BOARD_LOCATION = new Point(706, 94);
+        Point BOARD_LOCATION = new Point(704, 95);
         Point HINT_LOCATION = new Point(464, 495);
         int BOMB_TIMEOUT_MS = 2000;
         const int ALL_BOXES = 24;
@@ -28,7 +28,7 @@ namespace ProblemJasiaRetro
         int _TimeRemaining = 60 * 5;
         Music p = new Music();
         int _level = 1;
-        bool HiRes = true;
+        bool HiRes = false;
         int _nextElement = 0;
         int _bombFuse = 0;
         Random rnd = new Random();
@@ -397,6 +397,7 @@ namespace ProblemJasiaRetro
             destRect = new Rectangle(0, 0, 128, 128);
             srcRect = new Rectangle(128 * x, 128 * y, 128, 128);
             g.DrawImage(sourceBitmap, destRect, srcRect, GraphicsUnit.Pixel);
+
             // sourceBitmap.Dispose();
 
             box.Image = targetBitmap;

@@ -161,9 +161,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.plansza_320x192_empty;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1279, 769);
+            this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.background_1280px;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ClientSize = new System.Drawing.Size(1274, 766);
             this.Controls.Add(this.txtScroll);
             this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.selector);
