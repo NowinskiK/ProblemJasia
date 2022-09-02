@@ -33,6 +33,7 @@ namespace ProblemJasiaRetro
         int _bombFuse = 0;
         Random rnd = new Random();
         string _WaitContext = "";
+        bool _PauseActive = false;
 
         public frmGame()
         {
@@ -97,6 +98,21 @@ namespace ProblemJasiaRetro
                     if (e.KeyData == Keys.M) { _nextElement = 23; }
                     if (e.KeyData == Keys.F12) { _level = 11; WinLevel(); }
                 }
+            }
+            if (e.KeyData == Keys.Space) { GamePause(); }
+        }
+
+        private void GamePause()
+        {
+            _PauseActive = !_PauseActive;
+            CanPlay = !_PauseActive;
+            if (_PauseActive) 
+            { 
+                p.Pause(); 
+            }
+            else
+            {
+                p.Continue();
             }
         }
 
@@ -500,6 +516,12 @@ namespace ProblemJasiaRetro
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (_PauseActive)
+            {
+                TimeVisible = !TimeVisible;
+                return;
+            }
+            if (!_CanPlay) { return; }
             //Workaround - the above did not start the music!
             if (p.player.status == "Ready" && p.Title == "ingame")
             {
@@ -513,13 +535,24 @@ namespace ProblemJasiaRetro
             }
         }
 
+        private bool TimeVisible
+        {
+            get { return lblMinutes.Visible; }
+            set
+            {
+                lblMinutes.Visible = value;
+                lblSeconds.Visible = value;
+            }
+        }
+
         private bool CanPlay
         {
             get { return _CanPlay; }
             set
             {
                 _CanPlay = value;
-                timer1.Enabled = value;
+                timer1.Enabled = true;
+                TimeVisible = _CanPlay;
             }
         }
 
@@ -628,6 +661,7 @@ namespace ProblemJasiaRetro
 
         private void bombTimer_Tick(object sender, EventArgs e)
         {
+            if (_PauseActive) return;
             _bombFuse -= bombTimer.Interval;
             lblDebug.Text = _bombFuse.ToString();
             selector.Refresh();

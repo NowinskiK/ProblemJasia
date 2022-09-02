@@ -29,6 +29,15 @@ namespace ProblemJasiaRetro
             player.controls.play();
         }
 
+        public void Pause()
+        {
+            player.controls.pause();
+        }
+
+        public void Continue()
+        {
+            player.controls.play();
+        }
 
 
     }

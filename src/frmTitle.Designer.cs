@@ -37,7 +37,10 @@
             this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.title_336x240;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1279, 769);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmTitle";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Problem Jasia Retro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTitle_FormClosing);
