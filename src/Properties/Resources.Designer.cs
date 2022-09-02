@@ -543,6 +543,16 @@ namespace ProblemJasiaRetro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap red_arrow {
+            get {
+                object obj = ResourceManager.GetObject("red_arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap selector {
             get {
                 object obj = ResourceManager.GetObject("selector", resourceCulture);

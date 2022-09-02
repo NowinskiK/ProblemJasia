@@ -115,6 +115,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\red_arrow.png" />
     <None Include="Resources\background.png" />
     <None Include="Resources\background-640px.png" />
     <None Include="Resources\background-1280px.png" />

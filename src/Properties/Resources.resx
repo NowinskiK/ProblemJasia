@@ -118,154 +118,157 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="title_336x240" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\title_336x240.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="selector" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\selector.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="background_640px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\background-640px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="background-1280px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\background-1280px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_07.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_08.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_09" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_09.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pj_failed" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_failed.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_ingame" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_ingame.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_01.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_02.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_03.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_04.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_05.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_06.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="img_level_03h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_03h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pj_level_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pj_level_07.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pj_level_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_08.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="pj_title" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_title.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pj_level_09" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pj_level_09.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pj_level_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_10.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_11.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_level_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_level_12.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_next.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_title" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_title.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pj_win" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pj_win.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="bomb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bomb.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hihi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hihi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="jok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\jok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1min" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1min.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_01h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_01h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_02h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_02h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_03h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_03h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_04h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_04h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_05h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_05h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_level_06h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_06h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_level_12h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_12h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="img_level_07h" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_level_07h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="img_level_08h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_08h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pj_level_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_02.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="img_level_09h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_09h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_level_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_level_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_08.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="title_336x240" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\title_336x240.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background-1280px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background-1280px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_06h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_06h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_level_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_03.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_08.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_level_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_11.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pj_failed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_failed.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pj_level_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_10.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="img_level_09" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_09.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hihi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hihi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_01h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_01h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="img_level_10h" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_level_10h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="img_level_05h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_05h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_ingame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_ingame.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pj_level_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_04.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="jok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\jok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_05.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_win" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_win.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pj_level_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_05.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="img_level_11h" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img_level_11h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="img_level_12h" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img_level_12h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_level_02h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_02h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_level_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_12.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="bomb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bomb.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_04h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_04h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_06.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background_640px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background-640px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_08h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_08h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_level_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_01.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="img_level_09h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_09h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_07" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_07.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_next.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_1min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1min.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="selector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\selector.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_level_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pj_level_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pj_level_06.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="img_level_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img_level_01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="red_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\red_arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

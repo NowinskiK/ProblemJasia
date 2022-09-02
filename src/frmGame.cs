@@ -14,7 +14,7 @@ namespace ProblemJasiaRetro
 {
     public partial class frmGame : Form
     {
-        Point BOARD_LOCATION = new Point(704, 95);
+        Point BOARD_LOCATION = new Point(703, 95);
         Point HINT_LOCATION = new Point(464, 495);
         int BOMB_TIMEOUT_MS = 2000;
         const int ALL_BOXES = 24;
@@ -121,7 +121,7 @@ namespace ProblemJasiaRetro
         private void PushElement(int x, int y, int xDir, int yDir)
         {
             int MinAllowX = -1;
-            if (picRedArrow.Visible || y > 0) { MinAllowX = 0; }
+            if (IsBoxLocked || y > 0) { MinAllowX = 0; }
             int newX = x + xDir;
             int newY = y + yDir;
             if (newX < MinAllowX || newX > 3) return;
@@ -152,7 +152,7 @@ namespace ProblemJasiaRetro
                     if (IsLocationFree(i, 0))
                     {
                         SetBoxLocation(box, i, 0);
-                        picRedArrow.Visible = false;
+                        IsBoxLocked = false;
                     }
                     else
                     {
@@ -220,7 +220,7 @@ namespace ProblemJasiaRetro
 
         private bool IsLocationFree(int x, int y)
         {
-            if (x == -1 && picRedArrow.Visible == false) return true;
+            if (x == -1 && IsBoxLocked == false) return true;
             bool r = true;
             Point loc = new Point(x, y);
             for (int i = 0; i < ALL_BOXES; i++)
@@ -278,7 +278,7 @@ namespace ProblemJasiaRetro
             boxLoc[box] = new Point(x, y);
             if (x < 0)
             {
-                picRedArrow.Visible = true;
+                IsBoxLocked = true;
                 if (boxes[box].Tag.ToString() == "bomb")
                 {
                     bombTimer.Stop();
@@ -324,7 +324,7 @@ namespace ProblemJasiaRetro
         private void SetSelectorLocation()
         {
             int offset = 0;
-            if (_x == -1) { offset = -40; }
+            if (_x == -1) { offset = -32; }
             Point p = new Point(_startLoc.X + 128 * _x + offset, _startLoc.Y + 128 * _y);
             selector.Location = p;
             RefreshSelector();
@@ -337,6 +337,10 @@ namespace ProblemJasiaRetro
             if (_x >= 0 && box >= 0)
             {
                 selector.BackgroundImage = ((PictureBox)boxes[box]).Image;
+            }
+            else if (_x == -1 && IsBoxLocked)
+            {
+                selector.BackgroundImage = picRedArrow.Image;
             }
             else
             {
@@ -607,6 +611,14 @@ namespace ProblemJasiaRetro
                 }
                 return cnt;
             }
+        }
+
+        public bool IsBoxLocked
+        {
+            get
+            { return picRedArrow.Visible; }
+            set
+            { picRedArrow.Visible = value; }
         }
 
         private void frmGame_FormClosing(object sender, FormClosingEventArgs e)

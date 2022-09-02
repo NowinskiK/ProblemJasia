@@ -81,10 +81,11 @@
             // picRedArrow
             // 
             this.picRedArrow.BackColor = System.Drawing.Color.Transparent;
-            this.picRedArrow.ImageLocation = "d:\\GitHub\\NowinskiK\\ProblemJasia\\red_arrow.png ";
-            this.picRedArrow.Location = new System.Drawing.Point(543, 101);
+            this.picRedArrow.Image = global::ProblemJasiaRetro.Properties.Resources.red_arrow;
+            this.picRedArrow.ImageLocation = "";
+            this.picRedArrow.Location = new System.Drawing.Point(543, 95);
             this.picRedArrow.Name = "picRedArrow";
-            this.picRedArrow.Size = new System.Drawing.Size(123, 120);
+            this.picRedArrow.Size = new System.Drawing.Size(128, 128);
             this.picRedArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picRedArrow.TabIndex = 5;
             this.picRedArrow.TabStop = false;
@@ -142,11 +143,11 @@
             this.txtScroll.Enabled = false;
             this.txtScroll.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtScroll.ForeColor = System.Drawing.Color.White;
-            this.txtScroll.Location = new System.Drawing.Point(56, 402);
+            this.txtScroll.Location = new System.Drawing.Point(65, 404);
             this.txtScroll.MaxLength = 500;
             this.txtScroll.Name = "txtScroll";
             this.txtScroll.ReadOnly = true;
-            this.txtScroll.Size = new System.Drawing.Size(561, 32);
+            this.txtScroll.Size = new System.Drawing.Size(551, 32);
             this.txtScroll.TabIndex = 99;
             this.txtScroll.TabStop = false;
             this.txtScroll.Text = "Test message :) ....vfdfdf.g.fdgfdgfdgdfg";
