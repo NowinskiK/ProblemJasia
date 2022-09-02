@@ -606,10 +606,8 @@ namespace ProblemJasiaRetro
         {
             _bombFuse -= bombTimer.Interval;
             lblDebug.Text = _bombFuse.ToString();
-            if (_bombFuse <= 0) {
-                bombTimer.Stop();
-                GameOver("bomb");
-            }
+            if (_bombFuse == 0) { GameOver("bomb"); }
+            if (_bombFuse <= -800) { SetBoxLocation(20, -1, 0); }
         }
 
         private void scrollTimer_Tick(object sender, EventArgs e)
