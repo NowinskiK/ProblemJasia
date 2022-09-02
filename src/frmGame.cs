@@ -41,6 +41,7 @@ namespace ProblemJasiaRetro
             //p.Player.PlaybackStopped += Player_PlaybackStopped;
             p.player.PlayStateChange += Player_PlayStateChange;
             lblDebug.Visible = Program.isDebugging();
+            this.Text += " (version: " + Program.GetAppVersion() + ")";
         }
 
         private void Player_PlayStateChange(int NewState)
@@ -345,7 +346,7 @@ namespace ProblemJasiaRetro
             if (box>=20) { box = -box; }
             if (box >= 0)
             {
-                panel1.Location = new Point(HINT_LOCATION.X + (panel1.Width + 12) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
+                panel1.Location = new Point(HINT_LOCATION.X + (panel1.Width + 10) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
             }
             panel1.Visible = (box >= 0 && _x >= 0);
         }
@@ -466,7 +467,7 @@ namespace ProblemJasiaRetro
 
         private void ShowMessage(string msg, string waitContext)
         {
-            txtScroll.Text = new string(' ', 40) + msg;
+            txtScroll.Text = new string(' ', 40) + msg.ToUpper();
             _WaitContext = waitContext;
         }
 
@@ -554,7 +555,7 @@ namespace ProblemJasiaRetro
                 case 9: return "Charlie Bronson. Skąd ja go znam? Chyba z telewizji.";
                 case 10: return "Pucała..., tfu Pacuła. Aśka. Moja faworytka.";
                 case 11: return "Oh. Ah. Eh. Marylin Monroe. Boska. Piękna. Namiętna...";
-                case 12: return "He, He. Arnie Szwarcuś. Bardzo podobny d tego, co grał w Terminatorze.";
+                case 12: return "He, He. Arnie Szwarcuś. Bardzo podobny do tego, co grał w Terminatorze.";
                 default:
                     return "";
             }

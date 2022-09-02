@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,6 +43,12 @@ namespace ProblemJasiaRetro
         private static void WellAreWe(ref bool debugging)
         {
             debugging = true;
+        }
+
+        public static string GetAppVersion()
+        {
+            Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            return appVersion.Major + "." + appVersion.Minor + "." + appVersion.Build;
         }
 
     }

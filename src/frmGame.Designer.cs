@@ -74,7 +74,7 @@
             this.panel1.BackColor = System.Drawing.Color.Lime;
             this.panel1.Location = new System.Drawing.Point(464, 495);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(28, 28);
+            this.panel1.Size = new System.Drawing.Size(30, 28);
             this.panel1.TabIndex = 4;
             this.panel1.Visible = false;
             // 
@@ -154,7 +154,7 @@
             // scrollTimer
             // 
             this.scrollTimer.Enabled = true;
-            this.scrollTimer.Interval = 50;
+            this.scrollTimer.Interval = 40;
             this.scrollTimer.Tick += new System.EventHandler(this.scrollTimer_Tick);
             // 
             // frmGame

@@ -24,6 +24,7 @@ namespace ProblemJasiaRetro
         private void frmTitle_Shown(object sender, EventArgs e)
         {
             m.Play("title", true);
+            this.Text += " (version: " + Program.GetAppVersion() + ")";  
         }
 
         private void frmTitle_KeyPress(object sender, KeyPressEventArgs e)
