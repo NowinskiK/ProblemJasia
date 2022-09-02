@@ -123,6 +123,16 @@ namespace ProblemJasiaRetro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap film_roll1 {
+            get {
+                object obj = ResourceManager.GetObject("film_roll1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap hihi {
             get {
                 object obj = ResourceManager.GetObject("hihi", resourceCulture);
@@ -521,6 +531,16 @@ namespace ProblemJasiaRetro.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PJ_Mirage_logo {
+            get {
+                object obj = ResourceManager.GetObject("PJ_Mirage_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] pj_next {
@@ -537,6 +557,16 @@ namespace ProblemJasiaRetro.Properties {
             get {
                 object obj = ResourceManager.GetObject("pj_title", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PJ_title_logo {
+            get {
+                object obj = ResourceManager.GetObject("PJ_title_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

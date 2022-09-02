@@ -183,7 +183,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmGame";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Problem Jasia Retro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmGame_FormClosing);
             this.Shown += new System.EventHandler(this.frmGame_Shown);

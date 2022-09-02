@@ -167,6 +167,9 @@
     <None Include="Resources\img_level_10h.png" />
     <None Include="Resources\img_level_11h.png" />
     <None Include="Resources\img_level_12h.png" />
+    <None Include="Resources\film_roll.bmp" />
+    <None Include="Resources\PJ_title_logo.bmp" />
+    <None Include="Resources\PJ_Mirage_logo.bmp" />
     <Content Include="Resources\plansza_320x192_empty.png" />
     <None Include="Resources\title_336x240.png" />
   </ItemGroup>

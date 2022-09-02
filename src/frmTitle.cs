@@ -79,5 +79,6 @@ namespace ProblemJasiaRetro
             x = x + (Math.PI * 2 / 100);
             x = x % (Math.PI * 2);
         }
+
     }
 }
