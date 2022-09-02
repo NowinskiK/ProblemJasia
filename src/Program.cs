@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,5 +29,21 @@ namespace ProblemJasiaRetro
             }
             while (f.DialogResult == DialogResult.OK);
         }
+
+        //https://stackoverflow.com/questions/2104099/c-sharp-if-then-directives-for-debug-vs-release
+        public static bool isDebugging()
+        {
+            bool debugging = false;
+            WellAreWe(ref debugging);
+            return debugging;
+        }
+
+        [Conditional("DEBUG")]
+        private static void WellAreWe(ref bool debugging)
+        {
+            debugging = true;
+        }
+
     }
+
 }

@@ -40,6 +40,7 @@ namespace ProblemJasiaRetro
             for (int i = 0; i < ALL_BOXES; i++) { boxLoc.Add(new Point(-1, -1)); }
             //p.Player.PlaybackStopped += Player_PlaybackStopped;
             p.player.PlayStateChange += Player_PlayStateChange;
+            lblDebug.Visible = Program.isDebugging();
         }
 
         private void Player_PlayStateChange(int NewState)
@@ -79,13 +80,16 @@ namespace ProblemJasiaRetro
                 if (e.KeyData == Keys.Left) { GoLeft(); }
                 if (e.KeyData == Keys.Right) { GoRight(); }
 
-                if (e.KeyData == Keys.W) { WinLevel(); }
-                if (e.KeyData == Keys.F) { GameOver("User request"); }
-                if (e.KeyData == Keys.B) { _nextElement = 20; }
-                if (e.KeyData == Keys.H) { _nextElement = 21; }
-                if (e.KeyData == Keys.J) { _nextElement = 22; }
-                if (e.KeyData == Keys.M) { _nextElement = 23; }
-                //if (e.KeyData == Keys.M) { StartGame(); }
+                if (Program.isDebugging())
+                {
+                    if (e.KeyData == Keys.W) { WinLevel(); }
+                    if (e.KeyData == Keys.F) { GameOver("User request"); }
+                    if (e.KeyData == Keys.B) { _nextElement = 20; }
+                    if (e.KeyData == Keys.H) { _nextElement = 21; }
+                    if (e.KeyData == Keys.J) { _nextElement = 22; }
+                    if (e.KeyData == Keys.M) { _nextElement = 23; }
+                    if (e.KeyData == Keys.F12) { _level = 11; WinLevel(); }
+                }
             }
         }
 
@@ -434,11 +438,30 @@ namespace ProblemJasiaRetro
             _x = -1;
             _y = 0;
             SetSelectorLocation();
-            TimeRemaining = LevelTime;
-            ShowFullPicture();
-            p.Play(LevelFormatted);
-            ShowMessage(GetWelcomeLevelMsg(_level), "");
+            if (_level > 12)
+            {
+                GameCompleted(true);
+            }
+            else
+            {
+                TimeRemaining = LevelTime;
+                ShowFullPicture();
+                p.Play(LevelFormatted);
+                ShowMessage(GetWelcomeLevelMsg(_level), "");
+            }
             this.Focus();
+        }
+
+        private void GameCompleted(bool playMusic)
+        {
+            string msg = "Noo Noo Nooooo, powiedziała Małgosia. Masz u mnie dużego buziaka, Jasiu." +
+                "          I w ten sposób Jasio zdobył serce Małgosi." +
+                "          Szkoda, że brat Jasia zginął tak brutalnie...";
+            ShowMessage(msg, "RepeatWinnerMsg");
+            if (playMusic)
+            {
+                p.Play("win", true);
+            }
         }
 
         private void ShowMessage(string msg, string waitContext)
@@ -598,6 +621,7 @@ namespace ProblemJasiaRetro
             {
                 if (_WaitContext == "Close") { this.Close(); }
                 if (_WaitContext == "NextLevel") { PresentNextLevel(); }
+                if (_WaitContext == "RepeatWinnerMsg") { GameCompleted(false); }
 
 
             }
