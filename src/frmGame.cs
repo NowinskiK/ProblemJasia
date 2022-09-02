@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
@@ -26,7 +25,7 @@ namespace ProblemJasiaRetro
         Control[] boxes = new Control[ALL_BOXES];
         List<Point> boxLoc = new List<Point>();
         int _TimeRemaining = 60 * 5;
-        Music p = new Music();
+        Music p;
         int _level = 1;
         bool HiRes = false;
         int _nextElement = 0;
@@ -35,9 +34,10 @@ namespace ProblemJasiaRetro
         string _WaitContext = "";
         bool _PauseActive = false;
 
-        public frmGame()
+        public frmGame(Music mp)
         {
             InitializeComponent();
+            p = mp;
             for (int i = 0; i < ALL_BOXES; i++) { boxLoc.Add(new Point(-1, -1)); }
             //p.Player.PlaybackStopped += Player_PlaybackStopped;
             p.player.PlayStateChange += Player_PlayStateChange;

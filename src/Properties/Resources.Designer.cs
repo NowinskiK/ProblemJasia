@@ -619,5 +619,31 @@ namespace ProblemJasiaRetro.Properties {
                 return ResourceManager.GetString("TitleScroll", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pj_failed
+        ///pj_ingame
+        ///pj_level_01
+        ///pj_level_01
+        ///pj_level_02
+        ///pj_level_03
+        ///pj_level_04
+        ///pj_level_05
+        ///pj_level_06
+        ///pj_level_07
+        ///pj_level_08
+        ///pj_level_09
+        ///pj_level_10
+        ///pj_level_11
+        ///pj_level_12
+        ///pj_next
+        ///pj_title
+        ///pj_win.
+        /// </summary>
+        internal static string tracks {
+            get {
+                return ResourceManager.GetString("tracks", resourceCulture);
+            }
+        }
     }
 }
