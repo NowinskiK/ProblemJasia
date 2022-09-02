@@ -81,6 +81,8 @@ namespace ProblemJasiaRetro
                 if (e.KeyData == Keys.Left) { GoLeft(); }
                 if (e.KeyData == Keys.Right) { GoRight(); }
 
+                if (e.KeyData == (Keys.H | Keys.Control)) { HiRes = !HiRes; ReloadBoxes(false); }
+
                 if (Program.isDebugging())
                 {
                     if (e.KeyData == Keys.W) { WinLevel(); }
@@ -353,19 +355,11 @@ namespace ProblemJasiaRetro
 
         private void ShowFullPicture()
         {
-            //string HR = HiRes ? "h" : "";
-            //string picFile = @"d:\GitHub\NowinskiK\ProblemJasia\images\img_"+ LevelFormatted + HR + ".png";
-            //Image img = Image.FromFile(picFile);
-            Image img = (System.Drawing.Bitmap) global::ProblemJasiaRetro.Properties.Resources.ResourceManager.GetObject("img_" + LevelFormatted, global::ProblemJasiaRetro.Properties.Resources.Culture);
-
-            for (int i = 0; i < 20; i++)
-            {
-                CreateBox(img, i);
-            }
-            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources.bomb, 20, "bomb");
-            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources.hihi, 21, "hihi");
-            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources.jok, 22, "jok");
-            CreateSpecialBox(global::ProblemJasiaRetro.Properties.Resources._1min, 23, "min");
+            ReloadBoxes(true);
+            CreateSpecialBox(Properties.Resources.bomb, 20, "bomb");
+            CreateSpecialBox(Properties.Resources.hihi, 21, "hihi");
+            CreateSpecialBox(Properties.Resources.jok, 22, "jok");
+            CreateSpecialBox(Properties.Resources._1min, 23, "min");
         }
 
         private void HideAllBoxes()
@@ -378,7 +372,20 @@ namespace ProblemJasiaRetro
             }
         }
 
-        private void CreateBox(Image img, int i)
+        private void ReloadBoxes(bool setDefaultLocation)
+        {
+            string HR = HiRes ? "h" : "";
+            //string picFile = @"d:\GitHub\NowinskiK\ProblemJasia\images\img_"+ LevelFormatted + HR + ".png";
+            //Image img = Image.FromFile(picFile);
+            Image img = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("img_" + LevelFormatted + HR, Properties.Resources.Culture);
+
+            for (int i = 0; i < 20; i++)
+            {
+                ReloadBox(img, i, setDefaultLocation);
+            }
+        }
+
+        private void ReloadBox(Image fullImg, int i, bool setDefaultLocation)
         {
             int x = i % 4;
             int y = i / 4;
@@ -390,20 +397,21 @@ namespace ProblemJasiaRetro
                 this.Controls.Add(box);
             }
             box.Size = new Size(128, 128);
-            box.Location = new Point(BOARD_LOCATION.X + x * 128, BOARD_LOCATION.Y + y * 128);
-            box.Visible = true;
             box.Tag = "";
-            this.Controls.SetChildIndex(box, 1);
+            if (setDefaultLocation)
+            {
+                box.Location = new Point(BOARD_LOCATION.X + x * 128, BOARD_LOCATION.Y + y * 128);
+                box.Visible = true;
+                this.Controls.SetChildIndex(box, 1);
+            }
             Rectangle destRect, srcRect;
             Bitmap targetBitmap = new Bitmap(128, 128);
-            Bitmap sourceBitmap = new Bitmap(img, img.Width, img.Height);
+            Bitmap sourceBitmap = new Bitmap(fullImg, fullImg.Width, fullImg.Height);
 
             Graphics g = Graphics.FromImage(targetBitmap);
             destRect = new Rectangle(0, 0, 128, 128);
             srcRect = new Rectangle(128 * x, 128 * y, 128, 128);
             g.DrawImage(sourceBitmap, destRect, srcRect, GraphicsUnit.Pixel);
-
-            // sourceBitmap.Dispose();
 
             box.Image = targetBitmap;
             boxes[i] = box;
