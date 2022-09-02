@@ -13,15 +13,15 @@ namespace ProblemJasiaRetro
     public partial class frmTitle : Form
     {
 
-        Music m;
+        Music m = new Music();
+
         double x = 0;
         bool _p = false;
 
 
-        public frmTitle(Music mp)
+        public frmTitle()
         {
             InitializeComponent();
-            m = mp;
             txtTestHeight.Font = txtScroll.Font;
             txtScroll.Text = "\r\n\r\n\r\n" + Properties.Resources.TitleScroll.ToUpper();
             int linesCount = txtScroll.Text.Split('\r').Length;

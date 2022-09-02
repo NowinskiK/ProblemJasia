@@ -18,15 +18,16 @@ namespace ProblemJasiaRetro
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Music m = new Music();
             frmTitle f;
             do
             {
-                f = new frmTitle(m);
+                f = new frmTitle();
                 Application.Run(f);
                 if (f.DialogResult == DialogResult.OK)
                 {
-                    Application.Run(new frmGame(m));
+                    frmGame g = new frmGame();
+                    g.ShowDialog();
+                    g.Dispose();
                 }
             }
             while (f.DialogResult == DialogResult.OK);

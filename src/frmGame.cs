@@ -25,7 +25,7 @@ namespace ProblemJasiaRetro
         Control[] boxes = new Control[ALL_BOXES];
         List<Point> boxLoc = new List<Point>();
         int _TimeRemaining = 60 * 5;
-        Music p;
+        Music p = new Music();
         int _level = 1;
         bool HiRes = false;
         int _nextElement = 0;
@@ -34,12 +34,10 @@ namespace ProblemJasiaRetro
         string _WaitContext = "";
         bool _PauseActive = false;
 
-        public frmGame(Music mp)
+        public frmGame()
         {
             InitializeComponent();
-            p = mp;
             for (int i = 0; i < ALL_BOXES; i++) { boxLoc.Add(new Point(-1, -1)); }
-            //p.Player.PlaybackStopped += Player_PlaybackStopped;
             p.player.PlayStateChange += Player_PlayStateChange;
             lblDebug.Visible = Program.isDebugging();
             this.Text += " (version: " + Program.GetAppVersion() + ")";
@@ -398,8 +396,6 @@ namespace ProblemJasiaRetro
         private void ReloadBoxes(bool setDefaultLocation)
         {
             string HR = HiRes ? "h" : "";
-            //string picFile = @"d:\GitHub\NowinskiK\ProblemJasia\images\img_"+ LevelFormatted + HR + ".png";
-            //Image img = Image.FromFile(picFile);
             Image img = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("img_" + LevelFormatted + HR, Properties.Resources.Culture);
 
             for (int i = 0; i < 20; i++)
@@ -658,6 +654,10 @@ namespace ProblemJasiaRetro
         private void frmGame_FormClosing(object sender, FormClosingEventArgs e)
         {
             p.player.controls.stop();
+            for (int i = 0; i < ALL_BOXES; i++)
+            {
+                boxes[i].Dispose();
+            }
         }
 
         private void bombTimer_Tick(object sender, EventArgs e)

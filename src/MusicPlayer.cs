@@ -24,8 +24,10 @@ namespace ProblemJasiaRetro
                 if (track.Length > 0)
                 {
                     string file = tempDir + track + ".mp3";
-                    System.IO.File.WriteAllBytes(file, GetTrackBytes(track));
-                    Console.WriteLine(file);
+                    if (!System.IO.File.Exists(file))
+                    {
+                        System.IO.File.WriteAllBytes(file, GetTrackBytes(track));
+                    }
                 }
             }
         }

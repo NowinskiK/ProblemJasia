@@ -160,9 +160,8 @@
             this.lblScroll.ForeColor = System.Drawing.Color.White;
             this.lblScroll.Location = new System.Drawing.Point(3, 0);
             this.lblScroll.Name = "lblScroll";
-            this.lblScroll.Size = new System.Drawing.Size(629, 32);
+            this.lblScroll.Size = new System.Drawing.Size(0, 32);
             this.lblScroll.TabIndex = 0;
-            this.lblScroll.Text = "Test message :) ....vfdfdf.g.fdgfdgfdgdfg";
             // 
             // frmGame
             // 
