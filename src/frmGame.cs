@@ -50,6 +50,10 @@ namespace ProblemJasiaRetro
             {
                 StartGame();
             }
+            if (NewState == 8 && p.Title == "failed")
+            {
+                this.Close();
+            }
         }
 
         private void frmGame_KeyPress(object sender, KeyPressEventArgs e)
@@ -110,8 +114,7 @@ namespace ProblemJasiaRetro
         {
             CanPlay = false;
             p.Play("failed");
-            string msg = GameOverMessage + new string(' ', 20);
-            ShowMessage(msg, "Close");
+            ShowMessage(GameOverMessage, "");
         }
 
 
@@ -615,6 +618,7 @@ namespace ProblemJasiaRetro
         {
             _bombFuse -= bombTimer.Interval;
             lblDebug.Text = _bombFuse.ToString();
+            selector.Refresh();
             if (_bombFuse == 0) { GameOver("bomb"); }
             if (_bombFuse <= -800) { SetBoxLocation(20, -1, 0); }
         }
