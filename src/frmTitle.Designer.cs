@@ -77,6 +77,7 @@
             this.txtScroll.Text = "TEST TEST Zażółć";
             this.txtScroll.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtScroll.WordWrap = false;
+            this.txtScroll.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtScroll_MouseClick);
             // 
             // scrollTimer
             // 
@@ -193,6 +194,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(335, 232);
             this.Name = "frmTitle";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

@@ -80,5 +80,10 @@ namespace ProblemJasiaRetro
             x = x % (Math.PI * 2);
         }
 
+        private void txtScroll_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Select();
+            txtScroll.SelectionLength = 0;
+        }
     }
 }
