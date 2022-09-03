@@ -117,6 +117,7 @@ namespace ProblemJasiaRetro
         private void WinLevel(int wait = 0)
         {
             CanPlay = false;
+            bombTimer.Stop();
             p.Play("next");
             if (wait > 0) { Thread.Sleep(wait); }
             ShowFullPicture();
