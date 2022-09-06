@@ -69,8 +69,7 @@ namespace ProblemJasiaRetro
             {
                 if (_x == -1)
                 {
-                    if (e.KeyData == Keys.Space) { PullElement(); }
-                    if (e.Shift) { PullElement(); e.Handled = true; }
+                    if (e.Shift) { PullElement(); }
                 }
                 else
                 {
