@@ -549,7 +549,6 @@ namespace ProblemJasiaRetro
             {
                 _CanPlay = value;
                 timer1.Enabled = true;
-                TimeVisible = _CanPlay;
             }
         }
 
