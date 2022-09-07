@@ -522,7 +522,7 @@ namespace ProblemJasiaRetro
             //Workaround - the above did not start the music!
             if (p.player.status == "Ready" && p.Title == "ingame")
             {
-                p.Play("ingame");
+                p.Play("ingame", true);
             }
 
             if (TimeRemaining > 0) { TimeRemaining--; }
@@ -675,7 +675,7 @@ namespace ProblemJasiaRetro
             lblScroll.Location = new Point(lblScroll.Location.X - 10, lblScroll.Location.Y);
             if (lblScroll.Location.X + lblScroll.Width < 0) { 
                 if (_WaitContext == "Close") { this.Close(); }
-                if (_WaitContext == "NextLevel") { PresentNextLevel(); }
+                if (_WaitContext == "NextLevel" && p.player.status == "Stopped") { PresentNextLevel(); }
                 if (_WaitContext == "RepeatWinnerMsg") { GameCompleted(false); }
             }
 
