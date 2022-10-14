@@ -71,14 +71,14 @@ namespace ProblemJasiaRetro
             {
                 if (_x == -1)
                 {
-                    if (e.Shift) { PullElement(); }
+                    if (e.Control) { PullElement(); }
                 }
                 else
                 {
-                    if (e.KeyData == (Keys.Down | Keys.Shift)) { PushElement(_x, _y, 0, 1); }
-                    if (e.KeyData == (Keys.Up | Keys.Shift)) { PushElement(_x, _y, 0, -1); }
-                    if (e.KeyData == (Keys.Left | Keys.Shift)) { PushElement(_x, _y, -1, 0); }
-                    if (e.KeyData == (Keys.Right | Keys.Shift)) { PushElement(_x, _y, 1, 0); }
+                    if (e.KeyData == (Keys.Down | Keys.Control)) { PushElement(_x, _y, 0, 1); }
+                    if (e.KeyData == (Keys.Up | Keys.Control)) { PushElement(_x, _y, 0, -1); }
+                    if (e.KeyData == (Keys.Left | Keys.Control)) { PushElement(_x, _y, -1, 0); }
+                    if (e.KeyData == (Keys.Right | Keys.Control)) { PushElement(_x, _y, 1, 0); }
                 }
                 if (e.KeyData == Keys.Down) { GoDown(); }
                 if (e.KeyData == Keys.Up) { GoUp(); }
