@@ -1,6 +1,11 @@
 # Problem Jasia
 
-![](./images/title_336x240.png)
+<table>
+<tr>
+<td><img src='./images/title_336x240.png'></td>
+<td><img src='./images/title_336_newPC.png'></td>
+</tr>
+</table>
 
 ## Atari
 "Problem Jasia" to gra zręcznościowo-logiczna wydana w 1993r przez firmę Mirage Software na "małe" (8-bitowe) Atari. Gra szybko zyskała na popularności przez bardzo dobrą (jak na tamte czasy) grafikę i niezwykle oryginalną i wpadającą w ucho muzykę. Całość została przygotowana przez jednego człowieka, 22-letniego wówczas [Jakuba Husaka](http://atariki.krap.pl/index.php/Jakub_Husak).  
@@ -16,8 +21,9 @@ Kamil Nowinski
 - ENTER - Start gry
 - SPACE - pauza
 - strzałki - poruszanie kursorem
-- SHIFT - wyciąganie puzzla
-- SHIFT + strzałki - przesuwanie puzzla na planszy
+- CTRL - wyciąganie puzzla
+- CTRL+strzałki - przesuwanie puzzla na planszy
+- CTRL+H - obrazki w wysokiej rozdzielczości (on/off)
 - ESC - koniec / zamknięcie gry
 
 # References
