@@ -39,6 +39,7 @@
             this.textBox3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.txtVer = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picFilmRoll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -179,6 +180,21 @@
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
+            // txtVer
+            // 
+            this.txtVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtVer.BackColor = System.Drawing.Color.Black;
+            this.txtVer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVer.Enabled = false;
+            this.txtVer.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtVer.Location = new System.Drawing.Point(19, 721);
+            this.txtVer.Name = "txtVer";
+            this.txtVer.ShortcutsEnabled = false;
+            this.txtVer.Size = new System.Drawing.Size(57, 13);
+            this.txtVer.TabIndex = 8;
+            this.txtVer.Text = "ver.0.17";
+            // 
             // frmTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,8 +202,9 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1096, 769);
-            this.Controls.Add(this.txtTestHeight);
             this.Controls.Add(this.picFilmRoll);
+            this.Controls.Add(this.txtVer);
+            this.Controls.Add(this.txtTestHeight);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.textBox3);
@@ -225,5 +242,6 @@
         private System.Windows.Forms.Label textBox3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.TextBox txtVer;
     }
 }

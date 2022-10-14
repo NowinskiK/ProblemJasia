@@ -40,7 +40,9 @@ namespace ProblemJasiaRetro
             for (int i = 0; i < ALL_BOXES; i++) { boxLoc.Add(new Point(-1, -1)); }
             p.player.PlayStateChange += Player_PlayStateChange;
             lblDebug.Visible = Program.isDebugging();
-            this.Text += " (version: " + Program.GetAppVersion() + ")";
+            //this.Text += " (version: " + Program.GetAppVersion() + ")";
+            txtVer.Text = "ver." + Program.GetAppVersion();
+            this.Icon = Properties.Resources.GameIcon;
         }
 
         private void Player_PlayStateChange(int NewState)

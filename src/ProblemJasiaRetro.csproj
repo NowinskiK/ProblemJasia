@@ -170,6 +170,8 @@
     <None Include="Resources\film_roll.bmp" />
     <None Include="Resources\PJ_title_logo.bmp" />
     <None Include="Resources\PJ_Mirage_logo.bmp" />
+    <None Include="Resources\GameIcon.ico" />
+    <None Include="Resources\icons8-puzzle.ico" />
     <Content Include="Resources\plansza_320x192_empty.png" />
     <None Include="Resources\title_336x240.png" />
   </ItemGroup>

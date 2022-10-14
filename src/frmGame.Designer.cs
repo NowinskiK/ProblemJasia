@@ -55,6 +55,7 @@
             this.scrollTimer = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblScroll = new System.Windows.Forms.Label();
+            this.txtVer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.selector)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).BeginInit();
             this.panel2.SuspendLayout();
@@ -163,6 +164,21 @@
             this.lblScroll.Size = new System.Drawing.Size(0, 32);
             this.lblScroll.TabIndex = 0;
             // 
+            // txtVer
+            // 
+            this.txtVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(189)))), ((int)(((byte)(189)))));
+            this.txtVer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVer.Enabled = false;
+            this.txtVer.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtVer.Location = new System.Drawing.Point(12, 741);
+            this.txtVer.Name = "txtVer";
+            this.txtVer.ShortcutsEnabled = false;
+            this.txtVer.Size = new System.Drawing.Size(57, 13);
+            this.txtVer.TabIndex = 101;
+            this.txtVer.Text = "ver.0.17";
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,6 +186,7 @@
             this.BackgroundImage = global::ProblemJasiaRetro.Properties.Resources.background_1280px;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1274, 766);
+            this.Controls.Add(this.txtVer);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.selector);
@@ -210,6 +227,7 @@
         private System.Windows.Forms.Timer scrollTimer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblScroll;
+        private System.Windows.Forms.TextBox txtVer;
     }
 }
 

@@ -26,12 +26,14 @@ namespace ProblemJasiaRetro
             txtScroll.Text = "\r\n\r\n\r\n" + Properties.Resources.TitleScroll.ToUpper();
             int linesCount = txtScroll.Text.Split('\r').Length;
             txtScroll.Height = (int)(txtTestHeight.Height * linesCount * 1.15);
+            this.Icon = Properties.Resources.GameIcon;
         }
 
         private void frmTitle_Shown(object sender, EventArgs e)
         {
             m.Play("title", true);
-            this.Text += " (version: " + Program.GetAppVersion() + ")";  
+            //this.Text += " (version: " + Program.GetAppVersion() + ")";
+            txtVer.Text = "ver." + Program.GetAppVersion();
         }
 
         private void frmTitle_KeyPress(object sender, KeyPressEventArgs e)
