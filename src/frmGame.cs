@@ -520,7 +520,7 @@ namespace ProblemJasiaRetro
                 TimeVisible = !TimeVisible;
                 return;
             }
-	    TimeVisible = true;
+	        TimeVisible = true;
             if (!_CanPlay) { return; }
             //Workaround - the above did not start the music!
             if (p.player.status == "Ready" && p.Title == "ingame")

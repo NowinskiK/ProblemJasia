@@ -50,7 +50,7 @@ namespace ProblemJasiaRetro
         public static string GetAppVersion()
         {
             Version appVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            return appVersion.Major + "." + appVersion.Minor; // + "." + appVersion.Build;
+            return appVersion.Major + "." + appVersion.Minor + "." + appVersion.Build;
         }
 
     }
