@@ -415,6 +415,7 @@ namespace ProblemJasiaRetro
             if (box is null)
             {
                 box = new PictureBox();
+                box.MouseMove += Box_MouseMove;
                 this.Controls.Add(box);
             }
             box.Size = new Size(128, 128);
@@ -446,6 +447,7 @@ namespace ProblemJasiaRetro
                 box = new PictureBox();
                 //box.Load(imgPath);
                 box.Image = img;
+                box.MouseMove += Box_MouseMove;
                 this.Controls.Add(box);
             }
             box.Size = new Size(128, 128);
@@ -680,6 +682,77 @@ namespace ProblemJasiaRetro
                 if (_WaitContext == "RepeatWinnerMsg") { GameCompleted(false); }
             }
 
+        }
+
+        private void frmGame_MouseMove(object sender, MouseEventArgs e)
+        {
+            frmGame_MouseMove(e.Location);
+        }
+
+        private void frmGame_MouseMove(Point p)
+        {
+            if (!_CanPlay) return;
+
+            int x = (int)Math.Floor((double)(p.X - _startLoc.X) / 128d);
+            int y = (int)Math.Floor((double)(p.Y - _startLoc.Y) / 128d);
+            if (_x != x || _y != y)
+            {
+                if (IsCorrectLocation(x,y))
+                {
+                    _x = x;
+                    _y = y;
+                    SetSelectorLocation();
+                }
+            }
+        }
+
+        private void Box_MouseMove(object sender, MouseEventArgs e)
+        {
+            PictureBox box = sender as PictureBox;
+            Point p = new Point(box.Left, box.Top);
+            frmGame_MouseMove(p);
+        }
+
+        Point _mouseLastLoc = new Point(0, 0);
+
+        private bool IsCorrectLocation(int x, int y)
+        {
+            if (x == -1 && y == 0) return true;
+            if (x >=0 && x<=3 && y>=0 && y<=4) return true;
+            return false;
+        }
+
+        private void selector_MouseDown(object sender, MouseEventArgs e)
+        {
+            _mouseLastLoc = e.Location;
+            if (_x == -1)
+            {
+                PullElement();
+            }
+        }
+        private void picRedArrow_MouseDown(object sender, MouseEventArgs e)
+        {
+            _x = -1;
+            _y = 0;
+            PullElement();
+        }
+
+        private void selector_MouseUp(object sender, MouseEventArgs e)
+        {
+            Point p = e.Location;
+
+            int deltaX = p.X - _mouseLastLoc.X;
+            int deltaY = p.Y - _mouseLastLoc.Y;
+            if (Math.Abs(deltaX) > Math.Abs(deltaY))
+            {
+                if (deltaX < 0) { frmGame_KeyDown(this, new KeyEventArgs(Keys.Control | Keys.Left)); }
+                if (deltaX > 0) { frmGame_KeyDown(this, new KeyEventArgs(Keys.Control | Keys.Right)); }
+            }
+            else
+            {
+                if (deltaY < 0) { frmGame_KeyDown(this, new KeyEventArgs(Keys.Control | Keys.Up)); }
+                if (deltaY > 0) { frmGame_KeyDown(this, new KeyEventArgs(Keys.Control | Keys.Down)); }
+            }
         }
     }
 }

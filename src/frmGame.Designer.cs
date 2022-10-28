@@ -71,6 +71,8 @@
             this.selector.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.selector.TabIndex = 0;
             this.selector.TabStop = false;
+            this.selector.MouseDown += new System.Windows.Forms.MouseEventHandler(this.selector_MouseDown);
+            this.selector.MouseUp += new System.Windows.Forms.MouseEventHandler(this.selector_MouseUp);
             // 
             // panel1
             // 
@@ -93,6 +95,7 @@
             this.picRedArrow.TabIndex = 5;
             this.picRedArrow.TabStop = false;
             this.picRedArrow.Visible = false;
+            this.picRedArrow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picRedArrow_MouseDown);
             // 
             // timer1
             // 
@@ -205,6 +208,7 @@
             this.Shown += new System.EventHandler(this.frmGame_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmGame_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmGame_KeyPress);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.frmGame_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.selector)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRedArrow)).EndInit();
             this.panel2.ResumeLayout(false);
