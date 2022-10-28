@@ -175,6 +175,7 @@ namespace ProblemJasiaRetro
                         break;
                     }
                 }
+                Thread.Sleep(200);
                 CheckCorrectElementCount();
                 CheckSpecialBoxes(boxTag);
             }
