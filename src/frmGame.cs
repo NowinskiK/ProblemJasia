@@ -67,7 +67,8 @@ namespace ProblemJasiaRetro
 
         private void frmGame_KeyDown(object sender, KeyEventArgs e)
         {
-            if (_CanPlay)
+            if (!_CanPlay) { return; }
+            if (!_PauseActive)
             {
                 if (_x == -1)
                 {
@@ -89,6 +90,8 @@ namespace ProblemJasiaRetro
 
                 if (Program.isDebugging())
                 {
+                    if (e.KeyData == Keys.OemMinus) { _TimeRemaining -= 60; }
+                    if (e.KeyData == Keys.Oemplus) { _TimeRemaining += 60; }
                     if (e.KeyData == Keys.W) { WinLevel(); }
                     if (e.KeyData == Keys.F) { GameOver("User request"); }
                     if (e.KeyData == Keys.B) { _nextElement = 20; }
@@ -104,7 +107,6 @@ namespace ProblemJasiaRetro
         private void GamePause()
         {
             _PauseActive = !_PauseActive;
-            CanPlay = !_PauseActive;
             if (_PauseActive) 
             { 
                 p.Pause(); 
@@ -175,7 +177,7 @@ namespace ProblemJasiaRetro
                         break;
                     }
                 }
-                Thread.Sleep(200);
+                Thread.Sleep(150);
                 CheckCorrectElementCount();
                 CheckSpecialBoxes(boxTag);
             }
