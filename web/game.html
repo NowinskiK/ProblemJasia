@@ -338,29 +338,32 @@
              }
             
             createSpecialBox(type, index) {
-                const piece = document.createElement('div');
-                piece.className = `puzzlePiece specialBox ${type}`;
-                piece.dataset.index = index;
-                piece.dataset.type = type;
-                
-                // Fix image filenames to match actual files
-                let imageFile = '';
-                switch(type) {
-                    case 'bomb': imageFile = 'bomb.gif'; break;
-                    case 'jok': imageFile = 'jok.png'; break;
-                    case 'hihi': imageFile = 'hihi.png'; break;
-                    case 'min': imageFile = '1min.png'; break;
-                    default: imageFile = `${type}.png`;
-                }
-                
-                piece.style.backgroundImage = `url('../images/${imageFile}')`;
-                piece.style.backgroundPosition = 'center';
-                piece.style.backgroundSize = 'contain';
-                
-                document.getElementById('gameBoard').appendChild(piece);
-                this.specialBoxes.push(piece);
-                this.pieceLocations.push({ x: -1, y: 0 });
-            }
+                 const piece = document.createElement('div');
+                 piece.className = `puzzlePiece specialBox ${type}`;
+                 piece.dataset.index = index;
+                 piece.dataset.type = type;
+                 
+                 // Fix image filenames to match actual files
+                 let imageFile = '';
+                 switch(type) {
+                     case 'bomb': imageFile = 'bomb.gif'; break;
+                     case 'jok': imageFile = 'jok.png'; break;
+                     case 'hihi': imageFile = 'hihi.png'; break;
+                     case 'min': imageFile = '1min.png'; break;
+                     default: imageFile = `${type}.png`;
+                 }
+                 
+                 piece.style.backgroundImage = `url('../images/${imageFile}')`;
+                 piece.style.backgroundPosition = 'center';
+                 piece.style.backgroundSize = 'contain';
+                 
+                 // Hide special boxes initially - they should only appear when pulled
+                 piece.style.display = 'none';
+                 
+                 document.getElementById('gameBoard').appendChild(piece);
+                 this.specialBoxes.push(piece);
+                 this.pieceLocations.push({ x: -1, y: 0 });
+             }
             
             setupEventListeners() {
                 document.addEventListener('keydown', (e) => this.handleKeyDown(e));
@@ -424,6 +427,13 @@
                          e.preventDefault();
                          this.debugShowFirstPiece();
                          break;
+                     case ' ':
+                        e.preventDefault();
+                        if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
+                            this.pullElement();
+                        }
+                        break;
+                         
                 }
             }
             
