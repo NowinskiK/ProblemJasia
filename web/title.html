@@ -150,16 +150,24 @@
         // --- Film Roll Animation ---
         const filmRoll = document.getElementById('filmRoll');
         let x = 0;
+        // vertical position for the film roll (px)
+        let filmY = 0;
+        const filmSpeedY = 4; // pixels per tick (was 4)
+        const imageHeight = 802; // single image height in px
         function animateFilmRoll() {
             const container = document.getElementById('container');
             const minBoundary = 20;
             const maxBoundary = container.offsetWidth - filmRoll.offsetWidth - 30;
             const posX = (Math.sin(x) + 1) / 2;
             const locX = posX * (maxBoundary - minBoundary) + minBoundary;
-            let newY = filmRoll.offsetTop - 4;
-            if (newY + container.offsetHeight < 0) newY = 0;
+            // move up
+            filmY -= filmSpeedY;
+            // when we've scrolled more than a single image, reset to 0
+            if (filmY <= -imageHeight) {
+                filmY = 0;
+            }
             filmRoll.style.left = locX + "px";
-            filmRoll.style.top = newY + "px";
+            filmRoll.style.top = filmY + "px";
             x = (x + (Math.PI * 2 / 100)) % (Math.PI * 2);
         }
 
