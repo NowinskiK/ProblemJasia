@@ -61,8 +61,7 @@
             border: 1px solid #888;
             cursor: pointer;
             transition: all 0.1s ease;
-            background-size: cover;
-            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .puzzlePiece:hover {
@@ -421,10 +420,14 @@
                         e.preventDefault();
                         this.toggleControls();
                         break;
-                    case 'Escape':
-                        e.preventDefault();
-                        this.exitGame();
-                        break;
+                                         case 'Escape':
+                         e.preventDefault();
+                         this.exitGame();
+                         break;
+                     case '1':
+                         e.preventDefault();
+                         this.debugShowFirstPiece();
+                         break;
                 }
             }
             
@@ -806,11 +809,36 @@
                  for (let i = 0; i < 20; i++) {
                      const piece = this.pieces[i];
                      piece.style.backgroundImage = `url('../src/Resources/img_level_${this.level.toString().padStart(2, '0')}.png')`;
+                     piece.style.backgroundSize = '512px 640px'; // Full image size
                      piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
+                     piece.style.backgroundRepeat = 'no-repeat';
+                     //console.log(`Piece ${i}: background-position: ${piece.style.backgroundPosition}`);
                  }
                  
                  // Update level info display
                  document.getElementById('levelInfo').textContent = `Level ${this.level}`;
+             }
+             
+             debugShowFirstPiece() {
+                 // Show the first puzzle piece (index 0) for debugging
+                 const firstPiece = this.pieces[0];
+                 if (firstPiece) {
+                     // Position it at the top-left corner of the game board
+                     firstPiece.style.left = '0px';
+                     firstPiece.style.top = '0px';
+                     firstPiece.style.display = 'block';
+                     
+                     // Update the piece location
+                     this.pieceLocations[0] = { x: 0, y: 0 };
+                     
+                     console.log('Debug: First piece displayed at position (0,0)');
+                     console.log('Piece background image:', firstPiece.style.backgroundImage);
+                     console.log('Piece background position:', firstPiece.style.backgroundPosition);
+                     
+                     // Update the selector to show it's working
+                     this.updateSelector();
+                     this.updateScore();
+                 }
              }
             
             showMessage(message, context) {
