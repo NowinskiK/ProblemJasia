@@ -660,7 +660,7 @@
                  this.showCompleteImage();
                  
                  // Play level-specific music first
-                 this.playMusic(`pj_level_${this.level.toString().padStart(2, '0')}`);
+                 this.playMusic(`level_${this.level.toString().padStart(2, '0')}`);
                  
                  setTimeout(() => {
                      this.scatterPieces();
@@ -670,7 +670,7 @@
                      
                      // Switch to ingame music after welcome message finishes scrolling
                      setTimeout(() => {
-                         this.playMusic('pj_ingame');
+                         this.playMusic('ingame');
                      }, 2000);
                  }, 2000);
              }
@@ -773,7 +773,7 @@
             
             playMusic(track) {
                 const audio = document.getElementById('bgMusic');
-                audio.src = `../music/${track}.mp3`;
+                audio.src = `../music/pj_${track}.mp3`;
                 audio.loop = track === 'ingame';
                 var text = `Music ${track} playback failed:`
                 audio.play().catch(e => console.log(text, e));
@@ -904,7 +904,7 @@
                               "I w ten sposób Jasio zdobył serce Małgosi. " +
                               "Szkoda, że brat Jasia zginął tak brutalnie...";
                 this.showMessage(message, 'completed');
-                this.playMusic('pj_win');
+                                 this.playMusic('win');
             }
             
             exitGame() {
