@@ -406,10 +406,6 @@
                             this.moveSelector(1, 0);
                         }
                         break;
-                    case ' ':
-                        e.preventDefault();
-                        this.togglePause();
-                        break;
                     case 'm':
                     case 'M':
                         e.preventDefault();
@@ -440,43 +436,52 @@
             }
             
             moveSelector(dx, dy) {
-                const newX = this.selectorX + dx;
-                const newY = this.selectorY + dy;
-                
-                // Boundary checks
-                if (newX >= -1 && newX < this.boardWidth && 
-                    newY >= 0 && newY < this.boardHeight) {
-                    this.selectorX = newX;
-                    this.selectorY = newY;
-                    this.updateSelector();
-                    this.updateHint();
-                }
-            }
+                 const newX = this.selectorX + dx;
+                 const newY = this.selectorY + dy;
+                 
+                 // Boundary checks
+                 if (newX >= -1 && newX < this.boardWidth && 
+                     newY >= 0 && newY < this.boardHeight) {
+                     
+                     // Special case: x=-1 is only allowed when y=0 (special box area)
+                     if (newX === -1 && newY !== 0) {
+                         return; // Don't allow movement to x=-1 unless y=0
+                     }
+                     
+                     this.selectorX = newX;
+                     this.selectorY = newY;
+                     this.updateSelector();
+                     this.updateHint();
+                 }
+                 console.log(`moveSelector: ${this.selectorX}, ${this.selectorY}`);
+             }
             
             updateSelector() {
-                const selector = document.getElementById('selector');
-                const board = document.getElementById('gameBoard');
-                const boardRect = board.getBoundingClientRect();
-                
-                let x = this.selectorX;
-                let y = this.selectorY;
-                
-                if (x === -1) {
-                    x = -0.25; // Slightly offset for visual effect
-                }
-                
-                selector.style.left = (x * this.pieceSize) + 'px';
-                selector.style.top = (y * this.pieceSize) + 'px';
-                
-                // Update selector appearance
-                if (x >= 0 && this.getPieceAt(x, y) !== null) {
-                    selector.style.borderColor = '#ffa8a8';
-                } else if (x === -1 && this.isBoxLocked) {
-                    selector.style.borderColor = '#ff4444';
-                } else {
-                    selector.style.borderColor = '#a8ffa8';
-                }
-            }
+                 const selector = document.getElementById('selector');
+                 const board = document.getElementById('gameBoard');
+                 const boardRect = board.getBoundingClientRect();
+                 
+                 let x = this.selectorX;
+                 let y = this.selectorY;
+                 
+                 if (x === -1) {
+                     // Position selector to the left of the game board for the special box area
+                     selector.style.left = '-160px';
+                 } else {
+                     selector.style.left = (x * this.pieceSize) + 'px';
+                 }
+                 
+                 selector.style.top = (y * this.pieceSize) + 'px';
+                 
+                 // Update selector appearance
+                 if (x >= 0 && this.getPieceAt(x, y) !== null) {
+                     selector.style.borderColor = '#ffa8a8';
+                 } else if (x === -1 && this.isBoxLocked) {
+                     selector.style.borderColor = '#ff4444';
+                 } else {
+                     selector.style.borderColor = '#a8ffa8';
+                 }
+             }
             
             pushElement(x, y, dx, dy) {
                 if (x < 0) return;
