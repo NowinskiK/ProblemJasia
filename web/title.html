@@ -68,9 +68,13 @@
         #filmRoll {
             position: absolute;
             width: 80px;
-            height: auto;
+            height: 1604px;
             top: 0;
             left: 20px;
+            background-image: url('../images/film_roll.png');
+            background-repeat: repeat-y;
+            background-position: 0 0;
+            background-size: contain;
             transition: left 0.1s linear;
         }
         #version {
@@ -87,7 +91,7 @@
         <div id="scrollViewport">
             <div id="scrollText"></div>
         </div>
-        <img id="filmRoll" src="../images/film_roll.png" alt="Film Roll">
+        <div id="filmRoll"></div>
         <div id="version"></div>
         <audio id="bgMusic" loop preload="auto">
           <source src="../music/pj_title.mp3" type="audio/mpeg">
