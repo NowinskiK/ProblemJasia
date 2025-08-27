@@ -198,6 +198,15 @@
             if (e.key === "Enter" || e.key === " ") {
                 alert("Game Start!"); // Replace with actual navigation
             }
+            if (e.key === "M" || e.key === "m") {
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(error => {
+                        console.log("Audio playback failed:", error);
+                    });
+                } else {
+                    bgMusic.pause();
+                }
+            }
         });
 
         // --- Prevent Text Selection ---
