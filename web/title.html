@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem Jasia Retro</title>
+    <style>
+
+        @font-face {
+            font-family: 'Cascadia Code';
+            src: local('Cascadia Code'), local('CascadiaCode'),
+                url('../fonts/CascadiaCode.woff2') format('woff2'),
+                url('../fonts/CascadiaCode.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Cascadia Code';
+            src: local('Cascadia Code Bold'), local('CascadiaCode-Bold'),
+                url('../fonts/CascadiaCode-Bold.woff2') format('woff2'),
+                url('../fonts/CascadiaCode-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            background: #222;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+        }
+        #container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin: 40px auto;
+            background: #333 url('../images/title_336x240_clean.png') center center no-repeat;
+            background-size: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 24px #111;
+            overflow: hidden;
+        }
+        #scrollViewport {
+            position: absolute;
+            left: 0;
+            top: 265px;
+            width: 100%;
+            height: 90px;
+            box-sizing: border-box;
+            padding: 0 16px;
+            overflow: hidden;
+        }
+        #scrollText {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            font-size: 1.2em;
+            line-height: 1.4em;
+            white-space: pre-line;
+            user-select: none;
+            text-align: center;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            color: #a8ffa8;
+        }
+        #filmRoll {
+            position: absolute;
+            width: 80px;
+            height: 802px;
+            top: 500px;
+            left: 20px;
+            transition: left 0.1s linear;
+        }
+        #version {
+            position: absolute;
+            right: 24px;
+            bottom: 16px;
+            font-size: 1em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="scrollViewport">
+            <div id="scrollText"></div>
+        </div>
+        <img id="filmRoll" src="../images/film_roll.png" alt="Film Roll">
+        <div id="version"></div>
+        <!-- <audio id="bgMusic" src="../music/pj_title.mp3" loop></audio> -->
+        <audio id="bgMusic">
+          <source src="../music/pj_title.mp3" type="audio/mpeg">
+        </audio>
+        
+    </div>
+    <script>
+        // --- Title Scroll Text ---
+        const scrollText = document.getElementById('scrollText');
+        // Replace with your actual scroll text
+        const titleScroll = `
+
+
+
+Co za kłopot !!!
+Mały Jasio chce
+zrobić Małgosi prezent
+na urodziny.
+Małgosia właśnie skończyła
+dziesięć lat i jest już 
+dorosła !!!
+Z tej okazji mały Jasio zakupił
+w sklepie aż 12 plakatów,
+zapłacił za nie 960000 złotych.
+Wrócił do domu, schował plakaty
+i wyszedł kupić kwiatki.
+Ale od czego się ma
+młodszych braci?
+Malutki Kazio wrócił z podwórka
+i znalazł plakaty Jasia.
+Następnie jego dziki wzrok
+zatrzymał się na stole,
+na którym leżały wielkie 
+nożyce.
+Co było dalej?
+Lepiej nie pytać.
+Jasio ma teraz dużo pracy.
+(z Kaziem już sobie poradził)
+Musi posklejać plakaty,
+aby Małgosia była zadowolona.
+Sam na pewno nie da rady.
+Ty musisz mu pomóc.
+A że Jaś jest leniem, będzie
+siedział z założonymi rękoma
+i patrzył, jak Ci idzie.
+Czasami podrzuci jakieś słówko.
+
+Pamiętaj, Jaś liczy na Ciebie!
+
+Teraz garść informacji
+
+--- Oryginalna wersja (ATARI) ---
+
+Program napisany w Action!
+
+Grafika:
+De luxe paint II
+Touch-up + skaner Golden Image
+(obydwa na amigę)
+
+Dźwięk:
+Chaos Music Composer ver. 2.0
+
+Jakby się ktoś pytał, to te 
+programy mam oryginalne.
+
+Jakub Husak
+*
+
+--- Nowa edycja gry na PC ---
+
+Program napisany w C#.
+Cały kod jest open-source na GitHub:
+github.com/NowinskiK/ProblemJasia
+
+Grafika:
+Oryginalna lub w trybie Hi-Res.
+Nowe obrazki (Hi-Res) na licencji
+Public Domain lub
+zakupione specjalnie na tę okazję.
+Wydałem całe £39, a co...
+Jak się bawić to na całego!
+
+Dźwięk:
+Przekonwertowany do MP3
+za pomocą asapconv
+Brzmi dużo lepiej niż 
+na niektórych emulatorach!
+
+Wielkie dzięki dla 
+Jakuba Husaka
+za pomoc przy tworzeniu tego remake'a
+
+Kamil Nowiński
+
+
+*        
+
+        `.toUpperCase();
+
+        scrollText.textContent = titleScroll;
+
+        // --- Scroll Animation ---
+        let scrollY = 0;
+        const scrollSpeed = 0.50; // pixels per tick
+        function animateScroll() {
+            scrollY -= scrollSpeed;
+            scrollText.style.top = scrollY + "px";
+            // Reset when scrolled out
+            if (scrollText.offsetHeight + scrollY < 0) {
+                scrollY = 0;
+            }
+        }
+
+        // --- Film Roll Animation ---
+        const filmRoll = document.getElementById('filmRoll');
+        let x = 0;
+        function animateFilmRoll() {
+            const container = document.getElementById('container');
+            const minBoundary = 20;
+            const maxBoundary = container.offsetWidth - filmRoll.offsetWidth - 30;
+            const posX = (Math.sin(x) + 1) / 2;
+            const locX = posX * (maxBoundary - minBoundary) + minBoundary;
+            let newY = filmRoll.offsetTop - 4;
+            if (newY + container.offsetHeight < 0) newY = 0;
+            filmRoll.style.left = locX + "px";
+            filmRoll.style.top = newY + "px";
+            x = (x + (Math.PI * 2 / 100)) % (Math.PI * 2);
+        }
+
+        // --- Version Display ---
+        document.getElementById('version').textContent = "ver.1.0.0"; // Replace with dynamic version if needed
+
+        // --- Music Playback ---
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.load(); // Ensure audio is loaded
+
+        function tryPlayMusic() {
+            bgMusic.volume = 1.0;
+            bgMusic.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+        }
+
+        // Add click-to-start functionality
+        document.addEventListener('click', tryPlayMusic, { once: true });
+        document.addEventListener('keydown', tryPlayMusic, { once: true });
+
+
+        // --- Keyboard Controls ---
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                window.close(); // May not work in browsers, but can be customized
+            }
+            if (e.key === "Enter" || e.key === " ") {
+                alert("Game Start!"); // Replace with actual navigation
+            }
+        });
+
+        // --- Prevent Text Selection ---
+        scrollText.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            window.getSelection().removeAllRanges();
+        });
+
+        // --- Main Animation Loop ---
+        setInterval(() => {
+            animateScroll();
+            animateFilmRoll();
+        }, 30);
+    </script>
+</body>
+</html>
