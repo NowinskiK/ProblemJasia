@@ -227,12 +227,28 @@
         .levelComplete {
             background: rgba(0, 255, 0, 0.3) !important;
         }
+        
+        #redArrow {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+            width: 128px;
+            height: 128px;
+            left: -166px;
+            top: 4px;
+            background-image: url('../images/red_arrow.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div id="gameContainer">
         <div id="gameBoard">
             <div id="selector"></div>
+            <div id="redArrow"></div>
         </div>
         
         <div id="hintPanel">
@@ -376,6 +392,13 @@
             handleKeyDown(e) {
                 if (!this.canPlay || this.isPaused) return;
                 
+                if (this.selectorX === -1) {
+                    if (e.ctrlKey) {
+                        this.pullElement();
+                        return;
+                    } 
+                } 
+
                 switch(e.key) {
                     case 'ArrowUp':
                         e.preventDefault();
@@ -404,12 +427,9 @@
                     case 'ArrowRight':
                          e.preventDefault();
                          if (e.ctrlKey) {
-                             if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
-                                 this.pullElement();
-                             }
-                             this.pushElement(this.selectorX, this.selectorY, 1, 0);
+                            this.pushElement(this.selectorX, this.selectorY, 1, 0);
                          } else {
-                                 this.moveSelector(1, 0);
+                            this.moveSelector(1, 0);
                          }
                          break;
                     case 'm':
@@ -490,18 +510,17 @@
              }
             
             pushElement(x, y, dx, dy) {
-                if (x < 0) return;
-                
+                var MinAllowX = -1;
+                if (this.isBoxLocked || y > 0) { MinAllowX = 0; }
                 const newX = x + dx;
                 const newY = y + dy;
-                
+                //const text = `pushElement(${x},${y},${dx},${dy}), MinAllowX = ${MinAllowX}, isBoxLocked = ${this.isBoxLocked}`
+                //console.log(text)
+
                 // Allow pushing to special box area (-1, 0) only from first row (y=0) and only when moving left
-                if (newX < -1 || newX >= this.boardWidth || 
+                if (newX < MinAllowX || newX >= this.boardWidth || 
                     newY < 0 || newY >= this.boardHeight) return;
-                
-                // Special case: only allow pushing to (-1, 0) from first row when moving left
-                if (newX === -1 && (newY !== 0 || dy !== 0)) return;
-                
+
                 if (this.isLocationFree(newX, newY)) {
                     const piece = this.getPieceAt(x, y);
                     if (piece !== null) {
@@ -515,41 +534,22 @@
             }
             
             pullElement() {
-                if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
-                    // Check if position (0,0) is free
-                    if (this.isLocationFree(0, 0)) {
-                        const piece = this.getRandomPiece();
-                        if (piece !== null) {
-                            // Move piece to (0,0) first
-                            this.movePiece(piece, 0, 0);
-                            
-                            // Then push it to the right until it hits another piece
-                            this.pushPieceToRight(piece);
-                            
-                            this.checkSpecialBox(piece.dataset.type);
+                if (this.selectorX === -1 && this.selectorY === 0) {
+                    const piece = this.getRandomPiece();
+                    if (piece !== null) {
+                        for (let i = 0; i < 4; i++) {
+                            if (this.isLocationFree(i, 0)) {
+                                this.movePiece(piece, i, 0);
+                                this.setBoxLocked(false);
+                            } else {
+                                break;
+                            }
                         }
+                        this.checkSpecialBox(piece.dataset.type);
                     }
                 }
             }
             
-            pushPieceToRight(piece) {
-                const index = parseInt(piece.dataset.index);
-                const currentY = this.pieceLocations[index].y;
-                let currentX = 0;
-                let nextX = 1;
-                
-                // Keep moving right until we hit a piece or reach the board edge
-                while (nextX < this.boardWidth && this.isLocationFree(nextX, currentY)) {
-                    currentX = nextX;
-                    nextX++;
-                }
-                
-                // Move the piece to the final available position
-                if (currentX > 0) {
-                    this.movePiece(piece, currentX, currentY);
-                }
-            }
-
             getRandomPiece() {
                 const availablePieces = this.pieces.filter(p => !p.style.display || p.style.display === 'none');
                 if (availablePieces.length === 0) return null;
@@ -616,8 +616,8 @@
                     this.pieceLocations[index1] = this.pieceLocations[index2];
                     this.pieceLocations[index2] = tempLoc;
                     
-                    // Update isBoxLocked after swapping pieces
-                    this.isBoxLocked = this.getPieceAt(0, 0) !== null;
+                                         // Update isBoxLocked after swapping pieces
+                     this.setBoxLocked(this.getPieceAt(0, 0) !== null);
                 }
             }
             
@@ -626,6 +626,7 @@
                 this.pieceLocations[index] = { x, y };
                 
                 if (x < 0) {
+                    this.setBoxLocked(true);
                     piece.style.display = 'none';
                     if (piece.dataset.type === 'bomb') {
                         this.stopBombTimer();
@@ -636,15 +637,20 @@
                     piece.style.display = 'block';
                 }
                 
-                // Update isBoxLocked whenever a piece is moved
-                this.isBoxLocked = this.getPieceAt(0, 0) !== null;
-                
                 this.updateSelector();
                 this.updateScore();
             }
             
             isLocationFree(x, y) {
-                return !this.pieceLocations.some(loc => loc.x === x && loc.y === y);
+                var r = true
+                if (x === -1 && !this.isBoxLocked) { 
+                    r = true; 
+                } 
+                else {
+                    r = !this.pieceLocations.some(loc => loc.x === x && loc.y === y);
+                }
+                //console.log(`isLocationFree(${x},${y}) = ${r}`)
+                return r;
             }
             
             getPieceAt(x, y) {
@@ -698,7 +704,7 @@
             
             startLevel() {
                  this.canPlay = false;
-                 this.isBoxLocked = false;
+                 this.setBoxLocked(false);
                  this.timeRemaining = this.getLevelTime();
                  this.updateTimerDisplay();
                  
@@ -998,6 +1004,15 @@
                               "Szkoda, że brat Jasia zginął tak brutalnie...";
                 this.showMessage(message, 'completed');
                                  this.playMusic('win');
+            }
+            
+            setBoxLocked(locked) {
+                this.isBoxLocked = locked;
+                const redArrow = document.getElementById('redArrow');
+                if (redArrow) {
+                    redArrow.style.display = locked ? 'block' : 'none';
+                }
+                this.updateSelector();
             }
             
             exitGame() {
