@@ -236,7 +236,7 @@
         </div>
         
         <div id="hintPanel">
-            <img id="hintImage" src="" alt="Hint">
+            <img id="hintImage" src="../images/selector.png">
         </div>
         
         <div id="gameInfo">
@@ -402,13 +402,16 @@
                         }
                         break;
                     case 'ArrowRight':
-                        e.preventDefault();
-                        if (e.ctrlKey) {
-                            this.pushElement(this.selectorX, this.selectorY, 1, 0);
-                        } else {
-                            this.moveSelector(1, 0);
-                        }
-                        break;
+                         e.preventDefault();
+                         if (e.ctrlKey) {
+                             if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
+                                 this.pullElement();
+                             }
+                             this.pushElement(this.selectorX, this.selectorY, 1, 0);
+                         } else {
+                                 this.moveSelector(1, 0);
+                         }
+                         break;
                     case 'm':
                     case 'M':
                         e.preventDefault();
@@ -419,21 +422,14 @@
                         e.preventDefault();
                         this.toggleControls();
                         break;
-                                         case 'Escape':
+                    case 'Escape':
                          e.preventDefault();
                          this.exitGame();
                          break;
-                     case '1':
+                    case '1':
                          e.preventDefault();
                          this.debugShowFirstPiece();
                          break;
-                     case ' ':
-                        e.preventDefault();
-                        if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
-                            this.pullElement();
-                        }
-                        break;
-                         
                 }
             }
             
@@ -463,7 +459,7 @@
                      this.updateSelector();
                      this.updateHint();
                  }
-                 console.log(`moveSelector: ${this.selectorX}, ${this.selectorY}`);
+                 //console.log(`moveSelector: ${this.selectorX}, ${this.selectorY}`);
              }
             
             updateSelector() {
@@ -499,8 +495,12 @@
                 const newX = x + dx;
                 const newY = y + dy;
                 
-                if (newX < 0 || newX >= this.boardWidth || 
+                // Allow pushing to special box area (-1, 0) only from first row (y=0) and only when moving left
+                if (newX < -1 || newX >= this.boardWidth || 
                     newY < 0 || newY >= this.boardHeight) return;
+                
+                // Special case: only allow pushing to (-1, 0) from first row when moving left
+                if (newX === -1 && (newY !== 0 || dy !== 0)) return;
                 
                 if (this.isLocationFree(newX, newY)) {
                     const piece = this.getPieceAt(x, y);
@@ -516,15 +516,40 @@
             
             pullElement() {
                 if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
-                    const piece = this.getRandomPiece();
-                    if (piece !== null) {
-                        this.movePiece(piece, 0, 0);
-                        this.isBoxLocked = true;
-                        this.checkSpecialBox(piece.dataset.type);
+                    // Check if position (0,0) is free
+                    if (this.isLocationFree(0, 0)) {
+                        const piece = this.getRandomPiece();
+                        if (piece !== null) {
+                            // Move piece to (0,0) first
+                            this.movePiece(piece, 0, 0);
+                            
+                            // Then push it to the right until it hits another piece
+                            this.pushPieceToRight(piece);
+                            
+                            this.checkSpecialBox(piece.dataset.type);
+                        }
                     }
                 }
             }
             
+            pushPieceToRight(piece) {
+                const index = parseInt(piece.dataset.index);
+                const currentY = this.pieceLocations[index].y;
+                let currentX = 0;
+                let nextX = 1;
+                
+                // Keep moving right until we hit a piece or reach the board edge
+                while (nextX < this.boardWidth && this.isLocationFree(nextX, currentY)) {
+                    currentX = nextX;
+                    nextX++;
+                }
+                
+                // Move the piece to the final available position
+                if (currentX > 0) {
+                    this.movePiece(piece, currentX, currentY);
+                }
+            }
+
             getRandomPiece() {
                 const availablePieces = this.pieces.filter(p => !p.style.display || p.style.display === 'none');
                 if (availablePieces.length === 0) return null;
@@ -590,6 +615,9 @@
                     const tempLoc = this.pieceLocations[index1];
                     this.pieceLocations[index1] = this.pieceLocations[index2];
                     this.pieceLocations[index2] = tempLoc;
+                    
+                    // Update isBoxLocked after swapping pieces
+                    this.isBoxLocked = this.getPieceAt(0, 0) !== null;
                 }
             }
             
@@ -607,6 +635,9 @@
                     piece.style.top = (y * this.pieceSize) + 'px';
                     piece.style.display = 'block';
                 }
+                
+                // Update isBoxLocked whenever a piece is moved
+                this.isBoxLocked = this.getPieceAt(0, 0) !== null;
                 
                 this.updateSelector();
                 this.updateScore();
@@ -743,14 +774,33 @@
                 document.getElementById('score').textContent = `Pieces: ${visiblePieces}/20`;
             }
             
-                         updateHint() {
+            updateHint() {
                  const hintPanel = document.getElementById('hintPanel');
                  const piece = this.getPieceAt(this.selectorX, this.selectorY);
                  
                  if (piece && this.selectorX >= 0) {
-                     hintPanel.style.display = 'block';
-                     // Show hint image for current level
-                     document.getElementById('hintImage').src = `../src/Resources/img_level_${this.level.toString().padStart(2, '0')}.png`;
+                     // Position the hintImage according to the C# logic:
+                     // new Point(HINT_LOCATION.X + (panel1.Width + 10) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
+                     const hintPanel = document.getElementById('hintPanel');
+                     const HINT_PANEL_WIDTH = 32;  // width of hintImage
+                     const HINT_PANEL_HEIGHT = 32; // height of hintImage
+                     const HINT_LOCATION_X = 456;
+                     const HINT_LOCATION_Y = 512;
+                     const box = parseInt(piece.dataset.index);
+
+                     // Calculate position
+                     const left = HINT_LOCATION_X + (HINT_PANEL_WIDTH + 10) * (box % 4);
+                     const top = HINT_LOCATION_Y + (HINT_PANEL_HEIGHT + 2) * Math.floor(box / 4);
+
+                     hintPanel.style.display = 'inline-block';
+                     hintPanel.style.width = HINT_PANEL_WIDTH + 'px';
+                     hintPanel.style.height = HINT_PANEL_HEIGHT + 'px';
+                     hintPanel.style.background = 'green'; // Example color, can be dynamic
+                     hintPanel.style.border = '2px solid #888';
+                     hintPanel.style.borderRadius = '0px';
+                     hintPanel.style.position = 'absolute';
+                     hintPanel.style.left = left + 'px';
+                     hintPanel.style.top = top + 'px';
                  } else {
                      hintPanel.style.display = 'none';
                  }
