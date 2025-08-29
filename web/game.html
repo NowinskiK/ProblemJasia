@@ -74,6 +74,22 @@
             box-shadow: 0 0 12px #ffa8a8;
         }
 
+        .specialBox {
+            display: inline-block;
+            width: 128px;
+            height: 128px;
+            margin: 0px;
+            border: 1px solid #666;
+            border-radius: 0px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .specialBox.bomb { border-color: #ff4444; }
+        .specialBox.jok { border-color: #44ff44; }
+        .specialBox.hihi { border-color: #4444ff; }
+        .specialBox.min { border-color: #ffff44; }
+
         #selector {
             position: absolute;
             width: 128px;
@@ -130,10 +146,10 @@
 
         #messagePanel {
             position: absolute;
-            left: 5px;
-            top: 55%;
+            left: 40px;
+            top: 437px;
             transform: translateY(-50%);
-            width: 48%;
+            width: 44%;
             height: 30px;
             background: rgba(0, 0, 0, 0.9);
             display: none;
@@ -148,7 +164,7 @@
         .scrollingMessage {
             position: absolute;
             white-space: nowrap;
-            animation: scrollRightToLeft 2s linear;
+            animation: scrollRightToLeft 3s linear;
             animation-fill-mode: forwards;
         }
         
@@ -203,22 +219,6 @@
             border-radius: 8px;
             display: none;
         }
-
-        .specialBox {
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            margin: 5px;
-            border: 2px solid #666;
-            border-radius: 4px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .specialBox.bomb { border-color: #ff4444; }
-        .specialBox.jok { border-color: #44ff44; }
-        .specialBox.hihi { border-color: #4444ff; }
-        .specialBox.min { border-color: #ffff44; }
 
         .gameOver {
             background: rgba(255, 0, 0, 0.3) !important;
@@ -377,7 +377,8 @@
                  piece.style.display = 'none';
                  
                  document.getElementById('gameBoard').appendChild(piece);
-                 this.specialBoxes.push(piece);
+                 //this.specialBoxes.push(piece);
+                 this.pieces.push(piece);
                  this.pieceLocations.push({ x: -1, y: 0 });
              }
             
@@ -450,6 +451,18 @@
                          e.preventDefault();
                          this.debugShowFirstPiece();
                          break;
+                    case 'W':
+                        this.completeLevel();
+                        break;
+                    case 'F':
+                        this.gameOver('User request');
+                        break;
+                    case 'J':
+                        this.pullElement(21);
+                        break;
+                    case 'B':
+                        this.pullElement(20);
+                        break;
                 }
             }
             
@@ -533,9 +546,9 @@
                 this.checkLevelComplete();
             }
             
-            pullElement() {
+            pullElement(r=-1) {
                 if (this.selectorX === -1 && this.selectorY === 0) {
-                    const piece = this.getRandomPiece();
+                    const piece = this.getRandomPiece(r);
                     if (piece !== null) {
                         for (let i = 0; i < 4; i++) {
                             if (this.isLocationFree(i, 0)) {
@@ -550,11 +563,19 @@
                 }
             }
             
-            getRandomPiece() {
+            getRandomPiece(r=-1) {
+                if (r >= 0) { return this.pieces[r]; }
+
+                var i = Math.random()*200;  // creates a number between 0 and 199
+                console.log(i)
+                if (i == 199) { return this.pieces[22]; }  //jok  1/200
+                if (i >= 196) { return this.pieces[21]; }  //hihi 3/200
+                if (i >= 193) { return this.pieces[23]; }  //1min 3/200
+
                 const availablePieces = this.pieces.filter(p => !p.style.display || p.style.display === 'none');
                 if (availablePieces.length === 0) return null;
                 
-                const randomIndex = Math.floor(Math.random() * availablePieces.length);
+                const randomIndex = Math.floor(Math.random() * (availablePieces.length - 3));
                 return availablePieces[randomIndex];
             }
             
@@ -615,9 +636,6 @@
                     const tempLoc = this.pieceLocations[index1];
                     this.pieceLocations[index1] = this.pieceLocations[index2];
                     this.pieceLocations[index2] = tempLoc;
-                    
-                                         // Update isBoxLocked after swapping pieces
-                     this.setBoxLocked(this.getPieceAt(0, 0) !== null);
                 }
             }
             
@@ -672,6 +690,7 @@
                     }
                 }
                 
+                //console.log(`correctPieces = ${correctPieces}`)
                 if (correctPieces === 20) {
                     this.completeLevel();
                 }
@@ -680,7 +699,10 @@
             completeLevel() {
                 this.canPlay = false;
                 this.stopBombTimer();
+                this.showCompleteImage();
+
                 this.showMessage(this.getLevelCompleteMessage(), 'nextLevel');
+                this.playMusic('next');
                 
                 setTimeout(() => {
                     this.level++;
@@ -689,17 +711,18 @@
                     } else {
                         this.startLevel();
                     }
-                }, 2000);
+                }, 5000);
             }
             
             gameOver(reason) {
                 this.canPlay = false;
                 this.stopBombTimer();
                 this.showMessage(this.getGameOverMessage(), 'gameOver');
-                
+                this.playMusic('failed');
+
                 setTimeout(() => {
-                    this.restartLevel();
-                }, 3000);
+                    this.exitGame();
+                }, 8000);
             }
             
             startLevel() {
@@ -718,16 +741,16 @@
                  this.playMusic(`level_${this.level.toString().padStart(2, '0')}`);
                  
                  setTimeout(() => {
-                     this.scatterPieces();
-                     this.canPlay = true;
                      // Keep level music playing during welcome message
                      this.showMessage(this.getWelcomeMessage(), '');
                      
                      // Switch to ingame music after welcome message finishes scrolling
                      setTimeout(() => {
                          this.playMusic('ingame');
-                     }, 2000);
-                 }, 2000);
+                         this.scatterPieces();
+                         this.canPlay = true;
+                     }, 5000);
+                 }, 200);
              }
             
             showCompleteImage() {
@@ -848,8 +871,8 @@
             playMusic(track) {
                 const audio = document.getElementById('bgMusic');
                 audio.src = `../music/pj_${track}.mp3`;
-                audio.loop = track === 'ingame';
-                var text = `Music ${track} playback failed:`
+                audio.loop = (track === 'ingame' || track === 'win');
+                var text = `Music "${track}" playback failed:`
                 audio.play().catch(e => console.log(text, e));
             }
             
@@ -879,7 +902,8 @@
                  // Update the background image for each puzzle piece to match the current level
                  for (let i = 0; i < 20; i++) {
                      const piece = this.pieces[i];
-                     piece.style.backgroundImage = `url('../src/Resources/img_level_${this.level.toString().padStart(2, '0')}.png')`;
+                     const h = 'h'
+                     piece.style.backgroundImage = `url('../src/Resources/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
                      piece.style.backgroundSize = '512px 640px'; // Full image size
                      piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
                      piece.style.backgroundRepeat = 'no-repeat';
@@ -919,26 +943,16 @@
                 messagePanel.innerHTML = '';
                 messagePanel.style.display = 'flex';
                 
-                if (context === 'nextLevel') {
-                    messagePanel.classList.add('levelComplete');
-                    // Regular centered message for level complete
-                    messagePanel.textContent = message;
-                } else if (context === 'gameOver') {
-                    messagePanel.classList.add('gameOver');
-                    // Regular centered message for game over
-                    messagePanel.textContent = message;
-                } else {
-                    // Scrolling message for welcome messages
-                    const scrollingText = document.createElement('div');
-                    scrollingText.className = 'scrollingMessage';
-                    scrollingText.textContent = message;
-                    messagePanel.appendChild(scrollingText);
-                    
-                    // Hide the message panel completely after animation completes
-                    setTimeout(() => {
-                        messagePanel.style.display = 'none';
-                    }, 2000);
-                }
+                // Scrolling message for welcome messages
+                const scrollingText = document.createElement('div');
+                scrollingText.className = 'scrollingMessage';
+                scrollingText.textContent = message;
+                messagePanel.appendChild(scrollingText);
+                
+                // Hide the message panel completely after animation completes
+                setTimeout(() => {
+                    messagePanel.style.display = 'none';
+                }, 4000);
             }
             
             getWelcomeMessage() {
@@ -1016,9 +1030,7 @@
             }
             
             exitGame() {
-                if (confirm('Are you sure you want to exit?')) {
-                    window.location.href = 'title.html';
-                }
+                window.location.href = 'title.html';
             }
         }
         
