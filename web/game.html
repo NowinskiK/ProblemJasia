@@ -37,7 +37,7 @@
             width: 1280px;
             height: 800px;
             margin: 0px auto;
-            background: #333 url('../images/background-1280px.png') center center no-repeat;
+            background: #333 url('./images/background-1280px.png') center center no-repeat;
             background-size: cover;
             border-radius: 2px;
             /*box-shadow: 0 0 24px #111;*/
@@ -236,7 +236,7 @@
             height: 128px;
             left: -166px;
             top: 4px;
-            background-image: url('../images/red_arrow.png');
+            background-image: url('./images/red_arrow.png');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -252,7 +252,7 @@
         </div>
         
         <div id="hintPanel">
-            <img id="hintImage" src="../images/selector.png">
+            <img id="hintImage" src="./images/selector.png">
         </div>
         
         <div id="gameInfo">
@@ -278,16 +278,16 @@
         
         <div id="specialBoxes">
             <h3>Special Elements</h3>
-            <div class="specialBox bomb" title="Bomb - 2 second fuse" style="background-image: url('../images/bomb.gif'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
-            <div class="specialBox jok" title="Jok - Instant level complete" style="background-image: url('../images/jok.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
-            <div class="specialBox hihi" title="Hihi - Swap two pieces" style="background-image: url('../images/hihi.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
-            <div class="specialBox min" title="1min - Add 60 seconds" style="background-image: url('../images/1min.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
+            <div class="specialBox bomb" title="Bomb - 2 second fuse" style="background-image: url('./images/bomb.gif'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
+            <div class="specialBox jok" title="Jok - Instant level complete" style="background-image: url('./images/jok.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
+            <div class="specialBox hihi" title="Hihi - Swap two pieces" style="background-image: url('./images/hihi.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
+            <div class="specialBox min" title="1min - Add 60 seconds" style="background-image: url('./images/1min.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
         </div>
         
         <div id="messagePanel"></div>
         
         <audio id="bgMusic" preload="auto">
-            <source src="../music/pj_ingame.mp3" type="audio/mpeg">
+            <source src="./music/pj_ingame.mp3" type="audio/mpeg">
         </audio>
     </div>
 
@@ -336,7 +336,7 @@
                      piece.dataset.correctY = Math.floor(i / 4);
                      
                      // Set background image for current level
-                     piece.style.backgroundImage = `url('../src/Resources/img_level_${this.level.toString().padStart(2, '0')}.png')`;
+                     piece.style.backgroundImage = `url('./images/level/img_level_${this.level.toString().padStart(2, '0')}.png')`;
                      piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
                      
                      gameBoard.appendChild(piece);
@@ -369,7 +369,7 @@
                      default: imageFile = `${type}.png`;
                  }
                  
-                 piece.style.backgroundImage = `url('../images/${imageFile}')`;
+                 piece.style.backgroundImage = `url('./images/${imageFile}')`;
                  piece.style.backgroundPosition = 'center';
                  piece.style.backgroundSize = 'contain';
                  
@@ -870,7 +870,7 @@
             
             playMusic(track) {
                 const audio = document.getElementById('bgMusic');
-                audio.src = `../music/pj_${track}.mp3`;
+                audio.src = `./music/pj_${track}.mp3`;
                 audio.loop = (track === 'ingame' || track === 'win');
                 var text = `Music "${track}" playback failed:`
                 audio.play().catch(e => console.log(text, e));
@@ -902,8 +902,8 @@
                  // Update the background image for each puzzle piece to match the current level
                  for (let i = 0; i < 20; i++) {
                      const piece = this.pieces[i];
-                     const h = 'h'
-                     piece.style.backgroundImage = `url('../src/Resources/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
+                     const h = ''
+                     piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
                      piece.style.backgroundSize = '512px 640px'; // Full image size
                      piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
                      piece.style.backgroundRepeat = 'no-repeat';
