@@ -303,6 +303,9 @@
                 this.isBoxLocked = false;
                 this.bombFuse = 0;
                 this.bombTimer = null;
+                // Get debug mode from URL parameter "debug"
+                const urlParams = new URLSearchParams(window.location.search);
+                this.debugMode = urlParams.get('debug') === '1';
                 
                 // Game state
                 this.selectorX = -1;
@@ -323,6 +326,16 @@
                 this.createPuzzlePieces();
                 this.setupEventListeners();
                 this.startLevel();
+            }
+
+            log(message, ...args) {
+                if (this.debugMode) {
+                    if (args.length > 0) {
+                        console.log(message, ...args);
+                    } else {
+                        console.log(message);
+                    }
+                }
             }
             
                          createPuzzlePieces() {
@@ -569,7 +582,7 @@
                 if (r >= 0) { return this.pieces[r]; }
 
                 var i = Math.floor(Math.random() * 200);  // creates an integer between 0 and 199
-                console.log(i)
+                this.log(i)
                 if (i == 199) { return this.pieces[21]; }  //jok  1/200
                 if (i >= 196) { return this.pieces[22]; }  //hihi 3/200
                 if (i >= 193) { return this.pieces[23]; }  //1min 3/200
@@ -689,15 +702,15 @@
                     
                     if (loc.x === correctX && loc.y === correctY && piece.style.display !== 'none') {
                         correctPieces++;
-                        console.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
+                        this.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
                     } else if (piece.style.display !== 'none') {
-                        console.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
+                        this.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
                     }
                 }
                 
-                console.log(`Total correct pieces: ${correctPieces}/20`);
+                this.log(`Total correct pieces: ${correctPieces}/20`);
                 if (correctPieces === 20) {
-                    console.log('Level complete! Starting completion sequence...');
+                    this.log('Level complete! Starting completion sequence...');
                     this.completeLevel();
                 }
             }
@@ -879,7 +892,7 @@
                 audio.src = `./music/pj_${track}.mp3`;
                 audio.loop = (track === 'ingame' || track === 'win');
                 var text = `Music "${track}" playback failed:`
-                audio.play().catch(e => console.log(text, e));
+                audio.play().catch(e => this.log(text, e));
             }
             
             pauseMusic() {
@@ -932,9 +945,9 @@
                      // Update the piece location
                      this.pieceLocations[0] = { x: 0, y: 0 };
                      
-                     console.log('Debug: First piece displayed at position (0,0)');
-                     console.log('Piece background image:', firstPiece.style.backgroundImage);
-                     console.log('Piece background position:', firstPiece.style.backgroundPosition);
+                     this.log('Debug: First piece displayed at position (0,0)');
+                     this.log('Piece background image:', firstPiece.style.backgroundImage);
+                     this.log('Piece background position:', firstPiece.style.backgroundPosition);
                      
                      // Update the selector to show it's working
                      this.updateSelector();
