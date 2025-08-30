@@ -568,10 +568,10 @@
             getRandomPiece(r=-1) {
                 if (r >= 0) { return this.pieces[r]; }
 
-                var i = Math.random()*200;  // creates a number between 0 and 199
+                var i = Math.floor(Math.random() * 200);  // creates an integer between 0 and 199
                 console.log(i)
-                if (i == 199) { return this.pieces[22]; }  //jok  1/200
-                if (i >= 196) { return this.pieces[21]; }  //hihi 3/200
+                if (i == 199) { return this.pieces[21]; }  //jok  1/200
+                if (i >= 196) { return this.pieces[22]; }  //hihi 3/200
                 if (i >= 193) { return this.pieces[23]; }  //1min 3/200
 
                 const availablePieces = this.pieces.filter(p => !p.style.display || p.style.display === 'none');
