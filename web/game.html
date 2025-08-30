@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Problem Jasia Retro - Game</title>
@@ -77,10 +78,21 @@
             background-position: center;
         }
 
-        .specialBox.bomb { border-color: #ff4444; }
-        .specialBox.jok { border-color: #44ff44; }
-        .specialBox.hihi { border-color: #4444ff; }
-        .specialBox.min { border-color: #ffff44; }
+        .specialBox.bomb {
+            border-color: #ff4444;
+        }
+
+        .specialBox.jok {
+            border-color: #44ff44;
+        }
+
+        .specialBox.hihi {
+            border-color: #4444ff;
+        }
+
+        .specialBox.min {
+            border-color: #ffff44;
+        }
 
         #selector {
             position: absolute;
@@ -152,19 +164,20 @@
             font-family: 'Cascadia Code', monospace;
             overflow: hidden;
         }
-        
+
         .scrollingMessage {
             position: absolute;
             white-space: nowrap;
             animation: scrollRightToLeft 3s linear;
             animation-fill-mode: forwards;
         }
-        
+
         @keyframes scrollRightToLeft {
             from {
                 left: 100%;
                 transform: translateX(0);
             }
+
             to {
                 left: 0%;
                 transform: translateX(-100%);
@@ -219,7 +232,7 @@
         .levelComplete {
             background: rgba(0, 255, 0, 0.3) !important;
         }
-        
+
         #redArrow {
             position: absolute;
             z-index: 5;
@@ -236,48 +249,59 @@
         }
     </style>
 </head>
+
 <body>
     <div id="gameContainer">
         <div id="gameBoard">
             <div id="selector"></div>
             <div id="redArrow"></div>
         </div>
-        
+
         <div id="hintPanel">
             <img id="hintImage" src="./images/selector.png">
         </div>
-        
+
         <div id="gameInfo">
             <div id="levelInfo">Level 1</div>
             <div id="timer">05:00</div>
             <div id="score">Pieces: 0/20</div>
         </div>
-        
+
         <div id="controls">
             <div class="control-group">
                 <h3>Movement</h3>
-                <span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span class="key">→</span> Move selector
+                <span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span
+                    class="key">→</span> Move selector
             </div>
             <div class="control-group">
                 <h3>Actions</h3>
-                <span class="key">Ctrl</span> + <span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span class="key">→</span> Push pieces<br>
+                <span class="key">Ctrl</span> + <span class="key">↑</span> <span class="key">↓</span> <span
+                    class="key">←</span> <span class="key">→</span> Push pieces<br>
                 <span class="key">Ctrl</span> + <span class="key">Click</span> Pull new piece<br>
                 <span class="key">Space</span> Pause/Resume<br>
                 <span class="key">M</span> Mute/Unmute music<br>
                 <span class="key">Escape</span> Exit
             </div>
         </div>
-        
+
         <div id="specialBoxes">
             <h3>Special Elements</h3>
-            <div class="specialBox bomb" title="Bomb - 2 second fuse" style="background-image: url('./images/bomb.gif'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
-            <div class="specialBox jok" title="Jok - Instant level complete" style="background-image: url('./images/jok.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
-            <div class="specialBox hihi" title="Hihi - Swap two pieces" style="background-image: url('./images/hihi.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
-            <div class="specialBox min" title="1min - Add 60 seconds" style="background-image: url('./images/1min.png'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
+            <div class="specialBox bomb" title="Bomb - 2 second fuse"
+                style="background-image: url('./images/bomb.gif'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+            <div class="specialBox jok" title="Jok - Instant level complete"
+                style="background-image: url('./images/jok.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+            <div class="specialBox hihi" title="Hihi - Swap two pieces"
+                style="background-image: url('./images/hihi.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+            <div class="specialBox min" title="1min - Add 60 seconds"
+                style="background-image: url('./images/1min.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
         </div>
-        
+
         <div id="messagePanel"></div>
-        
+
         <audio id="bgMusic" preload="auto">
             <source src="./music/pj_ingame.mp3" type="audio/mpeg">
         </audio>
@@ -297,22 +321,22 @@
                 // Get debug mode from URL parameter "debug"
                 const urlParams = new URLSearchParams(window.location.search);
                 this.debugMode = urlParams.get('debug') === '1';
-                
+
                 // Game state
                 this.selectorX = -1;
                 this.selectorY = 0;
                 this.pieces = [];
                 this.pieceLocations = [];
                 this.specialBoxes = [];
-                
+
                 // Board dimensions
                 this.boardWidth = 4;
                 this.boardHeight = 5;
                 this.pieceSize = 128;
-                
+
                 this.init();
             }
-            
+
             init() {
                 this.createPuzzlePieces();
                 this.setupEventListeners();
@@ -328,84 +352,84 @@
                     }
                 }
             }
-            
-                         createPuzzlePieces() {
-                 const gameBoard = document.getElementById('gameBoard');
-                 
-                 // Create 20 puzzle pieces (4x5 grid)
-                 for (let i = 0; i < 20; i++) {
-                     const piece = document.createElement('div');
-                     piece.className = 'puzzlePiece';
-                     piece.dataset.index = i;
-                     piece.dataset.correctX = i % 4;
-                     piece.dataset.correctY = Math.floor(i / 4);
-                     
-                     // Set background image for current level
-                     piece.style.backgroundImage = `url('./images/level/img_level_${this.level.toString().padStart(2, '0')}.png')`;
-                     piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
-                     
-                     gameBoard.appendChild(piece);
-                     this.pieces.push(piece);
-                     this.pieceLocations.push({ x: -1, y: 0 }); // Start hidden
-                 }
-                 
-                 // Create special boxes
-                 this.createSpecialBox('bomb', 20);
-                 this.createSpecialBox('jok', 21);
-                 this.createSpecialBox('hihi', 22);
-                 this.createSpecialBox('min', 23);
-                 
-                 this.updateSelector();
-             }
-            
+
+            createPuzzlePieces() {
+                const gameBoard = document.getElementById('gameBoard');
+
+                // Create 20 puzzle pieces (4x5 grid)
+                for (let i = 0; i < 20; i++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'puzzlePiece';
+                    piece.dataset.index = i;
+                    piece.dataset.correctX = i % 4;
+                    piece.dataset.correctY = Math.floor(i / 4);
+
+                    // Set background image for current level
+                    piece.style.backgroundImage = `url('./images/level/img_level_${this.level.toString().padStart(2, '0')}.png')`;
+                    piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
+
+                    gameBoard.appendChild(piece);
+                    this.pieces.push(piece);
+                    this.pieceLocations.push({ x: -1, y: 0 }); // Start hidden
+                }
+
+                // Create special boxes
+                this.createSpecialBox('bomb', 20);
+                this.createSpecialBox('jok', 21);
+                this.createSpecialBox('hihi', 22);
+                this.createSpecialBox('min', 23);
+
+                this.updateSelector();
+            }
+
             createSpecialBox(type, index) {
-                 const piece = document.createElement('div');
-                 piece.className = `puzzlePiece specialBox ${type}`;
-                 piece.dataset.index = index;
-                 piece.dataset.type = type;
-                 
-                 // Fix image filenames to match actual files
-                 let imageFile = '';
-                 switch(type) {
-                     case 'bomb': imageFile = 'bomb.gif'; break;
-                     case 'jok': imageFile = 'jok.png'; break;
-                     case 'hihi': imageFile = 'hihi.png'; break;
-                     case 'min': imageFile = '1min.png'; break;
-                     default: imageFile = `${type}.png`;
-                 }
-                 
-                 piece.style.backgroundImage = `url('./images/${imageFile}')`;
-                 piece.style.backgroundPosition = 'center';
-                 piece.style.backgroundSize = 'contain';
-                 
-                 // Hide special boxes initially - they should only appear when pulled
-                 piece.style.display = 'none';
-                 
-                 document.getElementById('gameBoard').appendChild(piece);
-                 //this.specialBoxes.push(piece);
-                 this.pieces.push(piece);
-                 this.pieceLocations.push({ x: -1, y: 0 });
-             }
-            
+                const piece = document.createElement('div');
+                piece.className = `puzzlePiece specialBox ${type}`;
+                piece.dataset.index = index;
+                piece.dataset.type = type;
+
+                // Fix image filenames to match actual files
+                let imageFile = '';
+                switch (type) {
+                    case 'bomb': imageFile = 'bomb.gif'; break;
+                    case 'jok': imageFile = 'jok.png'; break;
+                    case 'hihi': imageFile = 'hihi.png'; break;
+                    case 'min': imageFile = '1min.png'; break;
+                    default: imageFile = `${type}.png`;
+                }
+
+                piece.style.backgroundImage = `url('./images/${imageFile}')`;
+                piece.style.backgroundPosition = 'center';
+                piece.style.backgroundSize = 'contain';
+
+                // Hide special boxes initially - they should only appear when pulled
+                piece.style.display = 'none';
+
+                document.getElementById('gameBoard').appendChild(piece);
+                //this.specialBoxes.push(piece);
+                this.pieces.push(piece);
+                this.pieceLocations.push({ x: -1, y: 0 });
+            }
+
             setupEventListeners() {
                 document.addEventListener('keydown', (e) => this.handleKeyDown(e));
                 document.addEventListener('click', (e) => this.handleClick(e));
-                
+
                 // Game timer
                 setInterval(() => this.updateTimer(), 1000);
             }
-            
+
             handleKeyDown(e) {
                 if (!this.canPlay || this.isPaused) return;
-                
+
                 if (this.selectorX === -1) {
                     if (e.ctrlKey) {
                         this.pullElement();
                         return;
-                    } 
-                } 
+                    }
+                }
 
-                switch(e.key) {
+                switch (e.key) {
                     case 'ArrowUp':
                         e.preventDefault();
                         if (e.ctrlKey) {
@@ -431,13 +455,13 @@
                         }
                         break;
                     case 'ArrowRight':
-                         e.preventDefault();
-                         if (e.ctrlKey) {
+                        e.preventDefault();
+                        if (e.ctrlKey) {
                             this.pushElement(this.selectorX, this.selectorY, 1, 0);
-                         } else {
+                        } else {
                             this.moveSelector(1, 0);
-                         }
-                         break;
+                        }
+                        break;
                     case 'm':
                     case 'M':
                         e.preventDefault();
@@ -449,13 +473,13 @@
                         this.toggleControls();
                         break;
                     case 'Escape':
-                         e.preventDefault();
-                         this.exitGame();
-                         break;
+                        e.preventDefault();
+                        this.exitGame();
+                        break;
                     case '1':
-                         e.preventDefault();
-                         this.debugShowFirstPiece();
-                         break;
+                        e.preventDefault();
+                        this.debugShowFirstPiece();
+                        break;
                     case 'W':
                         this.completeLevel();
                         break;
@@ -470,7 +494,7 @@
                         break;
                 }
             }
-            
+
             handleClick(e) {
                 if (e.target.classList.contains('puzzlePiece')) {
                     if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
@@ -478,55 +502,55 @@
                     }
                 }
             }
-            
+
             moveSelector(dx, dy) {
-                 const newX = this.selectorX + dx;
-                 const newY = this.selectorY + dy;
-                 
-                 // Boundary checks
-                 if (newX >= -1 && newX < this.boardWidth && 
-                     newY >= 0 && newY < this.boardHeight) {
-                     
-                     // Special case: x=-1 is only allowed when y=0 (special box area)
-                     if (newX === -1 && newY !== 0) {
-                         return; // Don't allow movement to x=-1 unless y=0
-                     }
-                     
-                     this.selectorX = newX;
-                     this.selectorY = newY;
-                     this.updateSelector();
-                     this.updateHint();
-                 }
-                 //console.log(`moveSelector: ${this.selectorX}, ${this.selectorY}`);
-             }
-            
+                const newX = this.selectorX + dx;
+                const newY = this.selectorY + dy;
+
+                // Boundary checks
+                if (newX >= -1 && newX < this.boardWidth &&
+                    newY >= 0 && newY < this.boardHeight) {
+
+                    // Special case: x=-1 is only allowed when y=0 (special box area)
+                    if (newX === -1 && newY !== 0) {
+                        return; // Don't allow movement to x=-1 unless y=0
+                    }
+
+                    this.selectorX = newX;
+                    this.selectorY = newY;
+                    this.updateSelector();
+                    this.updateHint();
+                }
+                //console.log(`moveSelector: ${this.selectorX}, ${this.selectorY}`);
+            }
+
             updateSelector() {
-                 const selector = document.getElementById('selector');
-                 const board = document.getElementById('gameBoard');
-                 const boardRect = board.getBoundingClientRect();
-                 
-                 let x = this.selectorX;
-                 let y = this.selectorY;
-                 
-                 if (x === -1) {
-                     // Position selector to the left of the game board for the special box area
-                     selector.style.left = '-160px';
-                 } else {
-                     selector.style.left = (x * this.pieceSize) + 'px';
-                 }
-                 
-                 selector.style.top = (y * this.pieceSize) + 'px';
-                 
-                 // Update selector appearance
-                 if (x >= 0 && this.getPieceAt(x, y) !== null) {
-                     selector.style.borderColor = '#ffa8a8';
-                 } else if (x === -1 && this.isBoxLocked) {
-                     selector.style.borderColor = '#ff4444';
-                 } else {
-                     selector.style.borderColor = '#a8ffa8';
-                 }
-             }
-            
+                const selector = document.getElementById('selector');
+                const board = document.getElementById('gameBoard');
+                const boardRect = board.getBoundingClientRect();
+
+                let x = this.selectorX;
+                let y = this.selectorY;
+
+                if (x === -1) {
+                    // Position selector to the left of the game board for the special box area
+                    selector.style.left = '-160px';
+                } else {
+                    selector.style.left = (x * this.pieceSize) + 'px';
+                }
+
+                selector.style.top = (y * this.pieceSize) + 'px';
+
+                // Update selector appearance
+                if (x >= 0 && this.getPieceAt(x, y) !== null) {
+                    selector.style.borderColor = '#ffa8a8';
+                } else if (x === -1 && this.isBoxLocked) {
+                    selector.style.borderColor = '#ff4444';
+                } else {
+                    selector.style.borderColor = '#a8ffa8';
+                }
+            }
+
             pushElement(x, y, dx, dy) {
                 var MinAllowX = -1;
                 if (this.isBoxLocked || y > 0) { MinAllowX = 0; }
@@ -536,7 +560,7 @@
                 //console.log(text)
 
                 // Allow pushing to special box area (-1, 0) only from first row (y=0) and only when moving left
-                if (newX < MinAllowX || newX >= this.boardWidth || 
+                if (newX < MinAllowX || newX >= this.boardWidth ||
                     newY < 0 || newY >= this.boardHeight) return;
 
                 if (this.isLocationFree(newX, newY)) {
@@ -546,12 +570,12 @@
                         this.pushElement(newX, newY, dx, dy); // Recursive push
                     }
                 }
-                
+
                 this.updateSelector();
                 this.checkLevelComplete();
             }
-            
-            pullElement(r=-1) {
+
+            pullElement(r = -1) {
                 if (this.selectorX === -1 && this.selectorY === 0) {
                     const piece = this.getRandomPiece(r);
                     if (piece !== null) {
@@ -568,8 +592,8 @@
                     }
                 }
             }
-            
-            getRandomPiece(r=-1) {
+
+            getRandomPiece(r = -1) {
                 if (r >= 0) { return this.pieces[r]; }
 
                 var i = Math.floor(Math.random() * 200);  // creates an integer between 0 and 199
@@ -580,13 +604,13 @@
 
                 const availablePieces = this.pieces.filter(p => !p.style.display || p.style.display === 'none');
                 if (availablePieces.length === 0) return null;
-                
+
                 const randomIndex = Math.floor(Math.random() * (availablePieces.length - 3));
                 return availablePieces[randomIndex];
             }
-            
+
             checkSpecialBox(type) {
-                switch(type) {
+                switch (type) {
                     case 'bomb':
                         this.bombFuse = 2000; // 2 seconds
                         this.startBombTimer();
@@ -603,10 +627,10 @@
                         break;
                 }
             }
-            
+
             startBombTimer() {
                 if (this.bombTimer) clearInterval(this.bombTimer);
-                
+
                 this.bombTimer = setInterval(() => {
                     this.bombFuse -= 100;
                     if (this.bombFuse <= 0) {
@@ -617,25 +641,25 @@
                     }
                 }, 100);
             }
-            
+
             swapRandomPieces() {
-                const visiblePieces = this.pieces.filter(p => 
+                const visiblePieces = this.pieces.filter(p =>
                     p.style.display !== 'none' && p.dataset.index < 20);
-                
+
                 if (visiblePieces.length < 2) return;
-                
+
                 const piece1 = visiblePieces[Math.floor(Math.random() * visiblePieces.length)];
                 const piece2 = visiblePieces[Math.floor(Math.random() * visiblePieces.length)];
-                
+
                 if (piece1 !== piece2) {
                     const tempX = piece1.style.left;
                     const tempY = piece1.style.top;
-                    
+
                     piece1.style.left = piece2.style.left;
                     piece1.style.top = piece2.style.top;
                     piece2.style.left = tempX;
                     piece2.style.top = tempY;
-                    
+
                     // Update locations
                     const index1 = parseInt(piece1.dataset.index);
                     const index2 = parseInt(piece2.dataset.index);
@@ -644,11 +668,11 @@
                     this.pieceLocations[index2] = tempLoc;
                 }
             }
-            
+
             movePiece(piece, x, y) {
                 const index = parseInt(piece.dataset.index);
                 this.pieceLocations[index] = { x, y };
-                
+
                 if (x < 0) {
                     this.setBoxLocked(true);
                     piece.style.display = 'none';
@@ -660,37 +684,37 @@
                     piece.style.top = (y * this.pieceSize) + 'px';
                     piece.style.display = 'block';
                 }
-                
+
                 this.updateSelector();
                 this.updateScore();
             }
-            
+
             isLocationFree(x, y) {
                 var r = true
-                if (x === -1 && !this.isBoxLocked) { 
-                    r = true; 
-                } 
+                if (x === -1 && !this.isBoxLocked) {
+                    r = true;
+                }
                 else {
                     r = !this.pieceLocations.some(loc => loc.x === x && loc.y === y);
                 }
                 //console.log(`isLocationFree(${x},${y}) = ${r}`)
                 return r;
             }
-            
+
             getPieceAt(x, y) {
                 const index = this.pieceLocations.findIndex(loc => loc.x === x && loc.y === y);
                 return index >= 0 ? this.pieces[index] : null;
             }
-            
+
             checkLevelComplete() {
                 let correctPieces = 0;
-                
+
                 for (let i = 0; i < 20; i++) {
                     const piece = this.pieces[i];
                     const loc = this.pieceLocations[i];
                     const correctX = parseInt(piece.dataset.correctX);
                     const correctY = parseInt(piece.dataset.correctY);
-                    
+
                     if (loc.x === correctX && loc.y === correctY && piece.style.display !== 'none') {
                         correctPieces++;
                         this.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
@@ -698,14 +722,14 @@
                         this.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
                     }
                 }
-                
+
                 this.log(`Total correct pieces: ${correctPieces}/20`);
                 if (correctPieces === 20) {
                     this.log('Level complete! Starting completion sequence...');
                     this.completeLevel();
                 }
             }
-            
+
             completeLevel() {
                 this.canPlay = false;
                 this.stopBombTimer();
@@ -713,7 +737,7 @@
 
                 this.showMessage(this.getLevelCompleteMessage(), 'nextLevel');
                 this.playMusic('next');
-                
+
                 setTimeout(() => {
                     this.level++;
                     if (this.level > this.maxLevel) {
@@ -723,7 +747,7 @@
                     }
                 }, 5000);
             }
-            
+
             gameOver(reason) {
                 this.canPlay = false;
                 this.stopBombTimer();
@@ -734,117 +758,117 @@
                     this.exitGame();
                 }, 8000);
             }
-            
+
             startLevel() {
-                 this.canPlay = false;
-                 this.setBoxLocked(false);
-                 this.timeRemaining = this.getLevelTime();
-                 this.updateTimerDisplay();
-                 
-                 // Update puzzle pieces for new level
-                 this.updatePuzzlePiecesForLevel();
-                 
-                 // Show complete image briefly
-                 this.showCompleteImage();
-                 
-                 // Play level-specific music first
-                 this.playMusic(`level_${this.level.toString().padStart(2, '0')}`);
-                 
-                 setTimeout(() => {
-                     // Keep level music playing during welcome message
-                     this.showMessage(this.getWelcomeMessage(), '');
-                     
-                     // Switch to ingame music after welcome message finishes scrolling
-                     setTimeout(() => {
-                         this.playMusic('ingame');
-                         this.scatterPieces();
-                         this.canPlay = true;
-                     }, 5000);
-                 }, 200);
-             }
-            
+                this.canPlay = false;
+                this.setBoxLocked(false);
+                this.timeRemaining = this.getLevelTime();
+                this.updateTimerDisplay();
+
+                // Update puzzle pieces for new level
+                this.updatePuzzlePiecesForLevel();
+
+                // Show complete image briefly
+                this.showCompleteImage();
+
+                // Play level-specific music first
+                this.playMusic(`level_${this.level.toString().padStart(2, '0')}`);
+
+                setTimeout(() => {
+                    // Keep level music playing during welcome message
+                    this.showMessage(this.getWelcomeMessage(), '');
+
+                    // Switch to ingame music after welcome message finishes scrolling
+                    setTimeout(() => {
+                        this.playMusic('ingame');
+                        this.scatterPieces();
+                        this.canPlay = true;
+                    }, 5000);
+                }, 200);
+            }
+
             showCompleteImage() {
                 // Place all pieces in correct positions
                 for (let i = 0; i < 20; i++) {
                     const piece = this.pieces[i];
                     const x = i % 4;
                     const y = Math.floor(i / 4);
-                    
+
                     piece.style.left = (x * this.pieceSize) + 'px';
                     piece.style.top = (y * this.pieceSize) + 'px';
                     piece.style.display = 'block';
                     this.pieceLocations[i] = { x, y };
                 }
             }
-            
+
             scatterPieces() {
                 // Hide all pieces
                 for (let i = 0; i < 20; i++) {
                     this.pieces[i].style.display = 'none';
                     this.pieceLocations[i] = { x: -1, y: 0 };
                 }
-                
+
                 // Reset selector
                 this.selectorX = -1;
                 this.selectorY = 0;
                 this.updateSelector();
             }
-            
+
             updateTimer() {
                 if (this.isPaused || !this.canPlay) return;
-                
+
                 this.timeRemaining--;
                 this.updateTimerDisplay();
-                
+
                 if (this.timeRemaining <= 0) {
                     this.gameOver('Time ran out!');
                 }
             }
-            
+
             updateTimerDisplay() {
                 const minutes = Math.floor(this.timeRemaining / 60);
                 const seconds = this.timeRemaining % 60;
-                document.getElementById('timer').textContent = 
+                document.getElementById('timer').textContent =
                     `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
-            
+
             updateScore() {
                 const visiblePieces = this.pieces.filter(p => p.style.display !== 'none' && p.dataset.index < 20).length;
                 document.getElementById('score').textContent = `Pieces: ${visiblePieces}/20`;
             }
-            
+
             updateHint() {
-                 const hintPanel = document.getElementById('hintPanel');
-                 const piece = this.getPieceAt(this.selectorX, this.selectorY);
-                 
-                 if (piece && this.selectorX >= 0) {
-                     // Position the hintImage according to the C# logic:
-                     // new Point(HINT_LOCATION.X + (panel1.Width + 10) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
-                     const hintPanel = document.getElementById('hintPanel');
-                     const HINT_PANEL_WIDTH = 32;  // width of hintImage
-                     const HINT_PANEL_HEIGHT = 32; // height of hintImage
-                     const HINT_LOCATION_X = 456;
-                     const HINT_LOCATION_Y = 512;
-                     const box = parseInt(piece.dataset.index);
+                const hintPanel = document.getElementById('hintPanel');
+                const piece = this.getPieceAt(this.selectorX, this.selectorY);
 
-                     // Calculate position
-                     const left = HINT_LOCATION_X + (HINT_PANEL_WIDTH + 10) * (box % 4);
-                     const top = HINT_LOCATION_Y + (HINT_PANEL_HEIGHT + 2) * Math.floor(box / 4);
+                if (piece && this.selectorX >= 0) {
+                    // Position the hintImage according to the C# logic:
+                    // new Point(HINT_LOCATION.X + (panel1.Width + 10) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
+                    const hintPanel = document.getElementById('hintPanel');
+                    const HINT_PANEL_WIDTH = 32;  // width of hintImage
+                    const HINT_PANEL_HEIGHT = 32; // height of hintImage
+                    const HINT_LOCATION_X = 456;
+                    const HINT_LOCATION_Y = 512;
+                    const box = parseInt(piece.dataset.index);
 
-                     hintPanel.style.display = 'inline-block';
-                     hintPanel.style.width = HINT_PANEL_WIDTH + 'px';
-                     hintPanel.style.height = HINT_PANEL_HEIGHT + 'px';
-                     hintPanel.style.background = 'green'; // Example color, can be dynamic
-                     hintPanel.style.border = '2px solid #888';
-                     hintPanel.style.borderRadius = '0px';
-                     hintPanel.style.position = 'absolute';
-                     hintPanel.style.left = left + 'px';
-                     hintPanel.style.top = top + 'px';
-                 } else {
-                     hintPanel.style.display = 'none';
-                 }
-             }
-            
+                    // Calculate position
+                    const left = HINT_LOCATION_X + (HINT_PANEL_WIDTH + 10) * (box % 4);
+                    const top = HINT_LOCATION_Y + (HINT_PANEL_HEIGHT + 2) * Math.floor(box / 4);
+
+                    hintPanel.style.display = 'inline-block';
+                    hintPanel.style.width = HINT_PANEL_WIDTH + 'px';
+                    hintPanel.style.height = HINT_PANEL_HEIGHT + 'px';
+                    hintPanel.style.background = 'green'; // Example color, can be dynamic
+                    hintPanel.style.border = '2px solid #888';
+                    hintPanel.style.borderRadius = '0px';
+                    hintPanel.style.position = 'absolute';
+                    hintPanel.style.left = left + 'px';
+                    hintPanel.style.top = top + 'px';
+                } else {
+                    hintPanel.style.display = 'none';
+                }
+            }
+
             togglePause() {
                 this.isPaused = !this.isPaused;
                 if (this.isPaused) {
@@ -855,7 +879,7 @@
                     document.getElementById('gameContainer').classList.remove('gameOver');
                 }
             }
-            
+
             toggleMusic() {
                 const audio = document.getElementById('bgMusic');
                 if (audio.paused) {
@@ -864,11 +888,11 @@
                     audio.pause();
                 }
             }
-            
+
             toggleControls() {
                 const controls = document.getElementById('controls');
                 const specialBoxes = document.getElementById('specialBoxes');
-                
+
                 if (controls.style.display === 'none' || controls.style.display === '') {
                     controls.style.display = 'block';
                     specialBoxes.style.display = 'block';
@@ -877,7 +901,7 @@
                     specialBoxes.style.display = 'none';
                 }
             }
-            
+
             playMusic(track) {
                 const audio = document.getElementById('bgMusic');
                 audio.src = `./music/pj_${track}.mp3`;
@@ -885,86 +909,86 @@
                 var text = `Music "${track}" playback failed:`
                 audio.play().catch(e => this.log(text, e));
             }
-            
+
             pauseMusic() {
                 document.getElementById('bgMusic').pause();
             }
-            
+
             resumeMusic() {
                 document.getElementById('bgMusic').play();
             }
-            
+
             stopBombTimer() {
                 if (this.bombTimer) {
                     clearInterval(this.bombTimer);
                     this.bombTimer = null;
                 }
             }
-            
-                         hideSpecialBox(type) {
-                 const specialBox = this.specialBoxes.find(box => box.dataset.type === type);
-                 if (specialBox) {
-                     specialBox.style.display = 'none';
-                 }
-             }
-             
-             updatePuzzlePiecesForLevel() {
-                 // Update the background image for each puzzle piece to match the current level
-                 for (let i = 0; i < 20; i++) {
-                     const piece = this.pieces[i];
-                     const h = 'h'
-                     piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
-                     piece.style.backgroundSize = '512px 640px'; // Full image size
-                     piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
-                     piece.style.backgroundRepeat = 'no-repeat';
-                     //console.log(`Piece ${i}: background-position: ${piece.style.backgroundPosition}`);
-                 }
-                 
-                 // Update level info display
-                 document.getElementById('levelInfo').textContent = `Level ${this.level}`;
-             }
-             
-             debugShowFirstPiece() {
-                 // Show the first puzzle piece (index 0) for debugging
-                 const firstPiece = this.pieces[0];
-                 if (firstPiece) {
-                     // Position it at the top-left corner of the game board
-                     firstPiece.style.left = '0px';
-                     firstPiece.style.top = '0px';
-                     firstPiece.style.display = 'block';
-                     
-                     // Update the piece location
-                     this.pieceLocations[0] = { x: 0, y: 0 };
-                     
-                     this.log('Debug: First piece displayed at position (0,0)');
-                     this.log('Piece background image:', firstPiece.style.backgroundImage);
-                     this.log('Piece background position:', firstPiece.style.backgroundPosition);
-                     
-                     // Update the selector to show it's working
-                     this.updateSelector();
-                     this.updateScore();
-                 }
-             }
-            
+
+            hideSpecialBox(type) {
+                const specialBox = this.specialBoxes.find(box => box.dataset.type === type);
+                if (specialBox) {
+                    specialBox.style.display = 'none';
+                }
+            }
+
+            updatePuzzlePiecesForLevel() {
+                // Update the background image for each puzzle piece to match the current level
+                for (let i = 0; i < 20; i++) {
+                    const piece = this.pieces[i];
+                    const h = 'h'
+                    piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
+                    piece.style.backgroundSize = '512px 640px'; // Full image size
+                    piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
+                    piece.style.backgroundRepeat = 'no-repeat';
+                    //console.log(`Piece ${i}: background-position: ${piece.style.backgroundPosition}`);
+                }
+
+                // Update level info display
+                document.getElementById('levelInfo').textContent = `Level ${this.level}`;
+            }
+
+            debugShowFirstPiece() {
+                // Show the first puzzle piece (index 0) for debugging
+                const firstPiece = this.pieces[0];
+                if (firstPiece) {
+                    // Position it at the top-left corner of the game board
+                    firstPiece.style.left = '0px';
+                    firstPiece.style.top = '0px';
+                    firstPiece.style.display = 'block';
+
+                    // Update the piece location
+                    this.pieceLocations[0] = { x: 0, y: 0 };
+
+                    this.log('Debug: First piece displayed at position (0,0)');
+                    this.log('Piece background image:', firstPiece.style.backgroundImage);
+                    this.log('Piece background position:', firstPiece.style.backgroundPosition);
+
+                    // Update the selector to show it's working
+                    this.updateSelector();
+                    this.updateScore();
+                }
+            }
+
             showMessage(message, context) {
                 const messagePanel = document.getElementById('messagePanel');
-                
+
                 // Clear previous content
                 messagePanel.innerHTML = '';
                 messagePanel.style.display = 'flex';
-                
+
                 // Scrolling message for welcome messages
                 const scrollingText = document.createElement('div');
                 scrollingText.className = 'scrollingMessage';
                 scrollingText.textContent = message;
                 messagePanel.appendChild(scrollingText);
-                
+
                 // Hide the message panel completely after animation completes
                 setTimeout(() => {
                     messagePanel.style.display = 'none';
                 }, 4000);
             }
-            
+
             getWelcomeMessage() {
                 const messages = [
                     "Połam joystick!",
@@ -982,7 +1006,7 @@
                 ];
                 return messages[this.level - 1] || "";
             }
-            
+
             getLevelCompleteMessage() {
                 const messages = [
                     "To był oczywiście Sylwek Stallone (i jego układy mięśni scallone).",
@@ -1000,7 +1024,7 @@
                 ];
                 return messages[this.level - 1] || "";
             }
-            
+
             getGameOverMessage() {
                 if (this.level <= 4) {
                     return "Lepiej znajdź sobie inną dziewczynę, bo Małgosia już Cię nie kocha...";
@@ -1010,26 +1034,26 @@
                     return "No cóż, rzecze Małgosia, nie powiem, że się cieszę, ale zniknij mi z oczu!";
                 }
             }
-            
+
             getLevelTime() {
                 if (this.level <= 4) return 300; // 5 minutes
                 if (this.level <= 8) return 240; // 4 minutes
                 return 180; // 3 minutes
             }
-            
+
             restartLevel() {
                 this.level = 1;
                 this.startLevel();
             }
-            
+
             gameCompleted() {
                 const message = "Noo Noo Nooooo, powiedziała Małgosia. Masz u mnie dużego buziaka, Jasiu. " +
-                              "I w ten sposób Jasio zdobył serce Małgosi. " +
-                              "Szkoda, że brat Jasia zginął tak brutalnie...";
+                    "I w ten sposób Jasio zdobył serce Małgosi. " +
+                    "Szkoda, że brat Jasia zginął tak brutalnie...";
                 this.showMessage(message, 'completed');
-                                 this.playMusic('win');
+                this.playMusic('win');
             }
-            
+
             setBoxLocked(locked) {
                 this.isBoxLocked = locked;
                 const redArrow = document.getElementById('redArrow');
@@ -1038,16 +1062,17 @@
                 }
                 this.updateSelector();
             }
-            
+
             exitGame() {
                 window.location.href = 'index.html';
             }
         }
-        
+
         // Initialize game when page loads
         document.addEventListener('DOMContentLoaded', () => {
             new ProblemJasiaGame();
         });
     </script>
 </body>
+
 </html>
