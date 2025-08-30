@@ -37,6 +37,7 @@
             width: 1280px;
             height: 800px;
             margin: 0px auto;
+            /*background: #333 url('./images/background-hicolor-1280px.png') center center no-repeat; */
             background: #333 url('./images/background-1280px.png') center center no-repeat;
             background-size: cover;
             border-radius: 2px;
@@ -687,11 +688,15 @@
                     
                     if (loc.x === correctX && loc.y === correctY && piece.style.display !== 'none') {
                         correctPieces++;
+                        console.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
+                    } else if (piece.style.display !== 'none') {
+                        console.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
                     }
                 }
                 
-                //console.log(`correctPieces = ${correctPieces}`)
+                console.log(`Total correct pieces: ${correctPieces}/20`);
                 if (correctPieces === 20) {
+                    console.log('Level complete! Starting completion sequence...');
                     this.completeLevel();
                 }
             }
@@ -902,7 +907,7 @@
                  // Update the background image for each puzzle piece to match the current level
                  for (let i = 0; i < 20; i++) {
                      const piece = this.pieces[i];
-                     const h = ''
+                     const h = 'h'
                      piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
                      piece.style.backgroundSize = '512px 640px'; // Full image size
                      piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
