@@ -27,7 +27,7 @@
         #gameContainer {
             position: relative;
             width: 1280px;
-            height: 800px;
+            height: 768px;
             margin: 0px auto;
             /*background: #333 url('./images/background-hicolor-1280px.png') center center no-repeat; */
             background: #333 url('./images/background-1280px.png') center center no-repeat;
@@ -40,7 +40,7 @@
         #gameBoard {
             position: absolute;
             left: 703px;
-            top: 95px;
+            top: 93px;
             width: 512px;
             height: 640px;
             background: #444;
@@ -123,8 +123,8 @@
 
         #gameInfo {
             position: absolute;
-            left: 190px;
-            top: 540px;
+            left: 205px;
+            top: 515px;
             width: 200px;
             background: rgba(0, 0, 0, 0.8);
             padding: 20px;
@@ -150,10 +150,10 @@
 
         #messagePanel {
             position: absolute;
-            left: 40px;
-            top: 437px;
+            left: 64px;
+            top: 420px;
             transform: translateY(-50%);
-            width: 44%;
+            width: 550px;
             height: 30px;
             background: rgba(0, 0, 0, 0.9);
             display: none;
@@ -843,17 +843,16 @@
 
                 if (piece && this.selectorX >= 0) {
                     // Position the hintImage according to the C# logic:
-                    // new Point(HINT_LOCATION.X + (panel1.Width + 10) * (box % 4), HINT_LOCATION.Y + (panel1.Height + 4) * (box / 4));
                     const hintPanel = document.getElementById('hintPanel');
                     const HINT_PANEL_WIDTH = 32;  // width of hintImage
                     const HINT_PANEL_HEIGHT = 32; // height of hintImage
-                    const HINT_LOCATION_X = 456;
-                    const HINT_LOCATION_Y = 512;
+                    const HINT_LOCATION_X = 462;
+                    const HINT_LOCATION_Y = 491;
                     const box = parseInt(piece.dataset.index);
 
                     // Calculate position
-                    const left = HINT_LOCATION_X + (HINT_PANEL_WIDTH + 10) * (box % 4);
-                    const top = HINT_LOCATION_Y + (HINT_PANEL_HEIGHT + 2) * Math.floor(box / 4);
+                    const left = HINT_LOCATION_X + (HINT_PANEL_WIDTH + 8) * (box % 4);
+                    const top = HINT_LOCATION_Y + (HINT_PANEL_HEIGHT) * Math.floor(box / 4);
 
                     hintPanel.style.display = 'inline-block';
                     hintPanel.style.width = HINT_PANEL_WIDTH + 'px';
