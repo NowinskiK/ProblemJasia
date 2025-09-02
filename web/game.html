@@ -579,6 +579,11 @@
 
             pullElement(r = -1) {
                 if (this.selectorX === -1 && this.selectorY === 0) {
+                    // Don't pull any element if location (0,0) is not free
+                    if (!this.isLocationFree(0, 0)) {
+                        return;
+                    }
+
                     const piece = this.getRandomPiece(r);
                     if (piece !== null) {
                         for (let i = 0; i < 4; i++) {
@@ -678,7 +683,8 @@
             movePiece(piece, x, y) {
                 const index = parseInt(piece.dataset.index);
                 this.pieceLocations[index] = { x, y };
-
+                //this.log(`movePiece(${index}, ${x}, ${y})`)
+                
                 if (x < 0) {
                     this.setBoxLocked(true);
                     piece.style.display = 'none';
