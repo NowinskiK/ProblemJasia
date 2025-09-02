@@ -1,0 +1,24 @@
+{
+  "name": "problem-jasia-retro",
+  "version": "1.0.0",
+  "description": "Problem Jasia Retro - Web version of the classic puzzle game",
+  "main": "web/index.html",
+  "scripts": {
+    "build": "node build-script.js",
+    "version": "npm run build && git add -A",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NowinskiK/ProblemJasia.git"
+  },
+  "keywords": [
+    "game",
+    "puzzle",
+    "retro",
+    "problem-jasia"
+  ],
+  "author": "NowinskiK",
+  "license": "MIT",
+  "devDependencies": {}
+}

@@ -1,0 +1,121 @@
+name: Version and Deploy
+
+on:
+  push:
+    branches: [ main, webapp ]
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+
+jobs:
+  version-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Bump version
+      id: version
+      run: |
+        # Get current version
+        CURRENT_VERSION=$(node -p "require('./package.json').version")
+        echo "Current version: $CURRENT_VERSION"
+        
+        # Determine version bump type
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          BUMP_TYPE="${{ github.event.inputs.version_type }}"
+        else
+          BUMP_TYPE="patch"
+        fi
+        
+        # Bump version
+        npm version $BUMP_TYPE --no-git-tag-version
+        NEW_VERSION=$(node -p "require('./package.json').version")
+        
+        echo "New version: $NEW_VERSION"
+        echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+        
+    - name: Build with version update
+      run: |
+        # Create build number from run number
+        BUILD_NUMBER=${{ github.run_number }}
+        
+        # Set environment variable for build script
+        export BUILD_NUMBER=$BUILD_NUMBER
+        
+        # Run build script
+        npm run build
+        
+        echo "Built version: ${{ steps.version.outputs.version }}.$BUILD_NUMBER"
+        
+    - name: Commit version changes
+      run: |
+        git add package.json web/index.html
+        git commit -m "Bump version to ${{ steps.version.outputs.version }} and update build number"
+        git push
+        
+    - name: Create Git Tag
+      run: |
+        git tag -a "v${{ steps.version.outputs.version }}" -m "Release version ${{ steps.version.outputs.version }}"
+        git push origin "v${{ steps.version.outputs.version }}"
+        
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/webapp'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./web
+        cname: # Add your custom domain here if you have one
+        
+    - name: Create GitHub Release
+      if: github.ref == 'refs/heads/main'
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.version.outputs.version }}
+        release_name: Release v${{ steps.version.outputs.version }}
+        body: |
+          ## Problem Jasia Retro v${{ steps.version.outputs.version }}
+          
+          **Build Number:** ${{ github.run_number }}
+          **Commit:** ${{ github.sha }}
+          
+          ### Changes
+          - Updated version to ${{ steps.version.outputs.version }}
+          - Deployed to GitHub Pages
+          
+          ### How to Play
+          - Visit the [live game](https://nowinskik.github.io/ProblemJasia/)
+          - Use arrow keys to move the selector
+          - Use Ctrl + arrow keys to push pieces
+          - Use Ctrl + click to pull new pieces
+          - Press H for help
+        draft: false
+        prerelease: false
