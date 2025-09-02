@@ -468,9 +468,11 @@
                         this.toggleMusic();
                         break;
                     case 'h':
-                    case 'H':
                         e.preventDefault();
                         this.toggleControls();
+                        break;
+                    case 'H':
+                        this.pullElement(22);
                         break;
                     case 'Escape':
                         e.preventDefault();
@@ -774,6 +776,7 @@
 
                 // Show complete image briefly
                 this.showCompleteImage();
+                this.scatterSpecialPieces();
 
                 // Play level-specific music first
                 this.playMusic(`level_${this.level.toString().padStart(2, '0')}`);
@@ -806,8 +809,8 @@
             }
 
             scatterPieces() {
-                // Hide all pieces
-                for (let i = 0; i < 20; i++) {
+                // Hide all pieces including special boxes
+                for (let i = 0; i < this.pieces.length; i++) {
                     this.pieces[i].style.display = 'none';
                     this.pieceLocations[i] = { x: -1, y: 0 };
                 }
@@ -816,6 +819,14 @@
                 this.selectorX = -1;
                 this.selectorY = 0;
                 this.updateSelector();
+            }
+
+            scatterSpecialPieces() {
+                // Hide all pieces including special boxes
+                for (let i = 20; i < this.pieces.length; i++) {
+                    this.pieces[i].style.display = 'none';
+                    this.pieceLocations[i] = { x: -1, y: 0 };
+                }
             }
 
             updateTimer() {
@@ -845,7 +856,8 @@
                 const hintPanel = document.getElementById('hintPanel');
                 const piece = this.getPieceAt(this.selectorX, this.selectorY);
 
-                if (piece && this.selectorX >= 0) {
+                // Only show hints for regular puzzle pieces (indices 0-19), not special boxes
+                if (piece && this.selectorX >= 0 && parseInt(piece.dataset.index) < 20) {
                     // Position the hintImage according to the C# logic:
                     const hintPanel = document.getElementById('hintPanel');
                     const HINT_PANEL_WIDTH = 32;  // width of hintImage
