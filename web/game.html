@@ -612,16 +612,20 @@
             checkSpecialBox(type) {
                 switch (type) {
                     case 'bomb':
+                        this.log('Bomb pulled! Starting fuse...');
                         this.bombFuse = 2000; // 2 seconds
                         this.startBombTimer();
                         break;
                     case 'jok':
+                        this.log('Jok pulled! Completing level...');
                         this.completeLevel();
                         break;
                     case 'hihi':
+                        this.log('Hihi pulled! Swapping two pieces...');
                         this.swapRandomPieces();
                         break;
                     case 'min':
+                        this.log('1min pulled! Adding 60 seconds...');
                         this.timeRemaining += 60;
                         this.updateTimerDisplay();
                         break;
@@ -717,13 +721,13 @@
 
                     if (loc.x === correctX && loc.y === correctY && piece.style.display !== 'none') {
                         correctPieces++;
-                        this.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
-                    } else if (piece.style.display !== 'none') {
-                        this.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
-                    }
+                        //this.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
+                    } //else if (piece.style.display !== 'none') {
+                      //  this.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
+                    //}
                 }
 
-                this.log(`Total correct pieces: ${correctPieces}/20`);
+                //this.log(`Total correct pieces: ${correctPieces}/20`);
                 if (correctPieces === 20) {
                     this.log('Level complete! Starting completion sequence...');
                     this.completeLevel();
