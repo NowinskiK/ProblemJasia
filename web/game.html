@@ -1030,7 +1030,13 @@
                 const baselineChars = 60;
                 const baselineDuration = 3; // seconds
                 const messageLength = message.length;
-                const duration = (messageLength / baselineChars) * baselineDuration;
+                let duration = (messageLength / baselineChars) * baselineDuration;
+                
+                // For messages without context, ensure minimum duration of 3 seconds
+                if (!context || context === '') {
+                    duration = Math.max(duration, 3);
+                }
+                
                 this.log(`Duration (${context}): ${duration}s for ${messageLength} chars`);
 
                 // Apply the calculated duration
