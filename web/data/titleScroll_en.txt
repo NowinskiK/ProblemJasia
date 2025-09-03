@@ -117,7 +117,7 @@ However, reading and
 understanding this language
 helped me in asking
 the right prompts
-to improve the code.
+to improve the code and bugs.
 
 Expect soon
 a video material on YouTube
