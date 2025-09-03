@@ -326,6 +326,7 @@
                 this.isBoxLocked = false;
                 this.bombFuse = 0;
                 this.bombTimer = null;
+                this.HiRes = false;
                 // Get debug mode from URL parameter "debug"
                 const urlParams = new URLSearchParams(window.location.search);
                 this.debugMode = urlParams.get('debug') === '1';
@@ -486,34 +487,42 @@
                         e.preventDefault();
                         this.toggleMusic();
                         break;
-                    case 'h':
+                    case 'i':
+                    case 'I':
                         e.preventDefault();
                         this.toggleControls();
                         break;
+                    case 'h':
                     case 'H':
-                        this.pullElement(22);
+                        e.preventDefault();
+                        this.HiRes = !this.HiRes; 
+                        this.log(`HiRes: ${this.HiRes}`);
+                        this.updatePuzzlePiecesForLevel();
                         break;
                     case 'Escape':
                         e.preventDefault();
                         this.exitGame();
                         break;
                 }
+
+                // Special keys for debugging
                 if (this.debugMode) {
-                    switch (e.key) {
-                        case '1':
-                            e.preventDefault();
-                            this.debugShowFirstPiece();
-                            break;
-                        case 'W':
+                    const key = (e.shiftKey ? 'SHIFT+' : '') + e.key.toUpperCase();
+                    this.log(key)
+                    switch (key) {
+                        case 'SHIFT+W':
                             this.completeLevel();
                             break;
-                        case 'F':
+                        case 'SHIFT+F':
                             this.gameOver('User request');
                             break;
-                        case 'J':
+                        case 'SHIFT+H':
+                            this.pullElement(22);
+                            break;
+                        case 'SHIFT+J':
                             this.pullElement(21);
                             break;
-                        case 'B':
+                        case 'SHIFT+B':
                             this.pullElement(20);
                             break;
                     }
@@ -980,7 +989,7 @@
                 // Update the background image for each puzzle piece to match the current level
                 for (let i = 0; i < 20; i++) {
                     const piece = this.pieces[i];
-                    const h = 'h'
+                    const h = this.HiRes ? "h" : "";
                     piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
                     piece.style.backgroundSize = '512px 640px'; // Full image size
                     piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
