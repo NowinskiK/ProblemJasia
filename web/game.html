@@ -497,22 +497,26 @@
                         e.preventDefault();
                         this.exitGame();
                         break;
-                    case '1':
-                        e.preventDefault();
-                        this.debugShowFirstPiece();
-                        break;
-                    case 'W':
-                        this.completeLevel();
-                        break;
-                    case 'F':
-                        this.gameOver('User request');
-                        break;
-                    case 'J':
-                        this.pullElement(21);
-                        break;
-                    case 'B':
-                        this.pullElement(20);
-                        break;
+                }
+                if (this.debugMode) {
+                    switch (e.key) {
+                        case '1':
+                            e.preventDefault();
+                            this.debugShowFirstPiece();
+                            break;
+                        case 'W':
+                            this.completeLevel();
+                            break;
+                        case 'F':
+                            this.gameOver('User request');
+                            break;
+                        case 'J':
+                            this.pullElement(21);
+                            break;
+                        case 'B':
+                            this.pullElement(20);
+                            break;
+                    }
                 }
             }
 
