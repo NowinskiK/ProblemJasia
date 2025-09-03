@@ -163,7 +163,14 @@
         }
 
         // --- Version Display ---
-        document.getElementById('version').textContent = "ver.1.0.0"; // Replace with dynamic version if needed
+        fetch('version.txt')
+            .then(response => response.text())
+            .then(version => {
+                document.getElementById('version').textContent = `ver.${version.trim()}`;
+            })
+            .catch(() => {
+                document.getElementById('version').textContent = "ver.1.?.?";
+            });
 
         // --- Music Playback ---
         const bgMusic = document.getElementById('bgMusic');
