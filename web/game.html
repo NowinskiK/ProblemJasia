@@ -421,6 +421,11 @@
                 piece.style.backgroundImage = `url('./images/${imageFile}')`;
                 piece.style.backgroundPosition = 'center';
                 piece.style.backgroundSize = 'contain';
+                
+                // For bomb.gif, ensure animation continues by adding a cache-busting parameter
+                if (type === 'bomb') {
+                    piece.style.backgroundImage = `url('./images/${imageFile}?t=${Date.now()}')`;
+                }
 
                 // Hide special boxes initially - they should only appear when pulled
                 piece.style.display = 'none';
@@ -654,6 +659,11 @@
                         this.log('Bomb pulled! Starting fuse...');
                         this.bombFuse = 2000; // 2 seconds
                         this.startBombTimer();
+                        // Ensure bomb animation is running
+                        const bombPiece = this.pieces.find(p => p.dataset.type === 'bomb' && p.style.display !== 'none');
+                        if (bombPiece) {
+                            this.refreshBombAnimation(bombPiece);
+                        }
                         break;
                     case 'jok':
                         this.log('Jok pulled! Completing level...');
@@ -727,6 +737,11 @@
                     piece.style.left = (x * this.pieceSize) + 'px';
                     piece.style.top = (y * this.pieceSize) + 'px';
                     piece.style.display = 'block';
+                    
+                    // Ensure bomb animation continues when moved
+                    if (piece.dataset.type === 'bomb') {
+                        this.refreshBombAnimation(piece);
+                    }
                 }
 
                 this.updateSelector();
@@ -1027,6 +1042,16 @@
                     clearInterval(this.bombTimer);
                     this.bombTimer = null;
                 }
+            }
+
+            refreshBombAnimation(piece) {
+                // Force the bomb.gif to restart its animation by refreshing the image
+                const currentImage = piece.style.backgroundImage;
+                piece.style.backgroundImage = '';
+                // Use a small delay to ensure the image is cleared before setting it again
+                setTimeout(() => {
+                    piece.style.backgroundImage = `url('./images/bomb.gif?t=${Date.now()}')`;
+                }, 10);
             }
 
             hideSpecialBox(type) {
