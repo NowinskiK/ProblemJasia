@@ -78,7 +78,40 @@ Many thanks to
 Jakub Husak
 for help in creating this remake
 
-Kamil Nowinski
+--- Web edition (2025) ---
+
+Program written using Cursor
+and VSCode + GitHub CoPilot.
+
+"Can AI agent (chat gpt or claude LLM) 
+convert my simple game written in C#
+(Win forms) to web application?"
+
+This was my first question to ChatGPT.
+
+AI was asked to analyze
+the game code written in C# for Windows.
+
+It accurately described the rules and logic
+of the game, which encouraged me to try
+converting all the code to a static web page.
+
+Therefore, most of the code was created
+using vibe-coding over a few days
+with just a dozen prompts.
+
+Code: HTML + CSS + JavaScript.
+
+I had never programmed in JavaScript before.
+However, reading and understanding
+this language helped me in asking
+the right prompts to improve the code.
+
+Expect soon
+a video material on YouTube
+about the whole process of building the game with AI.
+
+Kamil Nowiński
 
 
 *        

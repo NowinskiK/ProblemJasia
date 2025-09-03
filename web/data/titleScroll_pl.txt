@@ -36,7 +36,7 @@ Pamiętaj, Jaś liczy na Ciebie!
 
 Teraz garść informacji
 
---- Oryginalna wersja (ATARI) ---
+--- Oryginalna wersja (ATARI, 1992) ---
 
 Program napisany w Action!
 
@@ -54,7 +54,7 @@ programy mam oryginalne.
 Jakub Husak
 *
 
---- Nowa edycja gry na PC ---
+--- Nowa edycja gry na PC (2024) ---
 
 Program napisany w C#.
 Cały kod jest open-source na GitHub:
@@ -77,6 +77,39 @@ na niektórych emulatorach!
 Wielkie dzięki dla 
 Jakuba Husaka
 za pomoc przy tworzeniu tego remake'a
+
+--- Webowa edycja gry (2025) ---
+
+Program napisany przy użyciu Cursora
+oraz VSCode + GitHub CoPilot.
+
+"Can AI agent (chat gtp of claude LLM) 
+convert my simple game written in C#
+(Win forms) to web application?"
+
+To było moje pierwsze pytanie do ChatGPT.
+
+AI został poproszony o przeanalizowanie
+kodu gry napisanego w języku C# dla Windows.
+
+Trafnie opisał zasady i logikę gry,
+co zachęciło mnie do próby przekonwertowania
+całego kodu do statycznej strony web.
+
+Dlatego większość kodu powstała
+stosując vibe-coding w ciągu paru dni
+używając kilkunastu promptów.
+
+Kod: HTML + CSS + JavaScript.
+
+Nigdy nie programowałem w JavaScript.
+Natomiast czytanie oraz rozumienie
+tego języka pomogło w zadawaniu
+właściwych promptów aby poprawić kod.
+
+Spodziewaj się wkrótce
+materiału video na YouTube
+z całego procesu budowania gry z AI.
 
 Kamil Nowiński
 
