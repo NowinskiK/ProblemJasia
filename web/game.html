@@ -445,6 +445,13 @@
             }
 
             handleKeyDown(e) {
+                // Always allow ESC key to work, even when game is not playable
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    this.exitGame();
+                    return;
+                }
+                
                 if (!this.canPlay || this.isPaused) return;
 
                 if (this.selectorX === -1) {
@@ -504,10 +511,7 @@
                         this.log(`HiRes: ${this.HiRes}`);
                         this.updatePuzzlePiecesForLevel();
                         break;
-                    case 'Escape':
-                        e.preventDefault();
-                        this.exitGame();
-                        break;
+
                 }
 
                 // Special keys for debugging
