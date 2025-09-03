@@ -30,6 +30,8 @@ What followed was a few days of what is nowadays the new buzzword "vibe-coding" 
 
 Plot twist: Despite being a JavaScript newbie, between me and the AI, we squashed bugs like pros! 🐛💪
 
+👉 Play now: (online) https://problemjasia.pl/index.html
+
 Stay tuned for a YouTube video where I'll show you the whole crazy journey of building this game with AI. Trust me, it's quite a ride! 🎮✨
 
 

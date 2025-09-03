@@ -30,6 +30,8 @@ To, co nastąpiło później, to kilka dni tego, co teraz modnie nazywają "vibe
 
 Niespodzianka: Mimo że byłem totalnym żółtodziobem w JavaScripcie, we dwójkę z AI tępiliśmy bugi jak zawodowcy! 🐛💪
 
+👉 Zagraj teraz (online): Play now: https://problemjasia.pl/index.html
+
 Czekajcie na filmik na YouTube, gdzie pokażę Wam całą tę zwariowaną podróż tworzenia gry z AI. Będzie się działo! 🎮✨
 
 
