@@ -54,7 +54,7 @@ programy mam oryginalne.
 Jakub Husak
 *
 
---- Nowa edycja gry na PC (2024) ---
+--- Nowa edycja gry na PC (2022) ---
 
 Program napisany w C#.
 Cały kod jest open-source na GitHub:

@@ -54,7 +54,7 @@ programs are original.
 Jakub Husak
 *
 
---- New PC edition (2024) ---
+--- New PC edition (2022) ---
 
 Program written in C#.
 All code is open-source on GitHub:
