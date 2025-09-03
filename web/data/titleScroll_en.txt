@@ -1,84 +1,84 @@
+ 
+What a problem !!!
+Little Johnny wants to
+make a birthday present
+for Margaret.
+Margaret has just turned
+ten years old and she is now
+grown-up !!!
+For this special occasion, little Johnny 
+bought 12 posters at the store,
+paid 960,000 polish zloty for them.
+He came back home, hid the posters
+and went out to buy flowers.
+But what do you have
+younger brothers for?
+Little Kaz came back from the yard
+and found Johnny's posters.
+Then his wild eyes
+stopped at the table,
+where large scissors
+were lying.
+What happened next?
+Better not ask.
+Johnny has a lot of work now.
+(he's already dealt with Kaz)
+He must piece together the posters,
+so Margaret will be happy.
+He surely can't do it alone.
+You must help him.
+And since Johnny is lazy, he will
+sit with his arms folded
+and watch how you're doing.
+Sometimes he'll drop a word or two.
 
-Co za kłopot !!!
-Mały Jasio chce
-zrobić Małgosi prezent
-na urodziny.
-Małgosia właśnie skończyła
-dziesięć lat i jest już 
-dorosła !!!
-Z tej okazji mały Jasio zakupił
-w sklepie aż 12 plakatów,
-zapłacił za nie 960000 złotych.
-Wrócił do domu, schował plakaty
-i wyszedł kupić kwiatki.
-Ale od czego się ma
-młodszych braci?
-Malutki Kazio wrócił z podwórka
-i znalazł plakaty Jasia.
-Następnie jego dziki wzrok
-zatrzymał się na stole,
-na którym leżały wielkie 
-nożyce.
-Co było dalej?
-Lepiej nie pytać.
-Jasio ma teraz dużo pracy.
-(z Kaziem już sobie poradził)
-Musi posklejać plakaty,
-aby Małgosia była zadowolona.
-Sam na pewno nie da rady.
-Ty musisz mu pomóc.
-A że Jaś jest leniem, będzie
-siedział z założonymi rękoma
-i patrzył, jak Ci idzie.
-Czasami podrzuci jakieś słówko.
+Remember, Johnny is counting on you!
 
-Pamiętaj, Jaś liczy na Ciebie!
+Now a bit of information
 
-Teraz garść informacji
+--- Original version (ATARI) ---
 
---- Oryginalna wersja (ATARI) ---
+Program written in Action!
 
-Program napisany w Action!
-
-Grafika:
+Graphics:
 De luxe paint II
-Touch-up + skaner Golden Image
-(obydwa na amigę)
+Touch-up + Golden Image scanner
+(both on Amiga)
 
-Dźwięk:
+Sound:
 Chaos Music Composer ver. 2.0
 
-Jakby się ktoś pytał, to te 
-programy mam oryginalne.
+If anyone asks, these
+programs are original.
 
 Jakub Husak
 *
 
---- Nowa edycja gry na PC ---
+--- New PC edition ---
 
-Program napisany w C#.
-Cały kod jest open-source na GitHub:
+Program written in C#.
+All code is open-source on GitHub:
 github.com/NowinskiK/ProblemJasia
 
-Grafika:
-Oryginalna lub w trybie Hi-Res.
-Nowe obrazki (Hi-Res) na licencji
-Public Domain lub
-zakupione specjalnie na tę okazję.
-Wydałem całe £39, a co...
-Jak się bawić to na całego!
+Graphics:
+Original or in Hi-Res mode.
+New images (Hi-Res) licensed under
+Public Domain or
+purchased specially for this occasion.
+I spent whole £39, why not...
+If you're going to have fun, do it properly!
 
-Dźwięk:
-Przekonwertowany do MP3
-za pomocą asapconv
-Brzmi dużo lepiej niż 
-na niektórych emulatorach!
+Sound:
+Converted to MP3
+using asapconv
+Sounds much better than
+on some emulators!
 
-Wielkie dzięki dla 
-Jakuba Husaka
-za pomoc przy tworzeniu tego remake'a
+Many thanks to
+Jakub Husak
+for help in creating this remake
 
-Kamil Nowiński
+Kamil Nowinski
 
 
 *        
