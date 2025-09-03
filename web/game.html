@@ -326,7 +326,7 @@
                 this.isBoxLocked = false;
                 this.bombFuse = 0;
                 this.bombTimer = null;
-                this.HiRes = false;
+                this.HiRes = true;
                 // Get debug mode from URL parameter "debug"
                 const urlParams = new URLSearchParams(window.location.search);
                 this.debugMode = urlParams.get('debug') === '1';
@@ -385,7 +385,7 @@
                     piece.dataset.correctY = Math.floor(i / 4);
 
                     // Set background image for current level
-                    piece.style.backgroundImage = `url('./images/level/img_level_${this.level.toString().padStart(2, '0')}.png')`;
+                    piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}.png')`;
                     piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
 
                     gameBoard.appendChild(piece);
@@ -804,6 +804,7 @@
             }
 
             startLevel() {
+                this.log(`=== Level ${this.level} ===`)
                 this.canPlay = false;
                 this.setBoxLocked(false);
                 this.timeRemaining = this.getLevelTime();
@@ -816,20 +817,16 @@
                 this.showCompleteImage();
                 this.scatterSpecialPieces();
 
-                // Play level-specific music first
-                this.playMusic(`level_${this.level.toString().padStart(2, '0')}`);
+                // Show welcome message immediately
+                this.showMessage(this.getWelcomeMessage(), '');
 
-                setTimeout(() => {
-                    // Keep level music playing during welcome message
-                    this.showMessage(this.getWelcomeMessage(), '');
-
-                    // Switch to ingame music after welcome message finishes scrolling
-                    setTimeout(() => {
-                        this.playMusic('ingame');
-                        this.scatterPieces();
-                        this.canPlay = true;
-                    }, 5000);
-                }, 200);
+                // Play level-specific music and wait for it to finish
+                this.playMusicAndWaitForCompletion(`level_${this.level.toString().padStart(2, '0')}`, () => {
+                    // Level music finished, switch to ingame music and start gameplay
+                    this.playMusic('ingame');
+                    this.scatterPieces();
+                    this.canPlay = true;
+                });
             }
 
             showCompleteImage() {
@@ -955,12 +952,66 @@
                 }
             }
 
-            playMusic(track) {
+            stopCurrentMusic() {
                 const audio = document.getElementById('bgMusic');
+                // Stop any currently playing music
+                audio.pause();
+                audio.currentTime = 0;
+
+                // Remove any existing event listeners to avoid conflicts
+                if (this.musicEndedHandler) {
+                    audio.removeEventListener('ended', this.musicEndedHandler);
+                    audio.removeEventListener('loadedmetadata', this.musicLoadedHandler);
+                }
+            }
+
+            playMusic(track) {
+                this.stopCurrentMusic();
+                const audio = document.getElementById('bgMusic');
+
                 audio.src = `./music/pj_${track}.mp3`;
                 audio.loop = (track === 'ingame' || track === 'win');
                 var text = `Music "${track}" playback failed:`
                 audio.play().catch(e => this.log(text, e));
+            }
+
+            playMusicAndWaitForCompletion(track, callback) {
+                this.stopCurrentMusic();
+                const audio = document.getElementById('bgMusic');
+                this.log(`Starting music: ${track}`);
+                
+                // Set up the new audio
+                audio.src = `./music/pj_${track}.mp3`;
+                audio.loop = false; // Ensure it doesn't loop
+                
+                // Create handlers for this specific call
+                this.musicEndedHandler = () => {
+                    this.log(`Music ended: ${track}`);
+                    audio.removeEventListener('ended', this.musicEndedHandler);
+                    audio.removeEventListener('loadedmetadata', this.musicLoadedHandler);
+                    this.musicEndedHandler = null;
+                    this.musicLoadedHandler = null;
+                    if (callback) callback();
+                };
+                
+                this.musicLoadedHandler = () => {
+                    this.log(`Music loaded: ${track}, duration: ${audio.duration}s`);
+                    // Add the ended event listener only after the audio is loaded
+                    audio.addEventListener('ended', this.musicEndedHandler);
+                };
+                
+                // Add the loadedmetadata event listener first
+                audio.addEventListener('loadedmetadata', this.musicLoadedHandler);
+                
+                // Start playing
+                var text = `Music "${track}" playback failed:`
+                audio.play().then(() => {
+                    this.log(`Music started playing: ${track}`);
+                }).catch(e => {
+                    this.log(text, e);
+                    // If music fails to play, call callback immediately
+                    if (callback) callback();
+                });
             }
 
             pauseMusic() {
