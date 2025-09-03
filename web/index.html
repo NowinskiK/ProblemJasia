@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem Jasia Retro</title>
+    <style>
+
+        @font-face {
+            font-family: 'Cascadia Code';
+            src: local('Cascadia Code Bold'), local('CascadiaCode-Bold'),
+                url('./fonts/CascadiaCode-Bold.woff2') format('woff2'),
+                url('./fonts/CascadiaCode-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            background: #222;
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+        }
+        #container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin: 40px auto;
+            background: #333 url('./images/title_336x240_clean_web.png') center center no-repeat;
+            background-size: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 24px #111;
+            overflow: hidden;
+        }
+        #scrollViewport {
+            position: absolute;
+            left: 0;
+            top: 265px;
+            width: 100%;
+            height: 90px;
+            box-sizing: border-box;
+            padding: 0 16px;
+            overflow: hidden;
+        }
+        #scrollText {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: 100%;
+            font-size: 1.2em;
+            line-height: 1.4em;
+            white-space: pre-line;
+            user-select: none;
+            text-align: center;
+            font-family: 'Cascadia Code', 'Consolas', monospace;
+            color: #a8ffa8;
+        }
+        #filmRoll {
+            position: absolute;
+            width: 80px;
+            height: 1604px;
+            top: 0;
+            left: 20px;
+            background-image: url('./images/film_roll.png');
+            background-repeat: repeat-y;
+            background-position: 0 0;
+            background-size: contain;
+            transition: left 0.1s linear;
+        }
+        #version {
+            position: absolute;
+            right: 24px;
+            bottom: 16px;
+            font-size: 1em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="scrollViewport">
+            <div id="scrollText"></div>
+        </div>
+        <div id="filmRoll"></div>
+        <div id="version"></div>
+        <audio id="bgMusic" loop preload="auto">
+          <source src="./music/pj_title.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    <script>
+        // --- Title Scroll Text ---
+        const scrollText = document.getElementById('scrollText');
+        const scrollViewport = document.getElementById('scrollViewport');
+
+        let scrollY = 0;
+        const scrollSpeed = 0.50; // pixels per tick
+        let animationTimer = null;
+
+        // Load scroll text from external file
+        function startAnimations() {
+            if (animationTimer) return;
+            // ensure initial position: just below viewport
+            scrollY = scrollViewport.clientHeight;
+            scrollText.style.top = scrollY + 'px';
+            animationTimer = setInterval(() => {
+                animateScroll();
+                animateFilmRoll();
+            }, 30);
+        }
+
+        fetch('./data/titleScroll_en.txt')
+            .then(r => {
+                if (!r.ok) throw new Error('Failed to load');
+                return r.text();
+            })
+            .then(t => {
+                scrollText.textContent = t.toUpperCase();
+                // start only after content is set and browser computed sizes
+                requestAnimationFrame(() => startAnimations());
+            })
+            .catch(err => {
+                console.error('Could not load scroll text:', err);
+                // Fallback text
+                scrollText.textContent = `\n\n\nCO ZA KŁOPOT !!!\nMAŁY JASIO CHCE...`.toUpperCase();
+                requestAnimationFrame(() => startAnimations());
+            });
+
+        // --- Scroll Animation ---
+        function animateScroll() {
+            scrollY -= scrollSpeed;
+            scrollText.style.top = scrollY + "px";
+            // Reset when scrolled out of the viewport
+            if (scrollText.getBoundingClientRect().bottom < scrollViewport.getBoundingClientRect().top) {
+                // place back below viewport
+                scrollY = scrollViewport.clientHeight;
+                scrollText.style.top = scrollY + 'px';
+            }
+        }
+
+        // --- Film Roll Animation ---
+        const filmRoll = document.getElementById('filmRoll');
+        let x = 0;
+        // vertical position for the film roll (px)
+        let filmY = 0;
+        const filmSpeedY = 4; // pixels per tick (was 4)
+        const imageHeight = 802; // single image height in px
+        function animateFilmRoll() {
+            const container = document.getElementById('container');
+            const minBoundary = 20;
+            const maxBoundary = container.offsetWidth - filmRoll.offsetWidth - 30;
+            const posX = (Math.sin(x) + 1) / 2;
+            const locX = posX * (maxBoundary - minBoundary) + minBoundary;
+            // move up
+            filmY -= filmSpeedY;
+            // when we've scrolled more than a single image, reset to 0
+            if (filmY <= -imageHeight) {
+                filmY = 0;
+            }
+            filmRoll.style.left = locX + "px";
+            filmRoll.style.top = filmY + "px";
+            x = (x + (Math.PI * 2 / 100)) % (Math.PI * 2);
+        }
+
+        // --- Version Display ---
+        fetch('version.txt')
+            .then(response => response.text())
+            .then(version => {
+                document.getElementById('version').textContent = `ver.${version.trim()}`;
+            })
+            .catch(() => {
+                document.getElementById('version').textContent = "ver.1.?.?";
+            });
+
+        // --- Music Playback ---
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.load(); // Ensure audio is loaded
+
+        function tryPlayMusic() {
+            bgMusic.volume = 1.0;
+            bgMusic.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+        }
+
+        // Add click-to-start functionality
+        document.addEventListener('click', tryPlayMusic, { once: true });
+        document.addEventListener('keydown', tryPlayMusic, { once: true });
+
+
+        // --- Keyboard Controls ---
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                window.close(); // May not work in browsers, but can be customized
+            }
+            if (e.key === "Enter" || e.key === " ") {
+                window.location.href = 'game.html';
+            }
+            if (e.key === "M" || e.key === "m") {
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(error => {
+                        console.log("Audio playback failed:", error);
+                    });
+                } else {
+                    bgMusic.pause();
+                }
+            }
+        });
+
+        // --- Prevent Text Selection ---
+        scrollText.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            window.getSelection().removeAllRanges();
+        });
+
+        // --- Main Animation Loop ---
+    </script>
+</body>
+</html>

@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Problem Jasia Retro - Game</title>
+    <style>
+        @font-face {
+            font-family: 'Cascadia Code';
+            src: local('Cascadia Code Bold'), local('CascadiaCode-Bold'),
+                url('./fonts/CascadiaCode-Bold.woff2') format('woff2'),
+                url('./fonts/CascadiaCode-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            background: #222;
+            color: #fff;
+            font-family: 'Cascadia Code', monospace;
+            overflow: hidden;
+            margin: 0;
+            user-select: none;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 1280px;
+            height: 768px;
+            margin: 0px auto;
+            /*background: #333 url('./images/background-hicolor-1280px.png') center center no-repeat; */
+            background: #333 url('./images/background-1280px.png') center center no-repeat;
+            background-size: cover;
+            border-radius: 2px;
+            /*box-shadow: 0 0 24px #111;*/
+            overflow: hidden;
+        }
+
+        #gameBoard {
+            position: absolute;
+            left: 703px;
+            top: 93px;
+            width: 512px;
+            height: 640px;
+            background: #444;
+            border: 2px solid #666;
+        }
+
+        .puzzlePiece {
+            position: absolute;
+            width: 128px;
+            height: 128px;
+            border: 1px solid #888;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            background-repeat: no-repeat;
+        }
+
+        .puzzlePiece:hover {
+            border-color: #a8ffa8;
+            box-shadow: 0 0 8px #a8ffa8;
+        }
+
+        .puzzlePiece.selected {
+            border-color: #ffa8a8;
+            box-shadow: 0 0 12px #ffa8a8;
+        }
+
+        .specialBox {
+            display: inline-block;
+            width: 128px;
+            height: 128px;
+            margin: 0px;
+            border: 1px solid #666;
+            border-radius: 0px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .specialBox.bomb {
+            border-color: #ff4444;
+        }
+
+        .specialBox.jok {
+            border-color: #44ff44;
+        }
+
+        .specialBox.hihi {
+            border-color: #4444ff;
+        }
+
+        .specialBox.min {
+            border-color: #ffff44;
+        }
+
+        #selector {
+            position: absolute;
+            width: 128px;
+            height: 128px;
+            border: 3px solid #a8ffa8;
+            background: rgba(168, 255, 168, 0.2);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #hintPanel {
+            position: absolute;
+            left: 464px;
+            top: 495px;
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #666;
+            display: none;
+        }
+
+        #hintImage {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        #gameInfo {
+            position: absolute;
+            left: 205px;
+            top: 515px;
+            width: 200px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #levelInfo {
+            font-size: 1.5em;
+            color: #a8ffa8;
+            margin-bottom: 10px;
+        }
+
+        #timer {
+            font-size: 2em;
+            color: #ffa8a8;
+            margin-bottom: 10px;
+        }
+
+        #score {
+            font-size: 1.2em;
+            color: #a8a8ff;
+        }
+
+        #messagePanel {
+            position: absolute;
+            left: 64px;
+            top: 420px;
+            transform: translateY(-50%);
+            width: 550px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: #a8ffa8;
+            font-family: 'Cascadia Code', monospace;
+            overflow: hidden;
+        }
+
+        .scrollingMessage {
+            position: absolute;
+            white-space: nowrap;
+            animation-name: scrollRightToLeft; 
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
+
+        .scrollingMessage.infinite {
+            animation-name: scrollRightToLeft; 
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes scrollRightToLeft {
+            from {
+                left: 100%;
+                transform: translateX(0);
+            }
+
+            to {
+                left: 0%;
+                transform: translateX(-100%);
+            }
+        }
+
+        #controls {
+            position: absolute;
+            left: 20px;
+            top: 200px;
+            width: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group h3 {
+            color: #a8ffa8;
+            margin-bottom: 8px;
+        }
+
+        .key {
+            display: inline-block;
+            background: #555;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        #specialBoxes {
+            position: absolute;
+            left: 20px;
+            top: 550px;
+            width: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .gameOver {
+            background: rgba(255, 0, 0, 0.3) !important;
+        }
+
+        .levelComplete {
+            background: rgba(0, 255, 0, 0.3) !important;
+        }
+
+        #redArrow {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+            width: 128px;
+            height: 128px;
+            left: -166px;
+            top: 4px;
+            background-image: url('./images/red_arrow.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="gameContainer">
+        <div id="gameBoard">
+            <div id="selector"></div>
+            <div id="redArrow"></div>
+        </div>
+
+        <div id="hintPanel">
+            <img id="hintImage" src="./images/selector.png">
+        </div>
+
+        <div id="gameInfo">
+            <div id="levelInfo">Level 1</div>
+            <div id="timer">05:00</div>
+            <div id="score">Pieces: 0/20</div>
+        </div>
+
+        <div id="controls">
+            <div class="control-group">
+                <h3>Movement</h3>
+                <span class="key">↑</span> <span class="key">↓</span> <span class="key">←</span> <span
+                    class="key">→</span> Move selector
+            </div>
+            <div class="control-group">
+                <h3>Actions</h3>
+                <span class="key">Ctrl</span> + <span class="key">↑</span> <span class="key">↓</span> <span
+                    class="key">←</span> <span class="key">→</span> Push pieces<br>
+                <span class="key">Ctrl</span> + <span class="key">Click</span> Pull new piece<br>
+                <span class="key">Space</span> Pause/Resume<br>
+                <span class="key">M</span> Mute/Unmute music<br>
+                <span class="key">Escape</span> Exit
+            </div>
+        </div>
+
+        <div id="specialBoxes">
+            <h3>Special Elements</h3>
+            <div class="specialBox bomb" title="Bomb - 2 second fuse"
+                style="background-image: url('./images/bomb.gif'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+            <div class="specialBox jok" title="Jok - Instant level complete"
+                style="background-image: url('./images/jok.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+            <div class="specialBox hihi" title="Hihi - Swap two pieces"
+                style="background-image: url('./images/hihi.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+            <div class="specialBox min" title="1min - Add 60 seconds"
+                style="background-image: url('./images/1min.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+            </div>
+        </div>
+
+        <div id="messagePanel"></div>
+
+        <audio id="bgMusic" preload="auto">
+            <source src="./music/pj_ingame.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        class ProblemJasiaGame {
+            constructor() {
+                this.level = 1;
+                this.maxLevel = 12;
+                this.timeRemaining = 300; // 5 minutes
+                this.canPlay = false;
+                this.isPaused = false;
+                this.isBoxLocked = false;
+                this.bombFuse = 0;
+                this.bombTimer = null;
+                this.HiRes = true;
+                // Get debug mode from URL parameter "debug"
+                const urlParams = new URLSearchParams(window.location.search);
+                this.debugMode = urlParams.get('debug') === '1';
+                
+                // Get starting level from URL parameter "level"
+                const levelParam = urlParams.get('level');
+                if (levelParam) {
+                    const requestedLevel = parseInt(levelParam);
+                    if (requestedLevel >= 1 && requestedLevel <= this.maxLevel) {
+                        this.level = requestedLevel;
+                        // Update level display immediately
+                        document.getElementById('levelInfo').textContent = `Level ${this.level}`;
+                    }
+                }
+
+                // Game state
+                this.selectorX = -1;
+                this.selectorY = 0;
+                this.pieces = [];
+                this.pieceLocations = [];
+                this.specialBoxes = [];
+
+                // Board dimensions
+                this.boardWidth = 4;
+                this.boardHeight = 5;
+                this.pieceSize = 128;
+
+                this.init();
+            }
+
+            init() {
+                this.createPuzzlePieces();
+                this.setupEventListeners();
+                this.startLevel();
+            }
+
+            log(message, ...args) {
+                if (this.debugMode) {
+                    if (args.length > 0) {
+                        console.log(message, ...args);
+                    } else {
+                        console.log(message);
+                    }
+                }
+            }
+
+            createPuzzlePieces() {
+                const gameBoard = document.getElementById('gameBoard');
+
+                // Create 20 puzzle pieces (4x5 grid)
+                for (let i = 0; i < 20; i++) {
+                    const piece = document.createElement('div');
+                    piece.className = 'puzzlePiece';
+                    piece.dataset.index = i;
+                    piece.dataset.correctX = i % 4;
+                    piece.dataset.correctY = Math.floor(i / 4);
+
+                    // Set background image for current level
+                    piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}.png')`;
+                    piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
+
+                    gameBoard.appendChild(piece);
+                    this.pieces.push(piece);
+                    this.pieceLocations.push({ x: -1, y: 0 }); // Start hidden
+                }
+
+                // Create special boxes
+                this.createSpecialBox('bomb', 20);
+                this.createSpecialBox('jok', 21);
+                this.createSpecialBox('hihi', 22);
+                this.createSpecialBox('min', 23);
+
+                this.updateSelector();
+            }
+
+            createSpecialBox(type, index) {
+                const piece = document.createElement('div');
+                piece.className = `puzzlePiece specialBox ${type}`;
+                piece.dataset.index = index;
+                piece.dataset.type = type;
+
+                // Fix image filenames to match actual files
+                let imageFile = '';
+                switch (type) {
+                    case 'bomb': imageFile = 'bomb.gif'; break;
+                    case 'jok': imageFile = 'jok.png'; break;
+                    case 'hihi': imageFile = 'hihi.png'; break;
+                    case 'min': imageFile = '1min.png'; break;
+                    default: imageFile = `${type}.png`;
+                }
+
+                piece.style.backgroundImage = `url('./images/${imageFile}')`;
+                piece.style.backgroundPosition = 'center';
+                piece.style.backgroundSize = 'contain';
+                
+                // For bomb.gif, ensure animation continues by adding a cache-busting parameter
+                if (type === 'bomb') {
+                    piece.style.backgroundImage = `url('./images/${imageFile}?t=${Date.now()}')`;
+                }
+
+                // Hide special boxes initially - they should only appear when pulled
+                piece.style.display = 'none';
+
+                document.getElementById('gameBoard').appendChild(piece);
+                //this.specialBoxes.push(piece);
+                this.pieces.push(piece);
+                this.pieceLocations.push({ x: -1, y: 0 });
+            }
+
+            setupEventListeners() {
+                document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+                document.addEventListener('click', (e) => this.handleClick(e));
+
+                // Game timer
+                setInterval(() => this.updateTimer(), 1000);
+            }
+
+            handleKeyDown(e) {
+                // Always allow ESC key to work, even when game is not playable
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    this.exitGame();
+                    return;
+                }
+                
+                if (!this.canPlay || this.isPaused) return;
+
+                if (this.selectorX === -1) {
+                    if (e.ctrlKey) {
+                        this.pullElement();
+                        return;
+                    }
+                }
+
+                switch (e.key) {
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (e.ctrlKey) {
+                            this.pushElement(this.selectorX, this.selectorY, 0, -1);
+                        } else {
+                            this.moveSelector(0, -1);
+                        }
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (e.ctrlKey) {
+                            this.pushElement(this.selectorX, this.selectorY, 0, 1);
+                        } else {
+                            this.moveSelector(0, 1);
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        if (e.ctrlKey) {
+                            this.pushElement(this.selectorX, this.selectorY, -1, 0);
+                        } else {
+                            this.moveSelector(-1, 0);
+                        }
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        if (e.ctrlKey) {
+                            this.pushElement(this.selectorX, this.selectorY, 1, 0);
+                        } else {
+                            this.moveSelector(1, 0);
+                        }
+                        break;
+                    case 'm':
+                    case 'M':
+                        e.preventDefault();
+                        this.toggleMusic();
+                        break;
+                    case 'i':
+                    case 'I':
+                        e.preventDefault();
+                        this.toggleControls();
+                        break;
+                    case 'h':
+                    case 'H':
+                        e.preventDefault();
+                        this.HiRes = !this.HiRes; 
+                        this.log(`HiRes: ${this.HiRes}`);
+                        this.updatePuzzlePiecesForLevel();
+                        break;
+
+                }
+
+                // Special keys for debugging
+                if (this.debugMode) {
+                    const key = (e.shiftKey ? 'SHIFT+' : '') + e.key.toUpperCase();
+                    this.log(key)
+                    switch (key) {
+                        case 'SHIFT+W':
+                            this.completeLevel();
+                            break;
+                        case 'SHIFT+F':
+                            this.gameOver('User request');
+                            break;
+                        case 'SHIFT+H':
+                            this.pullElement(22);
+                            break;
+                        case 'SHIFT+J':
+                            this.pullElement(21);
+                            break;
+                        case 'SHIFT+B':
+                            this.pullElement(20);
+                            break;
+                    }
+                }
+            }
+
+            handleClick(e) {
+                if (e.target.classList.contains('puzzlePiece')) {
+                    if (this.selectorX === -1 && this.selectorY === 0 && !this.isBoxLocked) {
+                        this.pullElement();
+                    }
+                }
+            }
+
+            moveSelector(dx, dy) {
+                const newX = this.selectorX + dx;
+                const newY = this.selectorY + dy;
+
+                // Boundary checks
+                if (newX >= -1 && newX < this.boardWidth &&
+                    newY >= 0 && newY < this.boardHeight) {
+
+                    // Special case: x=-1 is only allowed when y=0 (special box area)
+                    if (newX === -1 && newY !== 0) {
+                        return; // Don't allow movement to x=-1 unless y=0
+                    }
+
+                    this.selectorX = newX;
+                    this.selectorY = newY;
+                    this.updateSelector();
+                    this.updateHint();
+                }
+                //console.log(`moveSelector: ${this.selectorX}, ${this.selectorY}`);
+            }
+
+            updateSelector() {
+                const selector = document.getElementById('selector');
+                const board = document.getElementById('gameBoard');
+                const boardRect = board.getBoundingClientRect();
+
+                let x = this.selectorX;
+                let y = this.selectorY;
+
+                if (x === -1) {
+                    // Position selector to the left of the game board for the special box area
+                    selector.style.left = '-160px';
+                } else {
+                    selector.style.left = (x * this.pieceSize) + 'px';
+                }
+
+                selector.style.top = (y * this.pieceSize) + 'px';
+
+                // Update selector appearance
+                if (x >= 0 && this.getPieceAt(x, y) !== null) {
+                    selector.style.borderColor = '#ffa8a8';
+                } else if (x === -1 && this.isBoxLocked) {
+                    selector.style.borderColor = '#ff4444';
+                } else {
+                    selector.style.borderColor = '#a8ffa8';
+                }
+            }
+
+            pushElement(x, y, dx, dy) {
+                var MinAllowX = -1;
+                if (this.isBoxLocked || y > 0) { MinAllowX = 0; }
+                const newX = x + dx;
+                const newY = y + dy;
+                //const text = `pushElement(${x},${y},${dx},${dy}), MinAllowX = ${MinAllowX}, isBoxLocked = ${this.isBoxLocked}`
+                //console.log(text)
+
+                // Allow pushing to special box area (-1, 0) only from first row (y=0) and only when moving left
+                if (newX < MinAllowX || newX >= this.boardWidth ||
+                    newY < 0 || newY >= this.boardHeight) return;
+
+                if (this.isLocationFree(newX, newY)) {
+                    const piece = this.getPieceAt(x, y);
+                    if (piece !== null) {
+                        this.movePiece(piece, newX, newY);
+                        this.pushElement(newX, newY, dx, dy); // Recursive push
+                    }
+                }
+
+                this.updateSelector();
+                this.checkLevelComplete();
+            }
+
+            pullElement(r = -1) {
+                if (this.selectorX === -1 && this.selectorY === 0) {
+                    // Don't pull any element if location (0,0) is not free
+                    if (!this.isLocationFree(0, 0)) {
+                        return;
+                    }
+
+                    const piece = this.getRandomPiece(r);
+                    if (piece !== null) {
+                        for (let i = 0; i < 4; i++) {
+                            if (this.isLocationFree(i, 0)) {
+                                this.movePiece(piece, i, 0);
+                                this.setBoxLocked(false);
+                            } else {
+                                break;
+                            }
+                        }
+                        this.checkLevelComplete();
+                        this.checkSpecialBox(piece.dataset.type);
+                    }
+                }
+            }
+
+            getRandomPiece(r = -1) {
+                if (r >= 0) { return this.pieces[r]; }
+
+                var i = Math.floor(Math.random() * 200);  // creates an integer between 0 and 199
+                this.log(i)
+                if (i == 199) { return this.pieces[21]; }  //jok  1/200
+                if (i >= 196) { return this.pieces[22]; }  //hihi 3/200
+                if (i >= 193) { return this.pieces[23]; }  //1min 3/200
+
+                const availablePieces = this.pieces.filter(p => !p.style.display || p.style.display === 'none');
+                if (availablePieces.length === 0) return null;
+
+                const randomIndex = Math.floor(Math.random() * (availablePieces.length - 3));
+                return availablePieces[randomIndex];
+            }
+
+            checkSpecialBox(type) {
+                switch (type) {
+                    case 'bomb':
+                        this.log('Bomb pulled! Starting fuse...');
+                        this.bombFuse = 2000; // 2 seconds
+                        this.startBombTimer();
+                        // Ensure bomb animation is running
+                        const bombPiece = this.pieces.find(p => p.dataset.type === 'bomb' && p.style.display !== 'none');
+                        if (bombPiece) {
+                            this.refreshBombAnimation(bombPiece);
+                        }
+                        break;
+                    case 'jok':
+                        this.log('Jok pulled! Completing level...');
+                        this.completeLevel();
+                        break;
+                    case 'hihi':
+                        this.log('Hihi pulled! Swapping two pieces...');
+                        this.swapRandomPieces();
+                        break;
+                    case 'min':
+                        this.log('1min pulled! Adding 60 seconds...');
+                        this.timeRemaining += 60;
+                        this.updateTimerDisplay();
+                        break;
+                }
+            }
+
+            startBombTimer() {
+                if (this.bombTimer) clearInterval(this.bombTimer);
+
+                this.bombTimer = setInterval(() => {
+                    this.bombFuse -= 100;
+                    if (this.bombFuse <= 0) {
+                        this.gameOver('Bomb exploded!');
+                    }
+                    if (this.bombFuse <= -800) {
+                        this.hideSpecialBox('bomb');
+                    }
+                }, 100);
+            }
+
+            swapRandomPieces() {
+                const visiblePieces = this.pieces.filter(p =>
+                    p.style.display !== 'none' && p.dataset.index < 20);
+
+                if (visiblePieces.length < 2) return;
+
+                const piece1 = visiblePieces[Math.floor(Math.random() * visiblePieces.length)];
+                const piece2 = visiblePieces[Math.floor(Math.random() * visiblePieces.length)];
+
+                if (piece1 !== piece2) {
+                    const tempX = piece1.style.left;
+                    const tempY = piece1.style.top;
+
+                    piece1.style.left = piece2.style.left;
+                    piece1.style.top = piece2.style.top;
+                    piece2.style.left = tempX;
+                    piece2.style.top = tempY;
+
+                    // Update locations
+                    const index1 = parseInt(piece1.dataset.index);
+                    const index2 = parseInt(piece2.dataset.index);
+                    const tempLoc = this.pieceLocations[index1];
+                    this.pieceLocations[index1] = this.pieceLocations[index2];
+                    this.pieceLocations[index2] = tempLoc;
+                }
+            }
+
+            movePiece(piece, x, y) {
+                const index = parseInt(piece.dataset.index);
+                this.pieceLocations[index] = { x, y };
+                //this.log(`movePiece(${index}, ${x}, ${y})`)
+                
+                if (x < 0) {
+                    this.setBoxLocked(true);
+                    piece.style.display = 'none';
+                    if (piece.dataset.type === 'bomb') {
+                        this.stopBombTimer();
+                    }
+                } else {
+                    piece.style.left = (x * this.pieceSize) + 'px';
+                    piece.style.top = (y * this.pieceSize) + 'px';
+                    piece.style.display = 'block';
+                    
+                    // Ensure bomb animation continues when moved
+                    if (piece.dataset.type === 'bomb') {
+                        this.refreshBombAnimation(piece);
+                    }
+                }
+
+                this.updateSelector();
+                this.updateScore();
+            }
+
+            isLocationFree(x, y) {
+                var r = true
+                if (x === -1 && !this.isBoxLocked) {
+                    r = true;
+                }
+                else {
+                    r = !this.pieceLocations.some(loc => loc.x === x && loc.y === y);
+                }
+                //console.log(`isLocationFree(${x},${y}) = ${r}`)
+                return r;
+            }
+
+            getPieceAt(x, y) {
+                const index = this.pieceLocations.findIndex(loc => loc.x === x && loc.y === y);
+                return index >= 0 ? this.pieces[index] : null;
+            }
+
+            checkLevelComplete() {
+                let correctPieces = 0;
+
+                for (let i = 0; i < 20; i++) {
+                    const piece = this.pieces[i];
+                    const loc = this.pieceLocations[i];
+                    const correctX = parseInt(piece.dataset.correctX);
+                    const correctY = parseInt(piece.dataset.correctY);
+
+                    if (loc.x === correctX && loc.y === correctY && piece.style.display !== 'none') {
+                        correctPieces++;
+                        //this.log(`Piece ${i} is correct at (${loc.x},${loc.y})`);
+                    } //else if (piece.style.display !== 'none') {
+                      //  this.log(`Piece ${i} incorrect: at (${loc.x},${loc.y}), should be at (${correctX},${correctY})`);
+                    //}
+                }
+
+                //this.log(`Total correct pieces: ${correctPieces}/20`);
+                if (correctPieces === 20) {
+                    this.log('Level complete! Starting completion sequence...');
+                    this.completeLevel();
+                }
+            }
+
+            completeLevel() {
+                this.canPlay = false;
+                this.stopBombTimer();
+                this.showCompleteImage();
+
+                this.showMessage(this.getLevelCompleteMessage(), 'nextLevel');
+                this.playMusic('next');
+
+                setTimeout(() => {
+                    this.level++;
+                    if (this.level > this.maxLevel) {
+                        this.gameCompleted();
+                    } else {
+                        this.startLevel();
+                    }
+                }, 5000);
+            }
+
+            gameOver(reason) {
+                this.canPlay = false;
+                this.stopBombTimer();
+                this.showMessage(this.getGameOverMessage(), 'gameOver');
+                this.playMusic('failed');
+
+                setTimeout(() => {
+                    this.exitGame();
+                }, 8000);
+            }
+
+            startLevel() {
+                this.log(`=== Level ${this.level} ===`)
+                this.canPlay = false;
+                this.setBoxLocked(false);
+                this.timeRemaining = this.getLevelTime();
+                this.updateTimerDisplay();
+
+                // Update puzzle pieces for new level
+                this.updatePuzzlePiecesForLevel();
+
+                // Show complete image briefly
+                this.showCompleteImage();
+                this.scatterSpecialPieces();
+
+                // Show welcome message immediately
+                this.showMessage(this.getWelcomeMessage(), '');
+
+                // Play level-specific music and wait for it to finish
+                this.playMusicAndWaitForCompletion(`level_${this.level.toString().padStart(2, '0')}`, () => {
+                    // Level music finished, switch to ingame music and start gameplay
+                    this.playMusic('ingame');
+                    this.scatterPieces();
+                    this.canPlay = true;
+                });
+            }
+
+            showCompleteImage() {
+                // Place all pieces in correct positions
+                for (let i = 0; i < 20; i++) {
+                    const piece = this.pieces[i];
+                    const x = i % 4;
+                    const y = Math.floor(i / 4);
+
+                    piece.style.left = (x * this.pieceSize) + 'px';
+                    piece.style.top = (y * this.pieceSize) + 'px';
+                    piece.style.display = 'block';
+                    this.pieceLocations[i] = { x, y };
+                }
+            }
+
+            scatterPieces() {
+                // Hide all pieces including special boxes
+                for (let i = 0; i < this.pieces.length; i++) {
+                    this.pieces[i].style.display = 'none';
+                    this.pieceLocations[i] = { x: -1, y: 0 };
+                }
+
+                // Reset selector
+                this.selectorX = -1;
+                this.selectorY = 0;
+                this.updateSelector();
+            }
+
+            scatterSpecialPieces() {
+                // Hide all pieces including special boxes
+                for (let i = 20; i < this.pieces.length; i++) {
+                    this.pieces[i].style.display = 'none';
+                    this.pieceLocations[i] = { x: -1, y: 0 };
+                }
+            }
+
+            updateTimer() {
+                if (this.isPaused || !this.canPlay) return;
+
+                this.timeRemaining--;
+                this.updateTimerDisplay();
+
+                if (this.timeRemaining <= 0) {
+                    this.gameOver('Time ran out!');
+                }
+            }
+
+            updateTimerDisplay() {
+                const minutes = Math.floor(this.timeRemaining / 60);
+                const seconds = this.timeRemaining % 60;
+                document.getElementById('timer').textContent =
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            updateScore() {
+                const visiblePieces = this.pieces.filter(p => p.style.display !== 'none' && p.dataset.index < 20).length;
+                document.getElementById('score').textContent = `Pieces: ${visiblePieces}/20`;
+            }
+
+            updateHint() {
+                const hintPanel = document.getElementById('hintPanel');
+                const piece = this.getPieceAt(this.selectorX, this.selectorY);
+
+                // Only show hints for regular puzzle pieces (indices 0-19), not special boxes
+                if (piece && this.selectorX >= 0 && parseInt(piece.dataset.index) < 20) {
+                    // Position the hintImage according to the C# logic:
+                    const hintPanel = document.getElementById('hintPanel');
+                    const HINT_PANEL_WIDTH = 32;  // width of hintImage
+                    const HINT_PANEL_HEIGHT = 32; // height of hintImage
+                    const HINT_LOCATION_X = 462;
+                    const HINT_LOCATION_Y = 491;
+                    const box = parseInt(piece.dataset.index);
+
+                    // Calculate position
+                    const left = HINT_LOCATION_X + (HINT_PANEL_WIDTH + 8) * (box % 4);
+                    const top = HINT_LOCATION_Y + (HINT_PANEL_HEIGHT) * Math.floor(box / 4);
+
+                    hintPanel.style.display = 'inline-block';
+                    hintPanel.style.width = HINT_PANEL_WIDTH + 'px';
+                    hintPanel.style.height = HINT_PANEL_HEIGHT + 'px';
+                    hintPanel.style.background = 'green'; // Example color, can be dynamic
+                    hintPanel.style.border = '2px solid #888';
+                    hintPanel.style.borderRadius = '0px';
+                    hintPanel.style.position = 'absolute';
+                    hintPanel.style.left = left + 'px';
+                    hintPanel.style.top = top + 'px';
+                } else {
+                    hintPanel.style.display = 'none';
+                }
+            }
+
+            togglePause() {
+                this.isPaused = !this.isPaused;
+                if (this.isPaused) {
+                    this.pauseMusic();
+                    document.getElementById('gameContainer').classList.add('gameOver');
+                } else {
+                    this.resumeMusic();
+                    document.getElementById('gameContainer').classList.remove('gameOver');
+                }
+            }
+
+            toggleMusic() {
+                const audio = document.getElementById('bgMusic');
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+
+            toggleControls() {
+                const controls = document.getElementById('controls');
+                const specialBoxes = document.getElementById('specialBoxes');
+
+                if (controls.style.display === 'none' || controls.style.display === '') {
+                    controls.style.display = 'block';
+                    specialBoxes.style.display = 'block';
+                } else {
+                    controls.style.display = 'none';
+                    specialBoxes.style.display = 'none';
+                }
+            }
+
+            stopCurrentMusic() {
+                const audio = document.getElementById('bgMusic');
+                // Stop any currently playing music
+                audio.pause();
+                audio.currentTime = 0;
+
+                // Remove any existing event listeners to avoid conflicts
+                if (this.musicEndedHandler) {
+                    audio.removeEventListener('ended', this.musicEndedHandler);
+                    audio.removeEventListener('loadedmetadata', this.musicLoadedHandler);
+                }
+            }
+
+            playMusic(track) {
+                this.stopCurrentMusic();
+                const audio = document.getElementById('bgMusic');
+
+                audio.src = `./music/pj_${track}.mp3`;
+                audio.loop = (track === 'ingame' || track === 'win');
+                var text = `Music "${track}" playback failed:`
+                audio.play().catch(e => this.log(text, e));
+            }
+
+            playMusicAndWaitForCompletion(track, callback) {
+                this.stopCurrentMusic();
+                const audio = document.getElementById('bgMusic');
+                this.log(`Starting music: ${track}`);
+                
+                // Set up the new audio
+                audio.src = `./music/pj_${track}.mp3`;
+                audio.loop = false; // Ensure it doesn't loop
+                
+                // Create handlers for this specific call
+                this.musicEndedHandler = () => {
+                    this.log(`Music ended: ${track}`);
+                    audio.removeEventListener('ended', this.musicEndedHandler);
+                    audio.removeEventListener('loadedmetadata', this.musicLoadedHandler);
+                    this.musicEndedHandler = null;
+                    this.musicLoadedHandler = null;
+                    if (callback) callback();
+                };
+                
+                this.musicLoadedHandler = () => {
+                    this.log(`Music loaded: ${track}, duration: ${audio.duration}s`);
+                    // Add the ended event listener only after the audio is loaded
+                    audio.addEventListener('ended', this.musicEndedHandler);
+                };
+                
+                // Add the loadedmetadata event listener first
+                audio.addEventListener('loadedmetadata', this.musicLoadedHandler);
+                
+                // Start playing
+                var text = `Music "${track}" playback failed:`
+                audio.play().then(() => {
+                    this.log(`Music started playing: ${track}`);
+                }).catch(e => {
+                    this.log(text, e);
+                    // If music fails to play, call callback immediately
+                    if (callback) callback();
+                });
+            }
+
+            pauseMusic() {
+                document.getElementById('bgMusic').pause();
+            }
+
+            resumeMusic() {
+                document.getElementById('bgMusic').play();
+            }
+
+            stopBombTimer() {
+                if (this.bombTimer) {
+                    clearInterval(this.bombTimer);
+                    this.bombTimer = null;
+                }
+            }
+
+            refreshBombAnimation(piece) {
+                // Force the bomb.gif to restart its animation by refreshing the image
+                const currentImage = piece.style.backgroundImage;
+                piece.style.backgroundImage = '';
+                // Use a small delay to ensure the image is cleared before setting it again
+                setTimeout(() => {
+                    piece.style.backgroundImage = `url('./images/bomb.gif?t=${Date.now()}')`;
+                }, 10);
+            }
+
+            hideSpecialBox(type) {
+                const specialBox = this.specialBoxes.find(box => box.dataset.type === type);
+                if (specialBox) {
+                    specialBox.style.display = 'none';
+                }
+            }
+
+            updatePuzzlePiecesForLevel() {
+                // Update the background image for each puzzle piece to match the current level
+                for (let i = 0; i < 20; i++) {
+                    const piece = this.pieces[i];
+                    const h = this.HiRes ? "h" : "";
+                    piece.style.backgroundImage = `url('./images/levels/img_level_${this.level.toString().padStart(2, '0')}${h}.png')`;
+                    piece.style.backgroundSize = '512px 640px'; // Full image size
+                    piece.style.backgroundPosition = `${-(i % 4) * 128}px ${-Math.floor(i / 4) * 128}px`;
+                    piece.style.backgroundRepeat = 'no-repeat';
+                    //console.log(`Piece ${i}: background-position: ${piece.style.backgroundPosition}`);
+                }
+
+                // Update level info display
+                document.getElementById('levelInfo').textContent = `Level ${this.level}`;
+            }
+
+            debugShowFirstPiece() {
+                // Show the first puzzle piece (index 0) for debugging
+                const firstPiece = this.pieces[0];
+                if (firstPiece) {
+                    // Position it at the top-left corner of the game board
+                    firstPiece.style.left = '0px';
+                    firstPiece.style.top = '0px';
+                    firstPiece.style.display = 'block';
+
+                    // Update the piece location
+                    this.pieceLocations[0] = { x: 0, y: 0 };
+
+                    this.log('Debug: First piece displayed at position (0,0)');
+                    this.log('Piece background image:', firstPiece.style.backgroundImage);
+                    this.log('Piece background position:', firstPiece.style.backgroundPosition);
+
+                    // Update the selector to show it's working
+                    this.updateSelector();
+                    this.updateScore();
+                }
+            }
+
+            showMessage(message, context) {
+                const messagePanel = document.getElementById('messagePanel');
+
+                // Clear previous content
+                messagePanel.innerHTML = '';
+                messagePanel.style.display = 'flex';
+
+                // Scrolling message for welcome messages
+                const scrollingText = document.createElement('div');
+                scrollingText.className = 'scrollingMessage';
+                if (context === 'completed') {
+                    scrollingText.classList.add('infinite');
+                }
+                scrollingText.textContent = message;
+                messagePanel.appendChild(scrollingText);
+
+                // Simplified duration calculation: 60 characters = 3s baseline
+                const baselineChars = 60;
+                const baselineDuration = 3; // seconds
+                const messageLength = message.length;
+                let duration = (messageLength / baselineChars) * baselineDuration;
+                
+                // For messages without context, ensure minimum duration of 3 seconds
+                if (!context || context === '') {
+                    duration = Math.max(duration, 3);
+                }
+                
+                this.log(`Duration (${context}): ${duration}s for ${messageLength} chars`);
+
+                // Apply the calculated duration
+                scrollingText.style.animationDuration = `${duration}s`;
+
+                // For completion messages, don't hide the panel - let it scroll indefinitely
+                if (context !== 'completed') {
+                    // Hide the message panel completely after animation completes
+                    setTimeout(() => {
+                        messagePanel.style.display = 'none';
+                    }, duration * 1000 + 1000); // Add 1 second buffer
+                }
+            }
+
+            getWelcomeMessage() {
+                const messages = [
+                    "Połam joystick!",
+                    "Tego nie ułożysz!",
+                    "To za trudne dla Ciebie",
+                    "Niemożliwe do ułożenia",
+                    "Nieukładalne.",
+                    "Tere fere kuku!!!",
+                    "Nie bądź taki do przodu.",
+                    "Bujać to my, a nie nam.",
+                    "To już tu doszedłeś?",
+                    "Dobry jesteś. Ciekawe, jak długo jeszcze?",
+                    "Spoko. Zostało jeszcze 347 plakatów.",
+                    "To już finał. Niemożliwe stało się faktem."
+                ];
+                return messages[this.level - 1] || "";
+            }
+
+            getLevelCompleteMessage() {
+                const messages = [
+                    "To był oczywiście Sylwek Stallone (i jego układy mięśni scallone).",
+                    "Mało podobny, a jednak Louis de Funes. Kocham go.",
+                    "Piękna Nasia Kinski. Zupełnie jak z gry pt. Problem Jasia.",
+                    "Oto furiat Rutger Hauer.",
+                    "Pewnie... to Woody Allen we własnej poważnej twarzy.",
+                    "Oto ptaszek ciernistych krzewów: Rachel Ward. Nawet podobna.",
+                    "Czarujący Patrick Swayze... jakie ma piękne nogi... (mówi Jaś).",
+                    "Szalony Max Mel Gibson (Big Son).",
+                    "Charlie Bronson. Skąd ja go znam? Chyba z telewizji.",
+                    "Pucała..., tfu Pacuła. Aśka. Moja faworytka.",
+                    "Oh. Ah. Eh. Marylin Monroe. Boska. Piękna. Namiętna...",
+                    "He, He. Arnie Szwarcuś. Bardzo podobny do tego, co grał w Terminatorze."
+                ];
+                return messages[this.level - 1] || "";
+            }
+
+            getGameOverMessage() {
+                if (this.level <= 4) {
+                    return "Lepiej znajdź sobie inną dziewczynę, bo Małgosia już Cię nie kocha...";
+                } else if (this.level <= 8) {
+                    return "Nie rozpieszczasz zbytnio Małgosi. Z pewnością nie będzie zadowolona.";
+                } else {
+                    return "No cóż, rzecze Małgosia, nie powiem, że się cieszę, ale zniknij mi z oczu!";
+                }
+            }
+
+            getLevelTime() {
+                if (this.level <= 4) return 300; // 5 minutes
+                if (this.level <= 8) return 240; // 4 minutes
+                return 180; // 3 minutes
+            }
+
+            restartLevel() {
+                this.level = 1;
+                this.startLevel();
+            }
+
+            gameCompleted() {
+                const message = "Noo Noo Nooooo, powiedziała Małgosia. Masz u mnie dużego buziaka, Jasiu. " +
+                    "I w ten sposób Jasio zdobył serce Małgosi. " +
+                    "Szkoda, że brat Jasia zginął tak brutalnie...";
+                this.showMessage(message, 'completed');
+                this.playMusic('win');
+            }
+
+            setBoxLocked(locked) {
+                this.isBoxLocked = locked;
+                const redArrow = document.getElementById('redArrow');
+                if (redArrow) {
+                    redArrow.style.display = locked ? 'block' : 'none';
+                }
+                this.updateSelector();
+            }
+
+            exitGame() {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize game when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProblemJasiaGame();
+        });
+    </script>
+</body>
+
+</html>

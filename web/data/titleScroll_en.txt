@@ -1,0 +1,130 @@
+ 
+What a problem !!!
+Little Johnny wants to
+make a birthday present
+for Margaret.
+Margaret has just turned
+ten years old and she is now
+grown-up !!!
+For this special occasion, little Johnny 
+bought 12 posters at the store,
+paid 960,000 polish zloty for them.
+He came back home, hid the posters
+and went out to buy flowers.
+But what do you have
+younger brothers for?
+Little Kaz came back from the yard
+and found Johnny's posters.
+Then his wild eyes
+stopped at the table,
+where large scissors
+were lying.
+What happened next?
+Better not ask.
+Johnny has a lot of work now.
+(he's already dealt with Kaz)
+He must piece together the posters,
+so Margaret will be happy.
+He surely can't do it alone.
+You must help him.
+And since Johnny is lazy, he will
+sit with his arms folded
+and watch how you're doing.
+Sometimes he'll drop a word or two.
+
+Remember, Johnny is counting on you!
+
+Now a bit of information
+
+--- Original version (ATARI) ---
+
+Program written in Action!
+
+Graphics:
+De luxe paint II
+Touch-up + Golden Image scanner
+(both on Amiga)
+
+Sound:
+Chaos Music Composer ver. 2.0
+
+If anyone asks, these
+programs are original.
+
+Jakub Husak
+*
+
+--- New PC edition (2022) ---
+
+Program written in C#.
+All code is open-source on GitHub:
+github.com/NowinskiK/ProblemJasia
+
+Graphics:
+Original or in Hi-Res mode.
+New images (Hi-Res) licensed under
+Public Domain or
+purchased specially for this occasion.
+I spent whole £39, why not...
+If you're going to have fun, do it properly!
+
+Sound:
+Converted to MP3
+using asapconv
+Sounds much better than
+on some emulators!
+
+Many thanks to
+Jakub Husak
+for help in creating this remake
+
+--- Web edition (2025) ---
+
+Program written using Cursor
+and VSCode + GitHub CoPilot.
+
+"Can AI agent 
+(chat gpt or claude LLM) 
+convert my simple game 
+written in C# (Win forms)
+to web application?"
+
+This was my first question
+to ChatGPT.
+
+AI was asked to analyze
+the game code written
+in C# for Windows.
+
+It accurately described
+the rules and logic
+of the game, 
+which encouraged me to try
+converting all the code
+to a static web page.
+
+Therefore, most of the code
+was created using vibe-coding
+over a few days
+with just a dozen prompts.
+
+Code: HTML + CSS + JavaScript.
+
+I had never programmed
+in JavaScript before.
+
+However, reading and 
+understanding this language
+helped me in asking
+the right prompts
+to improve the code and bugs.
+
+Expect soon
+a video material on YouTube
+about the whole process
+of building the game with AI.
+
+Kamil Nowiński
+
+
+*        
