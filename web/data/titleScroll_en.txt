@@ -54,7 +54,7 @@ programs are original.
 Jakub Husak
 *
 
---- New PC edition ---
+--- New PC edition (2024) ---
 
 Program written in C#.
 All code is open-source on GitHub:
@@ -109,7 +109,8 @@ the right prompts to improve the code.
 
 Expect soon
 a video material on YouTube
-about the whole process of building the game with AI.
+about the whole process
+of building the game with AI.
 
 Kamil Nowiński
 

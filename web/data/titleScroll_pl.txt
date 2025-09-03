@@ -103,13 +103,15 @@ używając kilkunastu promptów.
 Kod: HTML + CSS + JavaScript.
 
 Nigdy nie programowałem w JavaScript.
+
 Natomiast czytanie oraz rozumienie
 tego języka pomogło w zadawaniu
 właściwych promptów aby poprawić kod.
 
 Spodziewaj się wkrótce
 materiału video na YouTube
-z całego procesu budowania gry z AI.
+z całego procesu 
+budowania gry z AI.
 
 Kamil Nowiński
 
