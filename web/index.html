@@ -297,13 +297,18 @@
         document.addEventListener('keydown', tryPlayMusic, { once: true });
 
 
+        // --- Game Start Function ---
+        function startGame() {
+            window.location.href = 'game.html';
+        }
+
         // --- Keyboard Controls ---
         document.addEventListener('keydown', (e) => {
             if (e.key === "Escape") {
                 window.close(); // May not work in browsers, but can be customized
             }
             if (e.key === "Enter" || e.key === " ") {
-                window.location.href = 'game.html';
+                startGame();
             }
             if (e.key === "M" || e.key === "m") {
                 if (bgMusic.paused) {
@@ -313,6 +318,17 @@
                 } else {
                     bgMusic.pause();
                 }
+            }
+        });
+
+        // --- Mouse Controls ---
+        document.addEventListener('click', (e) => {
+            // Only start game if clicking on the main container (not on flag buttons)
+            if (e.target.closest('#languageToggle')) {
+                return; // Don't start game when clicking language flags
+            }
+            if (e.target.closest('#container')) {
+                startGame();
             }
         });
 
