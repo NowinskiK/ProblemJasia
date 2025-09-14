@@ -75,10 +75,49 @@
             font-size: 1em;
             color: #aaa;
         }
+        #languageToggle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .flag-button {
+            width: 32px;
+            height: 24px;
+            border: 2px solid #666;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+        }
+        .flag-button:hover {
+            opacity: 1;
+            border-color: #a8ffa8;
+            transform: scale(1.1);
+        }
+        .flag-button.active {
+            opacity: 1;
+            border-color: #a8ffa8;
+            box-shadow: 0 0 8px rgba(168, 255, 168, 0.5);
+        }
+        .flag-pl {
+            background-image: url('./images/Flag_PL.png');
+        }
+        .flag-en {
+            background-image: url('./images/Flag_EN.png');
+        }
     </style>
 </head>
 <body>
     <div id="container">
+        <div id="languageToggle">
+            <button class="flag-button flag-pl active" data-lang="pl" title="Polski"></button>
+            <button class="flag-button flag-en" data-lang="en" title="English"></button>
+        </div>
         <div id="scrollViewport">
             <div id="scrollText"></div>
         </div>
@@ -96,10 +135,66 @@
         let scrollY = 0;
         const scrollSpeed = 0.50; // pixels per tick
         let animationTimer = null;
+        let currentLanguage = 'pl'; // Default language
 
         // Load scroll text from external file
+        function loadScrollText(language) {
+            const filename = `./data/titleScroll_${language}.txt`;
+            fetch(filename)
+                .then(r => {
+                    if (!r.ok) throw new Error('Failed to load');
+                    return r.text();
+                })
+                .then(t => {
+                    // Store current scroll position before changing text
+                    const currentScrollY = scrollY;
+                    
+                    scrollText.textContent = t.toUpperCase();
+                    currentLanguage = language;
+                    // Update active flag button
+                    updateActiveFlag(language);
+                    
+                    // Restore scroll position and continue animation
+                    requestAnimationFrame(() => {
+                        scrollY = currentScrollY;
+                        scrollText.style.top = scrollY + 'px';
+                        // Only start animation if it wasn't running
+                        if (!animationTimer) {
+                            startAnimations();
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error('Could not load scroll text:', err);
+                    // Store current scroll position before changing text
+                    const currentScrollY = scrollY;
+                    
+                    // Fallback text based on language
+                    const fallbackText = language === 'pl' 
+                        ? `\n\n\nCO ZA KŁOPOT !!!\nMAŁY JASIO CHCE...`
+                        : `\n\n\nWHAT A PROBLEM !!!\nLITTLE JOHNNY WANTS...`;
+                    scrollText.textContent = fallbackText.toUpperCase();
+                    currentLanguage = language;
+                    updateActiveFlag(language);
+                    
+                    // Restore scroll position and continue animation
+                    requestAnimationFrame(() => {
+                        scrollY = currentScrollY;
+                        scrollText.style.top = scrollY + 'px';
+                        // Only start animation if it wasn't running
+                        if (!animationTimer) {
+                            startAnimations();
+                        }
+                    });
+                });
+        }
+
         function startAnimations() {
-            if (animationTimer) return;
+            // Clear existing timer if running
+            if (animationTimer) {
+                clearInterval(animationTimer);
+                animationTimer = null;
+            }
             // ensure initial position: just below viewport
             scrollY = scrollViewport.clientHeight;
             scrollText.style.top = scrollY + 'px';
@@ -109,22 +204,33 @@
             }, 30);
         }
 
-        fetch('./data/titleScroll_pl.txt')
-            .then(r => {
-                if (!r.ok) throw new Error('Failed to load');
-                return r.text();
-            })
-            .then(t => {
-                scrollText.textContent = t.toUpperCase();
-                // start only after content is set and browser computed sizes
-                requestAnimationFrame(() => startAnimations());
-            })
-            .catch(err => {
-                console.error('Could not load scroll text:', err);
-                // Fallback text
-                scrollText.textContent = `\n\n\nCO ZA KŁOPOT !!!\nMAŁY JASIO CHCE...`.toUpperCase();
-                requestAnimationFrame(() => startAnimations());
+        // Update active flag button
+        function updateActiveFlag(language) {
+            const flagButtons = document.querySelectorAll('.flag-button');
+            flagButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === language) {
+                    btn.classList.add('active');
+                }
             });
+        }
+
+        // Language toggle functionality
+        function setupLanguageToggle() {
+            const flagButtons = document.querySelectorAll('.flag-button');
+            flagButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const selectedLang = btn.dataset.lang;
+                    if (selectedLang !== currentLanguage) {
+                        loadScrollText(selectedLang);
+                    }
+                });
+            });
+        }
+
+        // Load initial text (Polish by default)
+        loadScrollText('pl');
+        setupLanguageToggle();
 
         // --- Scroll Animation ---
         function animateScroll() {
