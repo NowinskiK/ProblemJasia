@@ -9,6 +9,12 @@ Language: **English** | [Polish](README_PL.md)
 </tr>
 </table>
 
+<p align="center">
+  <a href="https://nowinskik.github.io/ProblemJasia/">
+    <img src="https://img.shields.io/badge/%E2%96%B6%20PLAY%20NOW-in%20your%20web%20browser-2ea44f?style=for-the-badge" alt="Play now in your web browser" height="56">
+  </a>
+</p>
+
 ## Atari
 
 "Johnny's Problem" ("Problem Jasia") is an arcade-puzzle game released in 1993 by Mirage Software for the "small" (8-bit) Atari. The game quickly gained popularity due to its very good graphics (for its time) and extremely original and catchy music. The entire project was created by one person, then 22-year-old [Jakub Husak](http://atariki.krap.pl/index.php/Jakub_Husak).  
